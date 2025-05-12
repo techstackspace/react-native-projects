@@ -1,0 +1,54 @@
+{
+  "expo": {
+    "name": "Techstack Space",
+    "slug": "react-native-apps",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/nav/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-font",
+        {
+          "fontDefinitions": {
+            "Inter": {
+              "variants": {
+                "regular": {
+                  "asset": "./assets/fonts/DMSansRegular.ttf"
+                },
+                "bold": {
+                  "asset": "./assets/fonts/DMSansBold.ttf"
+                }
+              }
+            }
+          }
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
