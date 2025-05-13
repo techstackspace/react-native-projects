@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { handleFetchMovies } from "@/api";
-import { MoviesSectionInterface } from "@/components/MoviesSection/interface";
+import { MoviesInterface } from "@/components/MoviesSection/interface";
 
 export const useMovies = (page: number, url: string) => {
-  const [movies, setMovies] = useState<MoviesSectionInterface[]>([]);
+  const [movies, setMovies] = useState<MoviesInterface[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [sumMovies, setSumMovies] = useState(0);

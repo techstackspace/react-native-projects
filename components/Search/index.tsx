@@ -1,5 +1,6 @@
 import { Dimensions, Image, StyleSheet, TextInput, View } from "react-native";
 import { constants } from "@/constants";
+import { router } from "expo-router";
 
 const Search = ({
   onChangeText,
@@ -18,6 +19,8 @@ const Search = ({
         value={text}
         placeholder="Search through 300+ movies online"
         placeholderTextColor={constants.light}
+        onPress={() => router.push("/(tabs)/Search")}
+        returnKeyType="search"
       />
       <Image source={image} style={styles.image} />
     </View>

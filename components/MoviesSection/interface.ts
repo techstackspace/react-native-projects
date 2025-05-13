@@ -1,4 +1,4 @@
-export interface MoviesSectionInterface {
+export interface MoviesInterface {
   _id: string;
   title: string;
   description: string;
@@ -8,5 +8,17 @@ export interface MoviesSectionInterface {
     average: number;
     count: number;
   };
+  totalMovies?: number;
+}
+
+export interface MoviesSectionProps {
+  title: string;
+  movies: MoviesInterface[];
+  isTopMovies: boolean;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   totalMovies: number;
+  loading: boolean;
+  setCurrentLimit: React.Dispatch<React.SetStateAction<number>>;
+  genreList?: string[];
+  onGenrePress?: (genre: string) => void
 }
