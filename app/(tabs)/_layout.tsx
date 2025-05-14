@@ -75,7 +75,7 @@ export default TabsLayout;
 const styles = StyleSheet.create({
   tabBody: {
     justifyContent: 'center',
-    width: Dimensions.get("window").width * 0.9,
+    width: Dimensions.get("screen").width * 0.9,
     backgroundColor: constants.secondary,
     borderRadius: 70,
     position: 'absolute',

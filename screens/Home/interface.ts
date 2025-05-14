@@ -1,19 +1,9 @@
-interface MovieSectionInterface {
-  rating: {
-    average: number;
-    count: number;
-  };
-  _id: string;
-  title: string;
-  description: string;
-  posterUrl: string;
-  genres: string[];
-}
+import { MoviesInterface } from "@/components/MoviesSection/interface";
 
 interface SectionsProps {
   type: string;
   title?: string;
-  data?: MovieSectionInterface[];
+  data?: MoviesInterface[];
 }
 
 export type { SectionsProps };

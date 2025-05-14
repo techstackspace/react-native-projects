@@ -9,6 +9,14 @@ export interface MoviesInterface {
     count: number;
   };
   totalMovies?: number;
+  releaseDate: string;
+  duration: string;
+  revenue: string;
+  status: string;
+  countries: string[];
+  budget: string;
+  tagline: string;
+  productionCompanies: string[];
 }
 
 export interface MoviesSectionProps {
@@ -20,5 +28,5 @@ export interface MoviesSectionProps {
   loading: boolean;
   setCurrentLimit: React.Dispatch<React.SetStateAction<number>>;
   genreList?: string[];
-  onGenrePress?: (genre: string) => void
+  onGenrePress?: (genre: string) => void;
 }

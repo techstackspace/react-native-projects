@@ -109,7 +109,7 @@ const MoviesSection = ({
 const styles = StyleSheet.create({
   sectionContainer: {
     marginBottom: 20,
-    width: Dimensions.get("window").width * 0.9,
+    width: Dimensions.get("screen").width * 0.9,
     marginHorizontal: "auto",
   },
   sectionTitle: {

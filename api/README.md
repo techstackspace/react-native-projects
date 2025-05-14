@@ -1,4 +1,4 @@
-### # Movie API Utility
+# Movie API Utility
 
 This module provides functions to interact with the movie API, including fetching all movies and fetching movies by their unique IDs. It dynamically sets the server host based on the platform to ensure compatibility across iOS, Android, and web.
 

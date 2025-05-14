@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderWidth: 1,
     padding: 10,
-    width: Dimensions.get("window").width * 0.9,
+    width: Dimensions.get("screen").width * 0.9,
     backgroundColor: constants.secondary,
     borderRadius: 30,
     color: constants.light,

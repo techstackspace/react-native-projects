@@ -1,8 +1,4 @@
-Absolutely! Here's the documentation for your `Search` component in the same format as the `GradientTabButton` and `SearchScreen` docs:
-
----
-
-# 🔎 Search Component
+# Search Component
 
 This component renders a stylized search input field with a built-in icon for movie search functionality. It routes the user to the search screen on interaction and communicates the input text to its parent via a callback.
 
@@ -26,7 +22,7 @@ This component renders a stylized search input field with a built-in icon for mo
 
 - **Search Input Field:** A `TextInput` styled with a rounded border, light text, and left padding to accommodate an icon.
 - **Icon Overlay:** A small magnifying glass icon is absolutely positioned within the input field on the left.
-- **Dynamic Width:** The input field adapts to screen width using `Dimensions.get("window").width * 0.9`.
+- **Dynamic Width:** The input field adapts to screen width using `Dimensions.get("screen").width * 0.9`.
 - **Navigation Trigger:** Pressing into the input (`onPress`) programmatically navigates the user to the `/(tabs)/Search` screen using `router.push`.
 - **Controlled Input:** The search field value is externally managed via the `text` prop and `onChangeText` callback.
 

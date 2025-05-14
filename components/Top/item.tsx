@@ -2,6 +2,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { constants } from "@/constants";
+import { useMovie } from "@/hooks/useMovie";
+import { Link } from "expo-router";
 
 const Item = ({
   title,
@@ -35,27 +37,29 @@ const Item = ({
       key={id}
     >
       <View>
-        <Image
-          style={[
-            styles.posterImage,
-            {
-              width: isTopMovies
-                ? 116
-                : Dimensions.get("screen").width < 420
-                ? 101
-                : 122,
-            },
-            {
-              height: isTopMovies
-                ? 167
-                : Dimensions.get("screen").width < 420
-                ? 151
-                : 151,
-            },
-          ]}
-          resizeMode="cover"
-          source={{ uri: posterUrl }}
-        />
+        <Link href={`/Detail/${id}`}>
+          <Image
+            style={[
+              styles.posterImage,
+              {
+                width: isTopMovies
+                  ? 116
+                  : Dimensions.get("screen").width < 420
+                  ? 101
+                  : 122,
+              },
+              {
+                height: isTopMovies
+                  ? 167
+                  : Dimensions.get("screen").width < 420
+                  ? 151
+                  : 151,
+              },
+            ]}
+            resizeMode="cover"
+            source={{ uri: posterUrl }}
+          />
+        </Link>
         {isTopMovies ? (
           <MaskedView
             style={{ width: 50, height: 50, marginTop: -47, marginLeft: -23 }}

@@ -16,12 +16,14 @@ const GradientTabButton = ({
   icon,
   label,
   onPress,
+  style,
 }: GradientTabButtonProps) => {
   const pathname = usePathname();
+  const isDetailPage = pathname.includes("/Detail");
 
   if (focused) {
     return (
-      <Pressable onPress={onPress} style={styles.focusedContainer}>
+      <Pressable onPress={onPress} style={[styles.focusedContainer, style]}>
         <LinearGradient
           colors={[constants.info, constants.accent]}
           start={[0, 0]}
@@ -34,10 +36,18 @@ const GradientTabButton = ({
               flexDirection:
                 Dimensions.get("screen").width < 420 ? "column" : "row",
             },
-            { width: Dimensions.get("screen").width < 420 ? 90 : 100 },
+            {
+              width: !isDetailPage
+                ? Dimensions.get("screen").width < 420
+                  ? 90
+                  : 100
+                : Dimensions.get("screen").width * 0.9,
+            },
+            { borderRadius: !isDetailPage ? 30 : 4 },
+            { padding: !isDetailPage ? 30 : 4 },
           ]}
         >
-          <Image source={icon} style={styles.icon} />
+          {isDetailPage ? null : <Image source={icon} style={styles.icon} />}
           <Text
             style={[
               styles.label,
@@ -46,6 +56,7 @@ const GradientTabButton = ({
           >
             {label}
           </Text>
+          {!isDetailPage ? null : <Image source={icon} style={styles.icon} />}
         </LinearGradient>
       </Pressable>
     );
@@ -68,6 +79,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 30,
+    gap: 6,
     height: 48,
   },
   defaultButton: {
@@ -78,7 +90,6 @@ const styles = StyleSheet.create({
   icon: {
     width: 20,
     height: 20,
-    marginRight: 6,
     tintColor: "#000",
   },
   inactiveIcon: {
