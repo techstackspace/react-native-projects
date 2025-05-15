@@ -14,7 +14,7 @@ import {
 const DetailContent = () => {
   const { id } = useLocalSearchParams();
   const { movie } = useMovie(id as string);
-  const year = movie?.releaseDate.split("-")[0];
+  const year = movie?.releaseDate?.split("-")[0];
 
   const countries = countryList(movie?.countries as string[]);
   const productionCompanies = productionCompany(

@@ -20,6 +20,7 @@ export interface MoviesInterface {
   id?: string;
   numbering?: number;
   isTopMovies?: boolean;
+  movie?: any;
 }
 
 export interface MoviesSectionProps {

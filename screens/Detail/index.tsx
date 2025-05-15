@@ -1,10 +1,4 @@
-import {
-  ActivityIndicator,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { ActivityIndicator, ScrollView, StyleSheet } from "react-native";
 import React from "react";
 import Main from "@/components/shared/Main";
 import MovieCover from "@/components/MovieCover";

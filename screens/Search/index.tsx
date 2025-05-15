@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import Main from "@/components/shared/Main";
 import Nav from "@/components/Nav";
 import MoviesSection from "@/components/MoviesSection";
