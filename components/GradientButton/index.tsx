@@ -33,8 +33,11 @@ const GradientTabButton = ({
             { marginRight: pathname === "/Profile" ? -44 : 0 },
             { marginLeft: pathname === "/" ? -44 : 0 },
             {
-              flexDirection:
-                Dimensions.get("screen").width < 420 ? "column" : "row",
+              flexDirection: !isDetailPage
+                ? Dimensions.get("screen").width < 420
+                  ? "column"
+                  : "row"
+                : "row",
             },
             {
               width: !isDetailPage

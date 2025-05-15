@@ -5,7 +5,7 @@ import MovieCover from "@/components/MovieCover";
 import DetailContent from "@/components/DetailContent";
 import { router, useLocalSearchParams } from "expo-router";
 import { useMovie } from "@/hooks/useMovie";
-import GradientTabButton from "@/components/GradientTabButton";
+import GradientButton from "@/components/GradientButton";
 
 const DetailScreen = () => {
   const { id } = useLocalSearchParams();
@@ -20,7 +20,7 @@ const DetailScreen = () => {
       <ScrollView>
         <DetailContent />
       </ScrollView>
-      <GradientTabButton
+      <GradientButton
         style={styles.button}
         onPress={() => router.push("/")}
         icon={require("@/assets/images/arrow-right.png")}

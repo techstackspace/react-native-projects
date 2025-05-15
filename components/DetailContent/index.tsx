@@ -3,59 +3,23 @@ import { useLocalSearchParams } from "expo-router";
 import { useMovie } from "@/hooks/useMovie";
 import Container from "../shared/Container";
 import { constants } from "@/constants";
+import {
+  countryList,
+  formatCurrencyAbbreviation,
+  formatDateWorldwide,
+  formatNumber,
+  productionCompany,
+} from "@/utility";
 
 const DetailContent = () => {
   const { id } = useLocalSearchParams();
   const { movie } = useMovie(id as string);
   const year = movie?.releaseDate.split("-")[0];
 
-  function formatNumber(num: number) {
-    if (num < 1000) return num.toString();
-    if (num < 1_000_000)
-      return (num / 1_000).toFixed(1).replace(/\.0$/, "") + "K";
-    return (num / 1_000_000).toFixed(1).replace(/\.0$/, "") + "M";
-  }
-
-  function formatDateWorldwide(dateString: string) {
-    const [year, month, day] = dateString.split("-").map(Number);
-    const date = new Date(year, month - 1, day);
-
-    const formatted = new Intl.DateTimeFormat("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    }).format(date);
-
-    return `${formatted} (Worldwide)`;
-  }
-
-  const countries = movie?.countries.flatMap((country, index, arr) =>
-    index === arr.length - 1 ? [country] : [country, ""]
+  const countries = countryList(movie?.countries as string[]);
+  const productionCompanies = productionCompany(
+    movie?.productionCompanies as string[]
   );
-  const productionCompanies = movie?.productionCompanies.flatMap(
-    (productionCompany: string, index: number, arr: string[]) =>
-      index === arr.length - 1 ? [productionCompany] : [productionCompany, ""]
-  );
-
-  function formatCurrencyAbbreviation(amount: string) {
-    const num = Number(amount.toString().replace(/[^0-9.-]+/g, ""));
-
-    if (isNaN(num)) return amount;
-
-    if (num >= 1_000_000_000) {
-      return `$${(num / 1_000_000_000).toFixed(
-        num % 1_000_000_000 === 0 ? 0 : 1
-      )} billion`;
-    } else if (num >= 1_000_000) {
-      return `$${(num / 1_000_000).toFixed(
-        num % 1_000_000 === 0 ? 0 : 1
-      )} million`;
-    } else if (num >= 1_000) {
-      return `$${(num / 1_000).toFixed(num % 1_000 === 0 ? 0 : 1)} thousand`;
-    } else {
-      return `$${num}`;
-    }
-  }
 
   return (
     <Container style={styles.container}>
@@ -67,17 +31,27 @@ const DetailContent = () => {
         <Text style={[styles.releaseDate, styles.dot]}></Text>
         <Text style={styles.releaseDate}>{movie?.duration}</Text>
       </View>
-      <View style={styles.rating}>
-        <Image
-          style={styles.ratingImage}
-          source={require("@/assets/images/Rating.png")}
-        />
-        <Text style={[styles.ratingText, { color: constants.white }]}>
-          {movie?.rating.average.toFixed(2)}
-          <Text style={styles.ratingText}>
-            /10 ({formatNumber(movie?.rating.count || 0)})
+      <View style={[styles.flexRow, { gap: 10 }]}>
+        <View style={styles.rating}>
+          <Image
+            style={styles.ratingImage}
+            source={require("@/assets/images/Rating.png")}
+          />
+          <Text style={[styles.ratingText, { color: constants.white }]}>
+            {movie?.rating.average.toFixed(2)}
+            <Text style={styles.ratingText}>
+              /10 ({formatNumber(movie?.rating.count || 0)})
+            </Text>
           </Text>
-        </Text>
+        </View>
+
+        <View style={[styles.rating, { width: 39 }]}>
+          <Image
+            style={styles.ratingImage}
+            source={require("@/assets/images/rising.png")}
+          />
+          <Text style={[styles.ratingText, { color: constants.white }]}>1</Text>
+        </View>
       </View>
       <View>
         <Text style={[styles.heading, { marginVertical: 10 }]}>Overview</Text>
@@ -205,7 +179,8 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 12,
     color: constants.light,
-    marginVertical: 20,
+    marginTop: 20,
+    marginBottom: 15,
   },
   overviewDescription: {
     fontSize: 14,
@@ -213,6 +188,7 @@ const styles = StyleSheet.create({
     lineHeight: 26.5,
     fontWeight: 400,
     fontFamily: "Inter",
+    marginTop: -15,
   },
   flexRow: {
     flexDirection: "row",
@@ -221,7 +197,7 @@ const styles = StyleSheet.create({
   descriptionText: {
     fontSize: 14,
     color: constants.info,
-    marginTop: -10,
+    marginTop: -15,
     fontWeight: 600,
     lineHeight: 26.5,
     fontFamily: "Inter-bold",
@@ -231,13 +207,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexWrap: "wrap",
     gap: 9,
+    marginTop: -5,
   },
   genre: {
     backgroundColor: "#221F3D",
     borderRadius: 4,
     color: constants.white,
     paddingHorizontal: 10,
-    paddingVertical: 5,
     justifyContent: "center",
     alignItems: "center",
     fontSize: 12,

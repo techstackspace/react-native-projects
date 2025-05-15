@@ -5,7 +5,6 @@ import MoviesSection from "@/components/MoviesSection";
 import { useMovies } from "@/hooks/useMovies";
 import { StatusBar } from "expo-status-bar";
 import { SectionsProps } from "./interface";
-import { MoviesInterface } from "@/components/MoviesSection/interface";
 
 const Home = () => {
   const [text, setText] = useState<string>("");

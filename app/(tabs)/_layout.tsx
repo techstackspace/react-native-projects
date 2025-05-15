@@ -1,6 +1,6 @@
 import { Tabs, usePathname } from "expo-router";
 import { Dimensions, StyleSheet } from "react-native";
-import GradientTabButton from "@/components/GradientTabButton";
+import GradientButton from "@/components/GradientButton";
 import { constants } from "@/constants";
 
 const TabsLayout = () => {
@@ -18,7 +18,7 @@ const TabsLayout = () => {
         name="index"
         options={{
           tabBarButton: (props) => (
-            <GradientTabButton
+            <GradientButton
               onPress={props.onPress}
               icon={require("@/assets/images/tabs/home.png")}
               label="Home"
@@ -31,7 +31,7 @@ const TabsLayout = () => {
         name="Search/index"
         options={{
           tabBarButton: (props) => (
-            <GradientTabButton
+            <GradientButton
               onPress={props.onPress}
               icon={require("@/assets/images/tabs/search.png")}
               label="Search"
@@ -44,7 +44,7 @@ const TabsLayout = () => {
         name="Bookmark/index"
         options={{
           tabBarButton: (props) => (
-            <GradientTabButton
+            <GradientButton
               onPress={props.onPress}
               icon={require("@/assets/images/tabs/bookmark.png")}
               label="Save"
@@ -57,7 +57,7 @@ const TabsLayout = () => {
         name="Profile/index"
         options={{
           tabBarButton: (props) => (
-            <GradientTabButton
+            <GradientButton
               onPress={props.onPress}
               icon={require("@/assets/images/tabs/profile.png")}
               label="Profile"
