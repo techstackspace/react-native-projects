@@ -5,6 +5,7 @@ import MoviesSection from "@/components/MoviesSection";
 import { useMovies } from "@/hooks/useMovies";
 import { StatusBar } from "expo-status-bar";
 import { SectionsProps } from "./interface";
+import Main from "@/components/shared/Main";
 
 const Home = () => {
   const [text, setText] = useState<string>("");
@@ -61,7 +62,7 @@ const Home = () => {
   }
 
   return (
-    <>
+    <Main>
       <FlatList
         data={sections}
         extraData={text}
@@ -72,7 +73,7 @@ const Home = () => {
         contentContainerStyle={{ paddingBottom: 100 }}
       />
       <StatusBar style="light" />
-    </>
+    </Main>
   );
 };
 

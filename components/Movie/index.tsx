@@ -3,6 +3,7 @@ import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { constants } from "@/constants";
 import { Link } from "expo-router";
+import { BlurView } from "expo-blur";
 import { MoviesInterface } from "../MoviesSection/interface";
 
 const Movie = ({
@@ -16,15 +17,19 @@ const Movie = ({
 }: MoviesInterface) => {
   return (
     <View
-      style={[
-        styles.itemContainer,
-        {
-          marginLeft: isTopMovies ? 10 : 0,
-        },
-      ]}
+      style={[styles.itemContainer, { marginLeft: isTopMovies ? 10 : 0 }]}
       key={id}
     >
       <View>
+        {isTopMovies && (
+          <BlurView tint="light" intensity={20} style={styles.ratingBadge}>
+            <Image
+              source={require("../../assets/images/Rating.png")}
+              style={styles.ratingIcon}
+            />
+            <Text style={styles.ratingText}>{rating.average.toFixed(2)}</Text>
+          </BlurView>
+        )}
         <Link href={`/Detail/${id}`}>
           <Image
             style={[
@@ -35,30 +40,18 @@ const Movie = ({
                   : Dimensions.get("screen").width < 420
                   ? 101
                   : 122,
-              },
-              {
-                height: isTopMovies
-                  ? 167
-                  : Dimensions.get("screen").width < 420
-                  ? 151
-                  : 151,
+                height: isTopMovies ? 167 : 151,
               },
             ]}
             resizeMode="cover"
             source={{ uri: posterUrl }}
           />
         </Link>
-        {isTopMovies ? (
+        {isTopMovies && (
           <MaskedView
-            style={{ width: 50, height: 50, marginTop: -47, marginLeft: -23 }}
+            style={styles.numberingMask}
             maskElement={
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
+              <View style={styles.numberingContainer}>
                 <Text style={styles.numberingText}>{numbering}</Text>
               </View>
             }
@@ -67,22 +60,22 @@ const Movie = ({
               colors={["#FAF9F7", "#9B9EA7"]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
-              style={{ flex: 1 }}
+              style={styles.gradient}
             />
           </MaskedView>
-        ) : null}
+        )}
         <Text style={styles.title}>
           {title.length > 15 ? `${title.substring(0, 15)}...` : title}
         </Text>
-        {!isTopMovies ? (
-          <View style={styles.rating}>
+        {!isTopMovies && (
+          <View style={styles.ratingContainer}>
             <Image
               source={require("../../assets/images/Rating.png")}
-              style={styles.ratingImg}
+              style={styles.ratingIcon}
             />
             <Text style={styles.ratingText}>{rating.average.toFixed(2)}</Text>
           </View>
-        ) : null}
+        )}
       </View>
 
       <Text style={styles.genre}>
@@ -102,40 +95,63 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   posterImage: {
-    width: 116,
-    height: 167,
     borderRadius: 4,
   },
   title: {
     marginTop: 5,
     fontFamily: "Inter-bold",
     fontSize: 12,
-    fontWeight: 900,
+    fontWeight: "900",
     color: constants.white,
   },
   genre: {
     fontSize: 10,
     color: "#9CA4AB",
-    fontWeight: 700,
+    fontWeight: "700",
     fontFamily: "Inter-bold",
   },
-  rating: {
+  ratingContainer: {
     flexDirection: "row",
     gap: 4,
+    marginTop: 4,
   },
-  ratingImg: {
+  ratingIcon: {
     width: 10,
     height: 10,
-    position: "relative",
-    top: 7,
+    marginTop: 2,
   },
   ratingText: {
-    fontSize: 10,
+    fontSize: 8,
     color: constants.white,
-    position: "relative",
-    top: 5,
-    fontWeight: 900,
+    fontWeight: "900",
     fontFamily: "Inter-bold",
+    textShadowColor: "#00000054",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+  },
+  ratingBadge: {
+    position: "absolute",
+    top: 5,
+    right: 10,
+    zIndex: 1,
+    flexDirection: "row",
+    gap: 3,
+    overflow: "hidden",
+    borderRadius: 3,
+    padding: 4,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  numberingMask: {
+    width: 50,
+    height: 50,
+    marginTop: -47,
+    marginLeft: -23,
+  },
+  numberingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   numberingText: {
     textShadowColor: "black",
@@ -144,8 +160,10 @@ const styles = StyleSheet.create({
     fontFamily: "Inter-bold",
     fontSize: 44,
     fontWeight: "900",
-    textAlign: "center",
     color: "black",
+  },
+  gradient: {
+    flex: 1,
   },
 });
 

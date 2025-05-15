@@ -1,12 +1,7 @@
-import Main from "@/components/shared/Main";
 import HomeScreen from "@/screens/Home";
 
 const Home = () => {
-  return (
-    <Main>
-      <HomeScreen />
-    </Main>
-  );
+  return <HomeScreen />;
 };
 
 export default Home;

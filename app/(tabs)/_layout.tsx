@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     backgroundColor: constants.secondary,
     borderRadius: 70,
     position: 'absolute',
-    bottom: 30,
+    bottom: 20,
     height: 48,
     paddingHorizontal: 30,
     marginHorizontal: '5%',

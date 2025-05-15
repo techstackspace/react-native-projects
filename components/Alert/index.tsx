@@ -23,13 +23,13 @@ const Alert = ({
   onChangeText,
 }: AlertProps) => {
   return (
-    <Main>
+    <>
       <Nav onChangeText={onChangeText} text={text} />
       <View style={styles.emptyStateContainer}>
         <SimpleLineIcons name={name} size={size} color={color} />
         <Text style={styles.emptyStateText}>{message}</Text>
       </View>
-    </Main>
+    </>
   );
 };
 
