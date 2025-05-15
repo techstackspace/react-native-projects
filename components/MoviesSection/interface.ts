@@ -1,5 +1,5 @@
 export interface MoviesInterface {
-  _id: string;
+  _id?: string;
   title: string;
   description: string;
   genres: string[];
@@ -9,14 +9,17 @@ export interface MoviesInterface {
     count: number;
   };
   totalMovies?: number;
-  releaseDate: string;
-  duration: string;
-  revenue: string;
-  status: string;
-  countries: string[];
-  budget: string;
-  tagline: string;
-  productionCompanies: string[];
+  releaseDate?: string;
+  duration?: string;
+  revenue?: string;
+  status?: string;
+  countries?: string[];
+  budget?: string;
+  tagline?: string;
+  productionCompanies?: string[];
+  id?: string;
+  numbering?: number;
+  isTopMovies?: boolean;
 }
 
 export interface MoviesSectionProps {

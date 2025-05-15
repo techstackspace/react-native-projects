@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
 import Main from "@/components/shared/Main";
-import Nav from "@/components/Nav";
 import MoviesSection from "@/components/MoviesSection";
 import { useMovies } from "@/hooks/useMovies";
-import { SimpleLineIcons } from "@expo/vector-icons";
+import Alert from "@/components/Alert";
 
 const SearchScreen = () => {
   const [text, setText] = useState("");
@@ -43,27 +41,25 @@ const SearchScreen = () => {
   if (text.length > 0 && latestMovies.length === 0) {
     return (
       <Main>
-        <Nav onChangeText={onChangeText} text={text} />
-        <View style={styles.emptyStateContainer}>
-          <SimpleLineIcons name="note" size={100} color="#666" />
-          <Text style={styles.emptyStateText}>
-            No movies found for "{text}"
-          </Text>
-        </View>
+        <Alert
+          name="note"
+          onChangeText={onChangeText}
+          text={text}
+          message={`No movies found for "${text}"`}
+        />
       </Main>
     );
   }
 
   return (
     <Main>
-      <Nav onChangeText={onChangeText} text={text} />
       {isSearchEmpty ? (
-        <View style={styles.emptyStateContainer}>
-          <SimpleLineIcons name="question" size={100} color="#666" />
-          <Text style={styles.emptyStateText}>
-            Start typing to search for movies
-          </Text>
-        </View>
+        <Alert
+          name="question"
+          message="Start typing to search for movies"
+          onChangeText={onChangeText}
+          text={text}
+        />
       ) : (
         <MoviesSection
           title={text}
@@ -80,26 +76,5 @@ const SearchScreen = () => {
     </Main>
   );
 };
-
-const styles = StyleSheet.create({
-  emptyStateContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-    gap: 20,
-  },
-  emptyStateImage: {
-    width: 200,
-    height: 200,
-    marginBottom: 20,
-  },
-  emptyStateText: {
-    fontSize: 16,
-    color: "#666",
-    textAlign: "center",
-    fontFamily: "Inter-bold",
-  },
-});
 
 export default SearchScreen;

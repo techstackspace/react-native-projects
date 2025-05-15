@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   Pressable,
 } from "react-native";
-import Item from "@/components/Top/item";
+import Movie from "@/components/Movie";
 import { MoviesSectionProps } from "@/components/MoviesSection/interface";
 import { constants } from "@/constants";
 import { useSegments } from "expo-router";
@@ -84,7 +84,7 @@ const MoviesSection = ({
           numColumns={isTopMovies ? 0 : 3}
           keyExtractor={(movie, index) => `${movie._id}-${index}`}
           renderItem={({ item, index }) => (
-            <Item
+            <Movie
               id={item._id}
               title={item.title}
               description={item.description}

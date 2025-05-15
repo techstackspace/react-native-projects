@@ -2,10 +2,10 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { constants } from "@/constants";
-import { useMovie } from "@/hooks/useMovie";
 import { Link } from "expo-router";
+import { MoviesInterface } from "../MoviesSection/interface";
 
-const Item = ({
+const Movie = ({
   title,
   id,
   posterUrl,
@@ -13,19 +13,7 @@ const Item = ({
   numbering,
   isTopMovies,
   rating,
-}: {
-  title: string;
-  description: string;
-  id: string;
-  posterUrl: string;
-  genres: string[];
-  numbering: number;
-  isTopMovies: boolean;
-  rating: {
-    average: number;
-    count: number;
-  };
-}) => {
+}: MoviesInterface) => {
   return (
     <View
       style={[
@@ -161,4 +149,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Item;
+export default Movie;

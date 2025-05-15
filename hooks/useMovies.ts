@@ -18,7 +18,7 @@ export const useMovies = (page: number, url: string) => {
       setLoading(true);
       const data = await handleFetchMovies(url);
       setMovies((prevMovies) =>
-        page === 1 ? data?.movies || data : [...prevMovies, ...data.movies]
+        page === 1 ? data.movies || data : [...prevMovies, ...data.movies]
       );
       setSumMovies(data.totalMovies);
     } catch (err) {
