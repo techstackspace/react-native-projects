@@ -6,6 +6,7 @@ import { useMovies } from "@/hooks/useMovies";
 import { StatusBar } from "expo-status-bar";
 import { SectionsProps } from "./interface";
 import Main from "@/components/shared/Main";
+import Alert from "@/components/Alert";
 
 const Home = () => {
   const [text, setText] = useState<string>("");
@@ -14,10 +15,15 @@ const Home = () => {
   const topMoviesUrl = "/api/movies/top";
   const latestMoviesUrl = `/api/movies?limit=${currentLimit}&page=${currentPage}&search=${text}`;
 
-  const { movies: topMovies, loading: topLoading } = useMovies(1, topMoviesUrl);
+  const {
+    movies: topMovies,
+    loading: topLoading,
+    error: topError,
+  } = useMovies(1, topMoviesUrl);
   const {
     movies: latestMovies,
     loading: latestLoading,
+    error: latestError,
     sumMovies: totalMovies,
   } = useMovies(currentPage, latestMoviesUrl);
 
@@ -52,12 +58,26 @@ const Home = () => {
   };
 
   const isInitialLoading = (topLoading || latestLoading) && totalMovies <= 1;
+  const errorMessage =
+    topError && latestError
+      ? "Failed to load popular and latest movies"
+      : topError
+      ? "Failed to load popular movies"
+      : latestError
+      ? "Failed to load latest movies"
+      : "";
 
   if (isInitialLoading) {
     return (
       <Main style={styles.loaderContainer}>
         <ActivityIndicator />
       </Main>
+    );
+  }
+
+  if (errorMessage) {
+    return (
+      <Alert text={text} onChangeText={onChangeText} message={errorMessage} />
     );
   }
 

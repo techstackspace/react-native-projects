@@ -2,13 +2,14 @@ import { StyleSheet, Text, View } from "react-native";
 import Main from "../shared/Main";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import Nav from "../Nav";
+import { useSegments } from "expo-router";
 
 type SimpleLineIconNames = keyof typeof SimpleLineIcons.glyphMap;
 
 interface AlertProps {
   message: string;
-  text: string;
-  onChangeText: (text: string) => void;
+  text?: string;
+  onChangeText?: (text: string) => void;
   name?: SimpleLineIconNames;
   size?: number;
   color?: string;
@@ -19,17 +20,20 @@ const Alert = ({
   name = "info",
   size = 100,
   color = "#666",
-  text,
-  onChangeText,
+  text = "",
+  onChangeText = () => {},
 }: AlertProps) => {
+  const segments = useSegments();
+  const isDetailRoute = (segments as string[]).includes("Detail");
+
   return (
-    <>
-      <Nav onChangeText={onChangeText} text={text} />
+    <Main>
+      {isDetailRoute ? null : <Nav onChangeText={onChangeText} text={text} />}
       <View style={styles.emptyStateContainer}>
         <SimpleLineIcons name={name} size={size} color={color} />
         <Text style={styles.emptyStateText}>{message}</Text>
       </View>
-    </>
+    </Main>
   );
 };
 

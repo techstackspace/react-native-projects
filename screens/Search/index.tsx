@@ -4,7 +4,7 @@ import Main from "@/components/shared/Main";
 import Nav from "@/components/Nav";
 import MoviesSection from "@/components/MoviesSection";
 import { useMovies } from "@/hooks/useMovies";
-import { SimpleLineIcons } from "@expo/vector-icons";
+import Alert from "@/components/Alert";
 
 const SearchScreen = () => {
   const [text, setText] = useState("");
@@ -43,13 +43,12 @@ const SearchScreen = () => {
   if (text.length > 0 && latestMovies.length === 0) {
     return (
       <Main>
-        <Nav onChangeText={onChangeText} text={text} />
-        <View style={styles.emptyStateContainer}>
-          <SimpleLineIcons name="note" size={100} color="#666" />
-          <Text style={styles.emptyStateText}>
-            No movies found for "{text}"
-          </Text>
-        </View>
+        <Alert
+          message={`No movies found for "${text}"`}
+          name="note"
+          onChangeText={onChangeText}
+          text={text}
+        />
       </Main>
     );
   }
@@ -58,12 +57,12 @@ const SearchScreen = () => {
     <Main>
       <Nav onChangeText={onChangeText} text={text} />
       {isSearchEmpty ? (
-        <View style={styles.emptyStateContainer}>
-          <SimpleLineIcons name="question" size={100} color="#666" />
-          <Text style={styles.emptyStateText}>
-            Start typing to search for movies
-          </Text>
-        </View>
+        <Alert
+          message="Start typing to search for movies"
+          name="question"
+          onChangeText={onChangeText}
+          text={text}
+        />
       ) : (
         <MoviesSection
           title={text}
