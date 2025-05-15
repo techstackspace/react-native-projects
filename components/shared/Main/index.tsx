@@ -1,21 +1,22 @@
 import { ReactNode } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, ViewStyle } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { constants } from "@/constants";
 import { StatusBar } from "expo-status-bar";
 
 interface MainProps {
   children: ReactNode;
+  style?: ViewStyle
 }
 
-const Main = ({ children }: MainProps) => {
+const Main = ({ children, style }: MainProps) => {
   return (
     <LinearGradient
       colors={["#000957", constants.primary]}
       locations={[0, 0.2]}
       start={{ x: 0, y: 0 }}
       end={{ x: 0, y: 1 }}
-      style={styles.mainContent}
+      style={[styles.mainContent, style]}
     >
       {children}
       <StatusBar style="light" />

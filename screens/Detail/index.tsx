@@ -19,7 +19,11 @@ const DetailScreen = () => {
   const { movie, loading, error } = useMovie(id as string);
 
   if (loading) {
-    return <ActivityIndicator size="small" color="#fff" />;
+    return (
+      <Main style={styles.loaderContainer}>
+        <ActivityIndicator size="small" color="#fff" />
+      </Main>
+    );
   }
   if (!movie || error) {
     const message = error
@@ -56,6 +60,10 @@ const DetailScreen = () => {
 export default DetailScreen;
 
 const styles = StyleSheet.create({
+  loaderContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
   button: {
     paddingVertical: 20,
   },

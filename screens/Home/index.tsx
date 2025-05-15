@@ -55,9 +55,9 @@ const Home = () => {
 
   if (isInitialLoading) {
     return (
-      <View style={styles.loaderContainer}>
+      <Main style={styles.loaderContainer}>
         <ActivityIndicator />
-      </View>
+      </Main>
     );
   }
 
@@ -79,7 +79,6 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   loaderContainer: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },

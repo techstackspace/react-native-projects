@@ -12,6 +12,7 @@ import { MoviesSectionProps } from "@/components/MoviesSection/interface";
 import { constants } from "@/constants";
 import { useSegments } from "expo-router";
 import MoviesHeader from "../MoviesHeader";
+import { useState } from "react";
 
 const MoviesSection = ({
   title,
@@ -32,7 +33,10 @@ const MoviesSection = ({
     }
   };
 
+  const [activeLimit, setActiveLimit] = useState(10);
+
   const handleLimitChange = (limit: number) => {
+    setActiveLimit(limit);
     setCurrentLimit(limit);
     setCurrentPage(1);
   };
@@ -68,8 +72,16 @@ const MoviesSection = ({
             <View style={styles.buttonContainer}>
               {[2, 4, 6, 8, 10].map((limit) => (
                 <Pressable
-                  style={styles.button}
                   key={limit}
+                  style={[
+                    styles.button,
+                    {
+                      backgroundColor:
+                        limit === activeLimit
+                          ? constants.accent
+                          : constants.dark,
+                    },
+                  ]}
                   onPress={() => handleLimitChange(limit)}
                 >
                   <Text style={{ color: constants.white }}>{limit}</Text>
@@ -130,7 +142,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
-    backgroundColor: constants.accent,
+    backgroundColor: constants.light,
     borderRadius: 4,
     width: 25,
     height: 27,
