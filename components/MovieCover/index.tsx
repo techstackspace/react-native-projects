@@ -5,7 +5,6 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import React from "react";
 import { useMovie } from "@/hooks/useMovie";
 import { useLocalSearchParams } from "expo-router/build/hooks";
 import Svg, { Defs, LinearGradient, Stop, Path } from "react-native-svg";
