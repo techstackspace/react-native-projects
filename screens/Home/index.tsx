@@ -9,7 +9,7 @@ import Main from "@/components/shared/Main";
 import Alert from "@/components/UI/Alert";
 
 const Home = () => {
-  const [text, setText] = useState<string>("");
+  const [text, setText] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [currentLimit, setCurrentLimit] = useState(10);
   const topMoviesUrl = "/api/movies/top";

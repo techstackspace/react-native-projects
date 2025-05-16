@@ -1,4 +1,4 @@
-import { MoviesInterface } from "@/components/MoviesSection/interface";
+import { MoviesInterface } from "@/components/UI/MoviesSection/interface";
 
 interface SectionsProps {
   type: string;
