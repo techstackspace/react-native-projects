@@ -1,6 +1,6 @@
 import { Dimensions, Image, StyleSheet, TextInput, View } from "react-native";
 import { constants } from "@/constants";
-import { router } from "expo-router";
+import { useRouter, useSegments } from "expo-router";
 
 const Search = ({
   onChangeText,
@@ -10,6 +10,15 @@ const Search = ({
   text: string;
 }) => {
   const image = require("../../../assets/images/nav/search/search.png");
+  const router = useRouter();
+  const segments = useSegments() as string[];
+  const isOnSearchPage = segments.includes("Search");
+
+  const handleFocus = () => {
+    if (!isOnSearchPage) {
+      router.push("/(tabs)/Search");
+    }
+  };
 
   return (
     <View style={styles.view}>
@@ -19,7 +28,7 @@ const Search = ({
         value={text}
         placeholder="Search through 300+ movies online"
         placeholderTextColor={constants.light}
-        onFocus={() => router.push("/(tabs)/Search")}
+        onPressIn={handleFocus}
         returnKeyType="search"
       />
       <Image source={image} style={styles.image} />
