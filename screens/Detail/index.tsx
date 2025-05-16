@@ -6,6 +6,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { useMovie } from "@/hooks/useMovie";
 import GradientButton from "@/components/GradientButton";
 import Alert from "@/components/Alert";
+import { constants } from "@/constants";
 
 const DetailScreen = () => {
   const { id } = useLocalSearchParams();
@@ -13,8 +14,12 @@ const DetailScreen = () => {
 
   if (loading) {
     return (
-      <Main style={styles.loaderContainer}>
-        <ActivityIndicator size="small" color="#fff" />
+      <Main>
+        <ActivityIndicator
+          style={styles.loaderContainer}
+          size="small"
+          color={constants.white}
+        />
       </Main>
     );
   }

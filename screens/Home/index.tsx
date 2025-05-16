@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FlatList, ActivityIndicator, View, StyleSheet } from "react-native";
+import { FlatList, ActivityIndicator, StyleSheet } from "react-native";
 import Nav from "@/components/Nav";
 import MoviesSection from "@/components/MoviesSection";
 import { useMovies } from "@/hooks/useMovies";
@@ -69,8 +69,8 @@ const Home = () => {
 
   if (isInitialLoading) {
     return (
-      <Main style={styles.loaderContainer}>
-        <ActivityIndicator />
+      <Main>
+        <ActivityIndicator style={styles.loaderContainer} />
       </Main>
     );
   }
@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
   loaderContainer: {
     justifyContent: "center",
     alignItems: "center",
+    flex: 1,
   },
 });
 

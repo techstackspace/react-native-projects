@@ -1,15 +1,21 @@
 import { ReactNode } from "react";
-import { StyleSheet, ViewStyle } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { constants } from "@/constants";
 import { StatusBar } from "expo-status-bar";
+import { useSegments } from "expo-router";
 
 interface MainProps {
   children: ReactNode;
-  style?: ViewStyle
+  style?: object;
 }
 
+type AppSegments = "Home" | "Detail" | "Profile" | "Search";
+
 const Main = ({ children, style }: MainProps) => {
+  const segments = useSegments() as unknown as AppSegments;
+  const isDetailScreen = segments.includes("Detail");
+
   return (
     <LinearGradient
       colors={["#000957", constants.primary]}
@@ -18,13 +24,17 @@ const Main = ({ children, style }: MainProps) => {
       end={{ x: 0, y: 1 }}
       style={[styles.mainContent, style]}
     >
-      {children}
+      {isDetailScreen ? (
+        children
+      ) : (
+        <SafeAreaView style={{ flex: 1 }}>{children}</SafeAreaView>
+      )}
       <StatusBar style="light" />
     </LinearGradient>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = {
   mainContent: {
     position: "absolute",
     top: 0,
@@ -32,6 +42,6 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
-});
+};
 
 export default Main;

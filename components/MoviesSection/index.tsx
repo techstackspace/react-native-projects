@@ -45,7 +45,7 @@ const MoviesSection = ({
     if (!loading) return null;
     return (
       <View style={styles.footer}>
-        <ActivityIndicator size="small" color="#fff" />
+        <ActivityIndicator size="small" color={constants.white} />
       </View>
     );
   };
