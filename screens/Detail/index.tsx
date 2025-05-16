@@ -1,11 +1,11 @@
 import { ActivityIndicator, ScrollView, StyleSheet } from "react-native";
 import Main from "@/components/shared/Main";
-import MovieCover from "@/components/MovieCover";
-import DetailContent from "@/components/DetailContent";
+import MovieCover from "@/components/UI/MovieCover";
+import DetailContent from "@/components/UI/DetailContent";
 import { router, useLocalSearchParams } from "expo-router";
 import { useMovie } from "@/hooks/useMovie";
-import GradientButton from "@/components/GradientButton";
-import Alert from "@/components/Alert";
+import GradientButton from "@/components/UI/GradientButton";
+import Alert from "@/components/UI/Alert";
 import { constants } from "@/constants";
 
 const DetailScreen = () => {

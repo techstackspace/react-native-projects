@@ -24,7 +24,7 @@ const Movie = ({
         {isTopMovies && (
           <BlurView tint="light" intensity={20} style={styles.ratingBadge}>
             <Image
-              source={require("../../assets/images/Rating.png")}
+              source={require("../../../assets/images/Rating.png")}
               style={styles.ratingIcon}
             />
             <Text style={styles.ratingText}>{rating.average.toFixed(2)}</Text>
@@ -70,7 +70,7 @@ const Movie = ({
         {!isTopMovies && (
           <View style={styles.ratingContainer}>
             <Image
-              source={require("../../assets/images/Rating.png")}
+              source={require("../../../assets/images/Rating.png")}
               style={styles.ratingIcon}
             />
             <Text style={styles.ratingText}>{rating.average.toFixed(2)}</Text>

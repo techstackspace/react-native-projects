@@ -9,7 +9,7 @@ const Search = ({
   onChangeText: (text: string) => void;
   text: string;
 }) => {
-  const image = require("../../assets/images/nav/search/search.png");
+  const image = require("../../../assets/images/nav/search/search.png");
 
   return (
     <View style={styles.view}>
@@ -19,7 +19,7 @@ const Search = ({
         value={text}
         placeholder="Search through 300+ movies online"
         placeholderTextColor={constants.light}
-        onPress={() => router.push("/(tabs)/Search")}
+        onFocus={() => router.push("/(tabs)/Search")}
         returnKeyType="search"
       />
       <Image source={image} style={styles.image} />

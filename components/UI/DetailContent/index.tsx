@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useMovie } from "@/hooks/useMovie";
-import Container from "../shared/Container";
+import Container from "../../shared/Container";
 import { constants } from "@/constants";
 import {
   countryList,

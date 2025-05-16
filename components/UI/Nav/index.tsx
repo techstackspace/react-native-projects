@@ -1,8 +1,8 @@
 import { Image, ImageBackground, StyleSheet } from "react-native";
 import Search from "../Search";
 
-const iconCover = require("../../assets/images/nav/Container.png");
-const icon = require("../../assets/images/nav/icon.png");
+const iconCover = require("../../../assets/images/nav/Container.png");
+const icon = require("../../../assets/images/nav/icon.png");
 
 const Nav = ({
   onChangeText,

@@ -7,8 +7,8 @@ import {
   ActivityIndicator,
   Pressable,
 } from "react-native";
-import Movie from "@/components/Movie";
-import { MoviesSectionProps } from "@/components/MoviesSection/interface";
+import Movie from "@/components/UI/Movie";
+import { MoviesSectionProps } from "@/components/UI/MoviesSection/interface";
 import { constants } from "@/constants";
 import { useSegments } from "expo-router";
 import MoviesHeader from "../MoviesHeader";

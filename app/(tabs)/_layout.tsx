@@ -1,6 +1,6 @@
 import { Tabs, usePathname } from "expo-router";
 import { Dimensions, StyleSheet } from "react-native";
-import GradientButton from "@/components/GradientButton";
+import GradientButton from "@/components/UI/GradientButton";
 import { constants } from "@/constants";
 
 const TabsLayout = () => {

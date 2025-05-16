@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import Main from "../shared/Main";
+import Main from "../../shared/Main";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import Nav from "../Nav";
 import { useSegments } from "expo-router";

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import Main from "@/components/shared/Main";
-import Nav from "@/components/Nav";
-import MoviesSection from "@/components/MoviesSection";
+import Nav from "@/components/UI/Nav";
+import MoviesSection from "@/components/UI/MoviesSection";
 import { useMovies } from "@/hooks/useMovies";
-import Alert from "@/components/Alert";
+import Alert from "@/components/UI/Alert";
 
 const SearchScreen = () => {
   const [text, setText] = useState("");
