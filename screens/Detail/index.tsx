@@ -14,12 +14,8 @@ const DetailScreen = () => {
 
   if (loading) {
     return (
-      <Main>
-        <ActivityIndicator
-          style={styles.loaderContainer}
-          size="small"
-          color={constants.white}
-        />
+      <Main style={styles.loaderContainer}>
+        <ActivityIndicator size="small" color={constants.white} />
       </Main>
     );
   }
