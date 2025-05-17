@@ -8,10 +8,11 @@ import {
 import { useMovie } from "@/hooks/useMovie";
 import { useLocalSearchParams } from "expo-router/build/hooks";
 import Svg, { Defs, LinearGradient, Stop, Path } from "react-native-svg";
+import { MoviesInterface } from "@/components/UI/MoviesSection/interface";
 
 const MovieCover = () => {
   const { id } = useLocalSearchParams();
-  const { movie } = useMovie(id as string);
+  const { movie } = useMovie(id as string) as unknown as MoviesInterface;
 
   return (
     <View>

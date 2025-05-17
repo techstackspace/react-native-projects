@@ -10,10 +10,11 @@ import {
   formatNumber,
   productionCompany,
 } from "@/utility";
+import { MoviesInterface } from "@/components/UI/MoviesSection/interface";
 
 const DetailContent = () => {
   const { id } = useLocalSearchParams();
-  const { movie } = useMovie(id as string);
+    const { movie } = useMovie(id as string) as unknown as MoviesInterface;
   const year = movie?.releaseDate?.split("-")[0];
 
   const countries = countryList(movie?.countries as string[]);

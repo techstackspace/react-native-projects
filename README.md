@@ -84,7 +84,62 @@ Feel free to modify the `Brewfile` to add or remove dependencies as needed.
 
 ---
 
-## 5. Install Dependencies
+## 5. Preventing Unnecessary React Imports
+
+If the **ES7+ React/Redux/React-Native Snippets** extension for **VS Code** still imports **React** as:
+
+```tsx
+import React from "React";
+```
+
+In such case the extension is still using the old **React 17** import style, even though you are likely using **React 18+**, which no longer requires this import statement in most cases.
+
+To prevent this redundant import, add the following settings to your **User settings.json** or create a **`.vscode/settings.json`** file in your project directory:
+
+```json
+{
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact"
+  },
+  "reactSnippets.settings.importReactOnTop": false
+}
+```
+
+> Restart VS Code to apply the changes if the code was added to your **User settings.json**.
+
+---
+
+## 6. Enable Format on Save (Prettier)
+
+To automatically format your code on save, ensure you have the **Prettier - Code formatter** extension installed in **VS Code**. Then, add the following to your project’s **`.vscode/settings.json`** file:
+
+```json
+{
+  "editor.formatOnSave": true
+}
+```
+
+This setting will ensure your code is consistently formatted every time you save.
+
+**Optional:** Create a **`.prettierrc`** file in your project root to customize Prettier’s behavior. For example:
+
+```json
+{
+  "singleQuote": true,
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "semi": false
+}
+```
+
+This approach keeps your codebase clean and readable, aligning with industry best practices.
+
+---
+
+## 7. Install Dependencies
 
 ### Using Bun (preferred):
 
@@ -102,7 +157,7 @@ npm install
 
 ---
 
-## 6. Set Up Git (If Not Already Configured)
+## 8. Set Up Git (If Not Already Configured)
 
 Check Git configuration:
 
@@ -119,7 +174,7 @@ git config --global user.email "your.email@example.com"
 
 ---
 
-## 7. Uninstall Brewfile Apps
+## 9. Uninstall Brewfile Apps
 
 To remove all installed apps not in the Brewfile:
 
@@ -131,7 +186,7 @@ Alternatively, delete unwanted apps manually or remove entries from the `Brewfil
 
 ---
 
-## 8. Install `nvm` or `bum`
+## 10. Install `nvm` or `bum`
 
 ### Install `nvm`:
 
@@ -149,7 +204,7 @@ curl -fsSL https://github.com/owenizedd/bum/raw/main/install.sh | bash
 
 ---
 
-## 9. Environment Variable Configuration for Android and `nvm`
+## 11. Environment Variable Configuration for Android and `nvm`
 
 Edit your `~/.zprofile` and add the following between **Amazon Q pre block** and **Amazon Q post block**:
 
@@ -189,7 +244,7 @@ source ~/.zprofile
 
 ---
 
-## 10. Running the React Native Project
+## 12. Running the React Native Project
 
 To start the React Native project, use:
 
@@ -213,7 +268,7 @@ To run on a physical device, scan the QR code displayed in the terminal using th
 
 ---
 
-## 11. Resources:
+## 13. Resources:
 
 Here are the core resources of this project:
 
@@ -229,7 +284,7 @@ Here are the core resources of this project:
 
 ---
 
-## 12. Feedback & Suggestions
+## 14. Feedback & Suggestions
 
 Your feedback is incredibly valuable and helps improve these resources for the entire community.
 
@@ -250,7 +305,7 @@ Your input helps shape better content for developers like you. Thank you!
 
 ---
 
-## 13. Social Media
+## 15. Social Media
 
 Follow us on social media:
 
@@ -263,7 +318,7 @@ Follow us on social media:
 
 ---
 
-## 15. Figma Design Reference
+## 16. Figma Design Reference
 
 You can explore the official Figma design for this project using the link below. This design provides a clear visual reference for the UI layout and styling used throughout the app.
 
