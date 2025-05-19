@@ -1,10 +1,10 @@
-import { LinearGradient } from "expo-linear-gradient";
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
-import MaskedView from "@react-native-masked-view/masked-view";
-import { constants } from "@/constants";
-import { Link } from "expo-router";
-import { BlurView } from "expo-blur";
-import { MoviesInterface } from "../MoviesSection/interface";
+import { LinearGradient } from 'expo-linear-gradient'
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native'
+import MaskedView from '@react-native-masked-view/masked-view'
+import { constants } from '@/constants'
+import { Link } from 'expo-router'
+import { BlurView } from 'expo-blur'
+import { MoviesInterface } from '../MoviesSection/interface'
 
 const Movie = ({
   title,
@@ -24,7 +24,7 @@ const Movie = ({
         {isTopMovies && (
           <BlurView tint="light" intensity={20} style={styles.ratingBadge}>
             <Image
-              source={require("../../../assets/images/Rating.png")}
+              source={require('../../../assets/images/Rating.png')}
               style={styles.ratingIcon}
             />
             <Text style={styles.ratingText}>{rating.average.toFixed(2)}</Text>
@@ -37,7 +37,7 @@ const Movie = ({
               {
                 width: isTopMovies
                   ? 116
-                  : Dimensions.get("screen").width < 420
+                  : Dimensions.get('screen').width < 420
                   ? 101
                   : 122,
                 height: isTopMovies ? 167 : 151,
@@ -57,7 +57,7 @@ const Movie = ({
             }
           >
             <LinearGradient
-              colors={["#FAF9F7", "#9B9EA7"]}
+              colors={['#FAF9F7', '#9B9EA7']}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.gradient}
@@ -70,7 +70,7 @@ const Movie = ({
         {!isTopMovies && (
           <View style={styles.ratingContainer}>
             <Image
-              source={require("../../../assets/images/Rating.png")}
+              source={require('../../../assets/images/Rating.png')}
               style={styles.ratingIcon}
             />
             <Text style={styles.ratingText}>{rating.average.toFixed(2)}</Text>
@@ -78,40 +78,50 @@ const Movie = ({
         )}
       </View>
 
-      <Text style={styles.genre}>
-        {genres[0].length > 5 ? `${genres[0].substring(0, 5)}...` : genres[0]}
-        <Text style={{ fontSize: 20 }}> . </Text>
-        Movie
-      </Text>
+      {genres?.length === 1 ? (
+        <View style={{ marginTop: 10 }}>
+          <Text style={styles.genre}>{genres[0]}</Text>
+        </View>
+      ) : (
+        <Text style={styles.genre}>
+          {genres[0]?.length > 10
+            ? `${genres[0].substring(0, 10)}...`
+            : genres[0]}
+          <Text style={{ fontSize: 20 }}> . </Text>
+          {genres[1]?.length > 10
+            ? `${genres[0].substring(0, 10)}...`
+            : genres[1]}
+        </Text>
+      )}
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   itemContainer: {
     marginTop: 10,
     marginBottom: 10,
     marginRight: 10,
-    position: "relative",
+    position: 'relative',
   },
   posterImage: {
     borderRadius: 4,
   },
   title: {
     marginTop: 5,
-    fontFamily: "Inter-bold",
+    fontFamily: 'Inter-bold',
     fontSize: 12,
-    fontWeight: "900",
+    fontWeight: '900',
     color: constants.white,
   },
   genre: {
     fontSize: 10,
-    color: "#9CA4AB",
-    fontWeight: "700",
-    fontFamily: "Inter-bold",
+    color: '#9CA4AB',
+    fontWeight: '700',
+    fontFamily: 'Inter-bold',
   },
   ratingContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 4,
     marginTop: 4,
   },
@@ -123,24 +133,24 @@ const styles = StyleSheet.create({
   ratingText: {
     fontSize: 8,
     color: constants.white,
-    fontWeight: "900",
-    fontFamily: "Inter-bold",
-    textShadowColor: "#00000054",
+    fontWeight: '900',
+    fontFamily: 'Inter-bold',
+    textShadowColor: '#00000054',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 2,
   },
   ratingBadge: {
-    position: "absolute",
+    position: 'absolute',
     top: 5,
     right: 10,
     zIndex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 3,
-    overflow: "hidden",
+    overflow: 'hidden',
     borderRadius: 3,
     padding: 4,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   numberingMask: {
     width: 50,
@@ -150,21 +160,21 @@ const styles = StyleSheet.create({
   },
   numberingContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   numberingText: {
-    textShadowColor: "black",
+    textShadowColor: 'black',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 2,
-    fontFamily: "Inter-bold",
+    fontFamily: 'Inter-bold',
     fontSize: 44,
-    fontWeight: "900",
-    color: "black",
+    fontWeight: '900',
+    color: 'black',
   },
   gradient: {
     flex: 1,
   },
-});
+})
 
-export default Movie;
+export default Movie
