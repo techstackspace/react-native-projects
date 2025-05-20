@@ -1,26 +1,21 @@
 import { constants } from '@/constants'
 import { SimpleLineIcons } from '@expo/vector-icons'
-import { Link, router, useSegments } from 'expo-router'
+import { Link, router } from 'expo-router'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import * as SecureStore from 'expo-secure-store'
 import { useEffect, useState } from 'react'
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const segments = useSegments()
-  console.log(segments)
+  const [message, setMessage] = useState<string | null>(null)
   const checkAuthStatus = async () => {
     const token = await SecureStore.getItemAsync('authToken')
     if (token) {
       setIsLoggedIn(true)
-      // Navigate to protected screen
     } else {
       setIsLoggedIn(false)
-      // Show login/register screen
     }
   }
-
-  console.log(isLoggedIn)
 
   useEffect(() => {
     checkAuthStatus()
@@ -30,15 +25,38 @@ const Navbar = () => {
     try {
       await SecureStore.deleteItemAsync('authToken')
       setIsLoggedIn(false)
-      console.log('User logged out successfully')
-      // router.push('/Login')
+      setMessage('User logged out successfully')
+      setTimeout(() => {
+        setMessage(null)
+      }, 3000)
     } catch (error) {
-      console.error('Error logging out:', error)
+      setMessage('There was any error logging out')
+      setTimeout(() => {
+        setMessage(null)
+      }, 3000)
     }
   }
 
   return (
     <View style={styles.navbar}>
+      {message && (
+        <View
+          style={{
+            position: 'absolute',
+            top: 180,
+            zIndex: 10,
+            backgroundColor: '#e2e2d9',
+            padding: 20,
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            display: message ? 'flex' : 'none',
+            borderRadius: 10,
+          }}
+        >
+          <Text style={{ color: '#7b7b0f' }}>{message}</Text>
+        </View>
+      )}
       {isLoggedIn ? (
         <View style={styles.flexBox}>
           <Pressable
@@ -52,13 +70,9 @@ const Navbar = () => {
             />
             <Text style={{ color: constants.white, fontSize: 14 }}>Home</Text>
           </Pressable>
-          <Pressable style={styles.button} onPress={() => logout()}>
+          <Pressable style={styles.button} onPress={logout}>
             <SimpleLineIcons name="logout" size={16} color={constants.light} />
-            <Link href="/Login">
-              <Text style={{ color: constants.white, fontSize: 14 }}>
-                Logout
-              </Text>
-            </Link>
+            <Text style={{ color: constants.white, fontSize: 14 }}>Logout</Text>
           </Pressable>
         </View>
       ) : (

@@ -21,10 +21,6 @@ const LoginScreen = () => {
   const [error, setError] = useState<string | null>(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [token, setToken] = useState('')
-  const segments = useSegments() as string[]
-  const isOnAuthScreen = segments.includes('Login')
-  console.log(isOnAuthScreen)
   const { message: incomingMessage } = useLocalSearchParams()
   const [message, setMessage] = useState(incomingMessage || '')
 
@@ -46,7 +42,6 @@ const LoginScreen = () => {
     try {
       const payload = { email, password }
       const data = await handleLoginUser(payload)
-      setToken(data.token || 'Token Generated')
       router.push({
         pathname: '/',
         params: {
@@ -54,7 +49,6 @@ const LoginScreen = () => {
         },
       })
       await SecureStore.setItemAsync('authToken', data.token)
-      console.log(data.token)
     } catch (error) {
       setError('An error occurred while registering')
       setTimeout(() => {

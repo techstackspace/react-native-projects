@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { FlatList, ActivityIndicator, StyleSheet } from 'react-native'
 import Nav from '@/components/UI/Nav'
 import MoviesSection from '@/components/UI/MoviesSection'
@@ -9,7 +9,6 @@ import Main from '@/components/shared/Main'
 import Alert from '@/components/UI/Alert'
 import Navbar from '@/components/UI/Navbar'
 import AuthAlert from '@/components/UI/AuthAlert'
-import * as SecureStore from 'expo-secure-store'
 
 const Home = () => {
   const [text, setText] = useState('')
@@ -41,15 +40,6 @@ const Home = () => {
     setCurrentLimit(10)
     setText(text)
   }
-
-  useEffect(() => {
-    const getToken = async () => {
-      const token = await SecureStore.getItemAsync('authToken')
-      console.log('Token in Home screen:', token)
-    }
-
-    getToken()
-  }, [])
 
   const renderItem = ({ item }: { item: SectionsProps }) => {
     if (item.type === 'nav') {
