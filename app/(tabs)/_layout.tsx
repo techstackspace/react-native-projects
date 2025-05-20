@@ -1,10 +1,10 @@
-import { Tabs, usePathname } from "expo-router";
-import { Dimensions, StyleSheet } from "react-native";
-import GradientButton from "@/components/UI/GradientButton";
-import { constants } from "@/constants";
+import { Tabs, usePathname } from 'expo-router'
+import { Dimensions, StyleSheet } from 'react-native'
+import GradientButton from '@/components/UI/GradientButton'
+import { constants } from '@/constants'
 
 const TabsLayout = () => {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   return (
     <Tabs
@@ -20,7 +20,7 @@ const TabsLayout = () => {
           tabBarButton: (props) => (
             <GradientButton
               onPress={props.onPress}
-              icon={require("@/assets/images/tabs/home.png")}
+              icon={require('@/assets/images/tabs/home.png')}
               label="Home"
               focused={pathname === '/'}
             />
@@ -33,7 +33,7 @@ const TabsLayout = () => {
           tabBarButton: (props) => (
             <GradientButton
               onPress={props.onPress}
-              icon={require("@/assets/images/tabs/search.png")}
+              icon={require('@/assets/images/tabs/search.png')}
               label="Search"
               focused={pathname === '/Search'}
             />
@@ -46,7 +46,7 @@ const TabsLayout = () => {
           tabBarButton: (props) => (
             <GradientButton
               onPress={props.onPress}
-              icon={require("@/assets/images/tabs/bookmark.png")}
+              icon={require('@/assets/images/tabs/bookmark.png')}
               label="Save"
               focused={pathname === '/Bookmark'}
             />
@@ -59,7 +59,7 @@ const TabsLayout = () => {
           tabBarButton: (props) => (
             <GradientButton
               onPress={props.onPress}
-              icon={require("@/assets/images/tabs/profile.png")}
+              icon={require('@/assets/images/tabs/profile.png')}
               label="Profile"
               focused={pathname === '/Profile'}
             />
@@ -67,23 +67,23 @@ const TabsLayout = () => {
         }}
       />
     </Tabs>
-  );
-};
+  )
+}
 
-export default TabsLayout;
+export default TabsLayout
 
 const styles = StyleSheet.create({
   tabBody: {
     justifyContent: 'center',
-    width: Dimensions.get("screen").width * 0.9,
+    width: Dimensions.get('screen').width * 0.9,
     backgroundColor: constants.secondary,
     borderRadius: 70,
     position: 'absolute',
-    bottom: 20,
+    bottom: 40,
     height: 48,
     paddingHorizontal: 30,
     marginHorizontal: '5%',
     flexDirection: 'row',
-    borderColor: constants.secondary
+    borderColor: constants.secondary,
   },
-});
+})

@@ -1,7 +1,7 @@
-import SearchScreen from "@/screens/Search";
+import SearchScreen from '@/screens/Search'
 
 const Search = () => {
-  return <SearchScreen />;
-};
+  return <SearchScreen />
+}
 
-export default Search;
+export default Search

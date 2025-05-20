@@ -4,15 +4,15 @@ import {
   Pressable,
   StyleSheet,
   View,
-} from "react-native";
-import { useMovie } from "@/hooks/useMovie";
-import { useLocalSearchParams } from "expo-router/build/hooks";
-import Svg, { Defs, LinearGradient, Stop, Path } from "react-native-svg";
-import { MoviesInterface } from "@/components/UI/MoviesSection/interface";
+} from 'react-native'
+import { useMovie } from '@/hooks/useMovie'
+import { useLocalSearchParams } from 'expo-router/build/hooks'
+import Svg, { Defs, LinearGradient, Stop, Path } from 'react-native-svg'
+import { MoviesInterface } from '@/components/UI/MoviesSection/interface'
 
 const MovieCover = () => {
-  const { id } = useLocalSearchParams();
-  const { movie } = useMovie(id as string) as unknown as MoviesInterface;
+  const { id } = useLocalSearchParams()
+  const { movie } = useMovie(id as string) as unknown as MoviesInterface
 
   return (
     <View>
@@ -44,26 +44,26 @@ const MovieCover = () => {
         </Pressable>
       </ImageBackground>
     </View>
-  );
-};
+  )
+}
 
-export default MovieCover;
+export default MovieCover
 
 const styles = StyleSheet.create({
   imageBackground: {
-    height: Dimensions.get("screen").height * 0.5,
+    height: Dimensions.get('screen').height * 0.5,
   },
   playButton: {
-    position: "absolute",
+    position: 'absolute',
     bottom: -25,
     right: 30,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 50,
     padding: 10,
     zIndex: 10,
     width: 50,
     height: 50,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-});
+})
