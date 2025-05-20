@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { FlatList, ActivityIndicator, StyleSheet } from 'react-native'
-import Nav from '@/components/UI/Nav'
+import Header from '@/components/UI/Header'
 import MoviesSection from '@/components/UI/MoviesSection'
 import { useMovies } from '@/hooks/useMovies'
 import { StatusBar } from 'expo-status-bar'
@@ -41,7 +41,7 @@ const Home = () => {
 
   const renderItem = ({ item }: { item: SectionsProps }) => {
     if (item.type === 'nav') {
-      return <Nav onChangeText={onChangeText} text={text} />
+      return <Header onChangeText={onChangeText} text={text} />
     }
 
     return (

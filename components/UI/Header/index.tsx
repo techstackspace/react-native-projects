@@ -1,15 +1,15 @@
-import { Image, ImageBackground, StyleSheet } from "react-native";
-import Search from "../Search";
+import { Image, ImageBackground, StyleSheet } from 'react-native'
+import Search from '../Search'
 
-const iconCover = require("../../../assets/images/nav/Container.png");
-const icon = require("../../../assets/images/nav/icon.png");
+const iconCover = require('../../../assets/images/nav/Container.png')
+const icon = require('../../../assets/images/nav/icon.png')
 
-const Nav = ({
+const Header = ({
   onChangeText,
   text,
 }: {
-  onChangeText: (text: string) => void;
-  text: string;
+  onChangeText: (text: string) => void
+  text: string
 }) => {
   return (
     <ImageBackground
@@ -20,15 +20,15 @@ const Nav = ({
       <Image source={icon} style={styles.image} />
       <Search onChangeText={onChangeText} text={text} />
     </ImageBackground>
-  );
-};
+  )
+}
 
-export default Nav;
+export default Header
 
 const styles = StyleSheet.create({
   imageBackground: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     gap: 30,
     height: 200,
   },
@@ -36,4 +36,4 @@ const styles = StyleSheet.create({
     width: 58.9,
     height: 43,
   },
-});
+})

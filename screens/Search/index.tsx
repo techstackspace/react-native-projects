@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Main from '@/components/shared/Main'
-import Nav from '@/components/UI/Nav'
+import Header from '@/components/UI/Header'
 import MoviesSection from '@/components/UI/MoviesSection'
 import { useMovies } from '@/hooks/useMovies'
 import Alert from '@/components/UI/Alert'
@@ -56,7 +56,7 @@ const SearchScreen = () => {
   return (
     <Main>
       <Navbar />
-      <Nav onChangeText={onChangeText} text={text} />
+      <Header onChangeText={onChangeText} text={text} />
       {isSearchEmpty ? (
         <Alert
           message="Start typing to search for movies"

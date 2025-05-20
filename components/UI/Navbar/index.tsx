@@ -1,9 +1,10 @@
 import { constants } from '@/constants'
 import { SimpleLineIcons } from '@expo/vector-icons'
-import { Link, router } from 'expo-router'
+import { router } from 'expo-router'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import * as SecureStore from 'expo-secure-store'
 import { useEffect, useState } from 'react'
+import { BlurView } from 'expo-blur'
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -38,7 +39,7 @@ const Navbar = () => {
   }
 
   return (
-    <View style={styles.navbar}>
+    <BlurView intensity={40} tint="dark" style={styles.navbar}>
       {message && (
         <View
           style={{
@@ -94,36 +95,37 @@ const Navbar = () => {
               onPress={() => router.push('/(tabs)')}
             >
               <SimpleLineIcons name="user" size={16} color={constants.light} />
-              <Link href="/Register">
-                <Text style={{ color: constants.white, fontSize: 14 }}>
-                  Register
-                </Text>
-              </Link>
+              <Text style={{ color: constants.white, fontSize: 14 }}>
+                Register
+              </Text>
             </Pressable>
 
             <Text style={{ color: constants.white, fontSize: 14 }}>|</Text>
 
             <Pressable style={styles.authButton}>
               <SimpleLineIcons name="login" size={16} color={constants.light} />
-              <Link href="/Login">
-                <Text style={{ color: constants.white, fontSize: 14 }}>
-                  Login
-                </Text>
-              </Link>
+              <Text style={{ color: constants.white, fontSize: 14 }}>
+                Login
+              </Text>
             </Pressable>
           </View>
         </View>
       )}
-    </View>
+    </BlurView>
   )
 }
 export default Navbar
 
 const styles = StyleSheet.create({
   navbar: {
-    justifyContent: 'space-between',
+    position: 'absolute',
+    top: 50,
+    left: 0,
+    right: 0,
     paddingVertical: 20,
-    marginHorizontal: '5%',
+    paddingHorizontal: '5%',
+    backgroundColor: '#0d0d72cc',
+    zIndex: 999,
   },
   flexBox: {
     flexDirection: 'row',

@@ -11,7 +11,7 @@ import {
   View,
 } from 'react-native'
 import { constants } from '@/constants'
-import Nav from '@/components/UI/Nav'
+import Header from '@/components/UI/Header'
 import Navbar from '@/components/UI/Navbar'
 import Container from '@/components/shared/Container'
 
@@ -49,7 +49,7 @@ const RegisterScreen = () => {
   return (
     <Main>
       <Navbar />
-      {isOnAuthScreen && <Nav onChangeText={() => {}} text={''} />}
+      {isOnAuthScreen && <Header onChangeText={() => {}} text={''} />}
       <Container style={{ marginTop: 63 }}>
         <Text style={styles.title}>Create an Account</Text>
 

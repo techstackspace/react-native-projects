@@ -1,19 +1,30 @@
-import { useState } from 'react'
-import { FlatList, ActivityIndicator, StyleSheet } from 'react-native'
-import Nav from '@/components/UI/Nav'
-import MoviesSection from '@/components/UI/MoviesSection'
-import { useMovies } from '@/hooks/useMovies'
+import { useRef, useState } from 'react'
+import {
+  FlatList,
+  ActivityIndicator,
+  StyleSheet,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+} from 'react-native'
 import { StatusBar } from 'expo-status-bar'
-import { SectionsProps } from './interface'
+
+import Header from '@/components/UI/Header'
+import MoviesSection from '@/components/UI/MoviesSection'
 import Main from '@/components/shared/Main'
 import Alert from '@/components/UI/Alert'
-import Navbar from '@/components/UI/Navbar'
 import AuthAlert from '@/components/UI/AuthAlert'
+import Navbar from '@/components/UI/Navbar'
+
+import { useMovies } from '@/hooks/useMovies'
+import { SectionsProps } from './interface'
 
 const Home = () => {
   const [text, setText] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [currentLimit, setCurrentLimit] = useState(10)
+  const [isScrollingUp, setIsScrollingUp] = useState(true)
+  const lastScrollY = useRef(0)
+
   const topMoviesUrl = '/api/movies/top'
   const latestMoviesUrl = `/api/movies?limit=${currentLimit}&page=${currentPage}&search=${text}`
 
@@ -22,6 +33,7 @@ const Home = () => {
     loading: topLoading,
     error: topError,
   } = useMovies(1, topMoviesUrl)
+
   const {
     movies: latestMovies,
     loading: latestLoading,
@@ -29,11 +41,30 @@ const Home = () => {
     sumMovies: totalMovies,
   } = useMovies(currentPage, latestMoviesUrl)
 
-  const sections = [
+  const isInitialLoading = (topLoading || latestLoading) && totalMovies <= 1
+
+  const errorMessage =
+    topError && latestError
+      ? 'Failed to load popular and latest movies'
+      : topError
+      ? 'Failed to load popular movies'
+      : latestError
+      ? 'Failed to load latest movies'
+      : ''
+
+  const sections: SectionsProps[] = [
     { type: 'nav' },
     { type: 'topMovies', title: 'Popular Movies', data: topMovies },
     { type: 'latestMovies', title: 'Latest Movies', data: latestMovies },
   ]
+
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const currentY = event.nativeEvent.contentOffset.y
+    const deltaY = currentY - lastScrollY.current
+
+    setIsScrollingUp(deltaY < 0)
+    lastScrollY.current = currentY
+  }
 
   const onChangeText = (text: string) => {
     setCurrentPage(1)
@@ -43,7 +74,7 @@ const Home = () => {
 
   const renderItem = ({ item }: { item: SectionsProps }) => {
     if (item.type === 'nav') {
-      return <Nav onChangeText={onChangeText} text={text} />
+      return <Header onChangeText={onChangeText} text={text} />
     }
 
     return (
@@ -58,16 +89,6 @@ const Home = () => {
       />
     )
   }
-
-  const isInitialLoading = (topLoading || latestLoading) && totalMovies <= 1
-  const errorMessage =
-    topError && latestError
-      ? 'Failed to load popular and latest movies'
-      : topError
-      ? 'Failed to load popular movies'
-      : latestError
-      ? 'Failed to load latest movies'
-      : ''
 
   if (isInitialLoading) {
     return (
@@ -85,15 +106,18 @@ const Home = () => {
 
   return (
     <Main>
-      <Navbar />
+      {isScrollingUp && <Navbar />}
       <AuthAlert />
       <FlatList
         data={sections}
-        extraData={text}
         renderItem={renderItem}
         keyExtractor={(_, index) => index.toString()}
-        showsVerticalScrollIndicator={false}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
+        extraData={text}
+        bounces={false}
         nestedScrollEnabled
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 100 }}
       />
       <StatusBar style="light" />

@@ -1,6 +1,6 @@
 import { handleLoginUser } from '@/api'
 import Main from '@/components/shared/Main'
-import { router, useSegments, useLocalSearchParams, Link } from 'expo-router'
+import { router, useLocalSearchParams, Link } from 'expo-router'
 import * as SecureStore from 'expo-secure-store'
 import { useState, useEffect } from 'react'
 import {
@@ -12,7 +12,7 @@ import {
   View,
 } from 'react-native'
 import { constants } from '@/constants'
-import Nav from '@/components/UI/Nav'
+import Header from '@/components/UI/Header'
 import Navbar from '@/components/UI/Navbar'
 import Container from '@/components/shared/Container'
 
@@ -62,7 +62,7 @@ const LoginScreen = () => {
   return (
     <Main>
       <Navbar />
-      <Nav onChangeText={() => {}} text={''} />
+      <Header onChangeText={() => {}} text={''} />
       <Container style={{ marginTop: 63 }}>
         <Text style={styles.title}>Login</Text>
 
