@@ -13,7 +13,7 @@ import { Link, useSegments } from 'expo-router'
 import { BlurView } from 'expo-blur'
 import { MoviesInterface } from '../MoviesSection/interface'
 import { FontAwesome } from '@expo/vector-icons'
-import { handleDeleteMovieBookmark, handleMovieBookmark } from '@/api'
+import { handleDeleteMovieBookmark, handlAddMovieBookmark } from '@/api'
 import { useState } from 'react'
 
 const Movie = ({
@@ -32,7 +32,7 @@ const Movie = ({
 
   const handleBookmark = async () => {
     try {
-      const data = await handleMovieBookmark(id || '')
+      const data = await handlAddMovieBookmark(id || '')
       setBookmark(data)
     } catch (error) {
       if (error instanceof Error) {

@@ -116,7 +116,7 @@ const handleLoginUser = async (payload: payloadInterface) => {
   }
 }
 
-const handleMovieBookmark = async (movieId: string) => {
+const handlAddMovieBookmark = async (movieId: string) => {
   try {
     const token = await SecureStore.getItemAsync('authToken')
 
@@ -185,7 +185,7 @@ export {
   handleFetchMoviesById,
   handleRegisterUser,
   handleLoginUser,
-  handleMovieBookmark,
+  handlAddMovieBookmark,
   handleFetchBookmarkMovies,
   handleDeleteMovieBookmark,
 }

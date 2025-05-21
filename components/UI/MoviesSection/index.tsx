@@ -24,7 +24,7 @@ const MoviesSection = ({
   loading,
   setCurrentLimit,
   genreList,
-  handleMovieBookmark,
+  handlAddMovieBookmark,
   onGenrePress = () => {},
 }: MoviesSectionProps) => {
   const segments = useSegments()
@@ -100,7 +100,7 @@ const MoviesSection = ({
           renderItem={({ item, index }) => (
             <Movie
               id={item._id}
-              handleMovieBookmark={handleMovieBookmark}
+              handlAddMovieBookmark={handlAddMovieBookmark}
               handleDeleteMovieBookmark={handleDeleteMovieBookmark}
               title={item.title}
               description={item.description}

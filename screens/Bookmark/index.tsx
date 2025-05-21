@@ -6,7 +6,7 @@ import { useContext, useState } from 'react'
 import Header from '@/components/UI/Header'
 import MoviesSection from '@/components/UI/MoviesSection'
 import { useBookmarks } from '@/hooks/useBookmarks'
-import { handleDeleteMovieBookmark, handleMovieBookmark } from '@/api'
+import { handleDeleteMovieBookmark, handlAddMovieBookmark } from '@/api'
 import { ActivityIndicator, FlatList, StyleSheet } from 'react-native'
 
 const BookmarkScreen = () => {
@@ -58,7 +58,7 @@ const BookmarkScreen = () => {
           renderItem={() => (
             <MoviesSection
               title={'Bookmark List'}
-              onGenrePress={handleMovieBookmark}
+              onGenrePress={handlAddMovieBookmark}
               handleDeleteMovieBookmark={handleDeleteMovieBookmark}
               movies={bookmarkMovies}
               isTopMovies={false}
