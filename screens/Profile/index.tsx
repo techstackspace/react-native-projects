@@ -2,14 +2,13 @@ import { StyleSheet, Text, View } from 'react-native'
 import { constants } from '@/constants'
 import Main from '@/components/shared/Main'
 import Navbar from '@/components/UI/Navbar'
+import Alert from '@/components/UI/Alert'
 
 const ProfileScreen = () => {
   return (
     <Main>
       <Navbar />
-      <View style={styles.container}>
-        <Text style={{ color: constants.white }}>Profile</Text>
-      </View>
+      <Alert message="Login to see profile" name="login" />
     </Main>
   )
 }

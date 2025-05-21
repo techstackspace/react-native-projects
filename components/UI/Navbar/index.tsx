@@ -2,40 +2,23 @@ import { constants } from '@/constants'
 import { SimpleLineIcons } from '@expo/vector-icons'
 import { router } from 'expo-router'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
-import * as SecureStore from 'expo-secure-store'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { BlurView } from 'expo-blur'
+import { MovieContext } from '@/context'
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [message, setMessage] = useState<string | null>(null)
-  const checkAuthStatus = async () => {
-    const token = await SecureStore.getItemAsync('authToken')
-    if (token) {
-      setIsLoggedIn(true)
-    } else {
-      setIsLoggedIn(false)
-    }
-  }
+  const movieContext = useContext(MovieContext)
+  // if (!movieContext) {
+  //   throw new Error('Navbar must be used within a MovieProvider')
+  // }
+  const { isLoggedIn, message, logout, checkAuthStatus } = movieContext
 
   useEffect(() => {
     checkAuthStatus()
   }, [])
 
-  const logout = async () => {
-    try {
-      await SecureStore.deleteItemAsync('authToken')
-      setIsLoggedIn(false)
-      setMessage('User logged out successfully')
-      setTimeout(() => {
-        setMessage(null)
-      }, 3000)
-    } catch (error) {
-      setMessage('There was any error logging out')
-      setTimeout(() => {
-        setMessage(null)
-      }, 3000)
-    }
+  const handleAuth = (route: Parameters<typeof router.push>[0]) => {
+    router.push(route)
   }
 
   return (
@@ -49,6 +32,7 @@ const Navbar = () => {
             backgroundColor: '#e2e2d9',
             padding: 20,
             width: '100%',
+            left: '5%',
             justifyContent: 'center',
             alignItems: 'center',
             display: message ? 'flex' : 'none',
@@ -80,7 +64,7 @@ const Navbar = () => {
         <View style={styles.flexBox}>
           <Pressable
             style={styles.button}
-            onPress={() => router.push('/(tabs)')}
+            onPress={() => handleAuth('/(tabs)')}
           >
             <SimpleLineIcons
               name="arrow-left"
@@ -92,7 +76,7 @@ const Navbar = () => {
           <View style={styles.button}>
             <Pressable
               style={styles.authButton}
-              onPress={() => router.push('/(tabs)')}
+              onPress={() => handleAuth('/Register')}
             >
               <SimpleLineIcons name="user" size={16} color={constants.light} />
               <Text style={{ color: constants.white, fontSize: 14 }}>
@@ -102,7 +86,10 @@ const Navbar = () => {
 
             <Text style={{ color: constants.white, fontSize: 14 }}>|</Text>
 
-            <Pressable style={styles.authButton}>
+            <Pressable
+              style={styles.authButton}
+              onPress={() => handleAuth('/Login')}
+            >
               <SimpleLineIcons name="login" size={16} color={constants.light} />
               <Text style={{ color: constants.white, fontSize: 14 }}>
                 Login
@@ -122,10 +109,10 @@ const styles = StyleSheet.create({
     top: 50,
     left: 0,
     right: 0,
-    paddingVertical: 20,
+    paddingVertical: 15,
     paddingHorizontal: '5%',
-    backgroundColor: '#0d0d72cc',
-    zIndex: 999,
+    backgroundColor: '#131387cc',
+    zIndex: 10,
   },
   flexBox: {
     flexDirection: 'row',
@@ -139,13 +126,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 10,
     alignItems: 'center',
-  },
-  alert: {
-    position: 'absolute',
-    top: 180,
-    left: '5%',
-    width: '90%',
-    borderRadius: 10,
-    zIndex: 10,
   },
 })

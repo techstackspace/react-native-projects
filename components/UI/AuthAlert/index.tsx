@@ -36,20 +36,22 @@ const Alert = () => {
   return (
     <>
       {message && (
-        <View
-          style={[
-            styles.alert,
-            { backgroundColor: isLoggedIn ? constants.light : '#f5dfdf' },
-          ]}
-        >
-          <Text
+        <View style={styles.alertContainer}>
+          <View
             style={[
-              styles.successText,
-              { color: isLoggedIn ? 'green' : 'red' },
+              styles.alert,
+              { backgroundColor: isLoggedIn ? constants.light : '#f5dfdf' },
             ]}
           >
-            {message}
-          </Text>
+            <Text
+              style={[
+                styles.successText,
+                { color: isLoggedIn ? 'green' : 'red' },
+              ]}
+            >
+              {message}
+            </Text>
+          </View>
         </View>
       )}
     </>
@@ -57,27 +59,24 @@ const Alert = () => {
 }
 export default Alert
 const styles = StyleSheet.create({
-  navbar: {
-    padding: 10,
-    width: '100%',
-  },
-  button: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    gap: 10,
-    marginRight: '5%',
-  },
-  alert: {
+  alertContainer: {
     position: 'absolute',
     top: 180,
+    height: 50,
     left: '5%',
     width: '90%',
     borderRadius: 10,
     zIndex: 10,
   },
+  alert: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+
   successText: {
     color: 'green',
     textAlign: 'center',
-    paddingVertical: 25,
   },
 })

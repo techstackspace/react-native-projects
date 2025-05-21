@@ -44,8 +44,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    height: 50,
     gap: 20,
+    marginTop: -63,
   },
   emptyStateImage: {
     width: 200,
