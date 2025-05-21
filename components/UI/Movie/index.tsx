@@ -1,10 +1,20 @@
 import { LinearGradient } from 'expo-linear-gradient'
-import { Dimensions, Image, StyleSheet, Text, View } from 'react-native'
+import {
+  Dimensions,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 import MaskedView from '@react-native-masked-view/masked-view'
 import { constants } from '@/constants'
-import { Link } from 'expo-router'
+import { Link, useSegments } from 'expo-router'
 import { BlurView } from 'expo-blur'
 import { MoviesInterface } from '../MoviesSection/interface'
+import { FontAwesome } from '@expo/vector-icons'
+import { handleDeleteMovieBookmark, handleMovieBookmark } from '@/api'
+import { useState } from 'react'
 
 const Movie = ({
   title,
@@ -15,6 +25,33 @@ const Movie = ({
   isTopMovies,
   rating,
 }: MoviesInterface) => {
+  const [bookmark, setBookmark] = useState()
+  const [deletedBookmark, setDeletedBookmark] = useState()
+  const [error, setError] = useState<string | null>(null)
+  const segments = useSegments() as string[]
+
+  const handleBookmark = async () => {
+    try {
+      const data = await handleMovieBookmark(id || '')
+      setBookmark(data)
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message)
+      }
+    }
+  }
+
+  const handleDeleteBookmarkMovie = async () => {
+    try {
+      const data = await handleDeleteMovieBookmark(id || '')
+      setDeletedBookmark(data)
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message)
+      }
+    }
+  }
+
   return (
     <View
       style={[styles.itemContainer, { marginLeft: isTopMovies ? 10 : 0 }]}
@@ -64,9 +101,26 @@ const Movie = ({
             />
           </MaskedView>
         )}
-        <Text style={styles.title}>
-          {title.length > 15 ? `${title.substring(0, 15)}...` : title}
-        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Text style={styles.title}>
+            {title.length > 15 ? `${title.substring(0, 15)}...` : title}
+          </Text>
+          {segments.includes('Bookmark') ? (
+            <Pressable onPress={handleDeleteBookmarkMovie}>
+              <FontAwesome name="trash-o" color={constants.white} />
+            </Pressable>
+          ) : (
+            <Pressable onPress={handleBookmark}>
+              <FontAwesome name="bookmark-o" color={constants.white} />
+            </Pressable>
+          )}
+        </View>
         {!isTopMovies && (
           <View style={styles.ratingContainer}>
             <Image
@@ -124,6 +178,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 4,
     marginTop: 4,
+    alignItems: 'center',
   },
   ratingIcon: {
     width: 10,

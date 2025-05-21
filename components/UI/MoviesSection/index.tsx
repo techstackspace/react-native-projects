@@ -6,13 +6,14 @@ import {
   Dimensions,
   ActivityIndicator,
   Pressable,
-} from "react-native";
-import Movie from "@/components/UI/Movie";
-import { MoviesSectionProps } from "@/components/UI/MoviesSection/interface";
-import { constants } from "@/constants";
-import { useSegments } from "expo-router";
-import MoviesHeader from "../MoviesHeader";
-import { useState } from "react";
+} from 'react-native'
+import Movie from '@/components/UI/Movie'
+import { MoviesSectionProps } from '@/components/UI/MoviesSection/interface'
+import { constants } from '@/constants'
+import { useSegments } from 'expo-router'
+import MoviesHeader from '../MoviesHeader'
+import { useState } from 'react'
+import { handleDeleteMovieBookmark } from '@/api'
 
 const MoviesSection = ({
   title,
@@ -23,38 +24,39 @@ const MoviesSection = ({
   loading,
   setCurrentLimit,
   genreList,
+  handleMovieBookmark,
   onGenrePress = () => {},
 }: MoviesSectionProps) => {
-  const segments = useSegments();
-  const isSearchRoute = (segments as string[]).includes("Search");
+  const segments = useSegments()
+  const isSearchRoute = (segments as string[]).includes('Search')
   const loadMoreMovies = () => {
-    if (!loading && movies.length < totalMovies) {
-      setCurrentPage((prevPage) => prevPage + 1);
+    if (!loading && movies.length < totalMovies && setCurrentPage) {
+      setCurrentPage((prevPage) => prevPage + 1)
     }
-  };
+  }
 
-  const [activeLimit, setActiveLimit] = useState(10);
+  const [activeLimit, setActiveLimit] = useState(10)
 
   const handleLimitChange = (limit: number) => {
-    setActiveLimit(limit);
-    setCurrentLimit(limit);
-    setCurrentPage(1);
-  };
+    setActiveLimit(limit)
+    if (setCurrentLimit) setCurrentLimit(limit)
+    if (setCurrentPage) setCurrentPage(1)
+  }
 
   const renderFooter = () => {
-    if (!loading) return null;
+    if (!loading) return null
     return (
       <View style={styles.footer}>
         <ActivityIndicator size="small" color={constants.white} />
       </View>
-    );
-  };
+    )
+  }
 
   return (
     <>
       {isSearchRoute ? (
         <MoviesHeader
-          title={title || ""}
+          title={title || ''}
           genreList={genreList || []}
           onGenrePress={onGenrePress}
         />
@@ -62,9 +64,9 @@ const MoviesSection = ({
       <View style={styles.sectionContainer}>
         <View
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            flexDirection: "row",
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
           }}
         >
           {!isSearchRoute && <Text style={styles.sectionTitle}>{title}</Text>}
@@ -98,6 +100,8 @@ const MoviesSection = ({
           renderItem={({ item, index }) => (
             <Movie
               id={item._id}
+              handleMovieBookmark={handleMovieBookmark}
+              handleDeleteMovieBookmark={handleDeleteMovieBookmark}
               title={item.title}
               description={item.description}
               genres={item.genres}
@@ -115,40 +119,40 @@ const MoviesSection = ({
         />
       </View>
     </>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   sectionContainer: {
     marginBottom: 20,
-    width: Dimensions.get("screen").width * 0.9,
-    marginHorizontal: "auto",
+    width: Dimensions.get('screen').width * 0.9,
+    marginHorizontal: 'auto',
   },
   sectionTitle: {
     fontSize: 20,
     fontWeight: 600,
     color: constants.white,
     marginBottom: 10,
-    fontFamily: "Inter-regular",
+    fontFamily: 'Inter-regular',
   },
   footer: {
-    alignItems: "center",
-    position: "relative",
+    alignItems: 'center',
+    position: 'relative',
     top: -15,
   },
   buttonContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 10,
-    alignItems: "center",
+    alignItems: 'center',
   },
   button: {
     backgroundColor: constants.light,
     borderRadius: 4,
     width: 25,
     height: 27,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-});
+})
 
-export default MoviesSection;
+export default MoviesSection
