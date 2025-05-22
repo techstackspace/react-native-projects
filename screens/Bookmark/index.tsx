@@ -58,7 +58,7 @@ const BookmarkScreen = () => {
           renderItem={() => (
             <MoviesSection
               title={'Bookmark List'}
-              onGenrePress={handlAddMovieBookmark}
+              onMoviePress={handlAddMovieBookmark}
               handleDeleteMovieBookmark={handleDeleteMovieBookmark}
               movies={bookmarkMovies}
               isTopMovies={false}

@@ -12,14 +12,16 @@ Displays a heading and a horizontally scrollable genre filter for movie search r
 
 ## Component Props
 
-| Prop         | Type                      | Description                                 |
-| ------------ | ------------------------- | ------------------------------------------- |
-| title        | `string`                  | Search query string to display in the title |
-| genreList    | `string[]`                | List of movie genres                        |
-| onGenrePress | `(genre: string) => void` | Callback when a genre is pressed            |
+| Prop      | Type       | Description                                 |
+| --------- | ---------- | ------------------------------------------- |
+| title     | `string`   | Search query string to display in the title |
+| genreList | `string[]` | List of movie genres                        |
+
+| pnMoviePress: (genre: string) => void;
+| `(genre: string) => void` | Callback when a genre is pressed |
 
 ## Behavior
 
 - **Search Result Highlighting:** The `title` is truncated after 17 characters and highlighted to differentiate it from the static label (`"Search result for"`).
 - **Scrollable Genre List:** Genres are rendered as pill-shaped buttons in a horizontally scrollable container.
-- **Interactive Filtering:** Tapping on a genre triggers `onGenrePress` with the selected genre.
+- **Interactive Filtering:** Tapping on a genre triggers ` pnMoviePress: (genre: string) => void;` with the selected genre.

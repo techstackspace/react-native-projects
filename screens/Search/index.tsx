@@ -68,7 +68,7 @@ const SearchScreen = () => {
         <MoviesSection
           title={text}
           genreList={genreList}
-          onGenrePress={handleGenreText}
+          onMoviePress={handleGenreText}
           movies={latestMovies}
           isTopMovies={false}
           setCurrentPage={setCurrentPage}
