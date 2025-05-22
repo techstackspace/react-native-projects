@@ -1,15 +1,15 @@
-import { constants } from "@/constants";
-import { ScrollView, Text, Pressable, StyleSheet, View } from "react-native";
-import { MoviesHeaderProps } from "./interface";
+import { constants } from '@/constants'
+import { ScrollView, Text, Pressable, StyleSheet, View } from 'react-native'
+import { MoviesHeaderProps } from './interface'
 
 const MoviesHeader = ({
   title,
   genreList,
-  onGenrePress,
+  onMoviePress,
 }: MoviesHeaderProps) => (
   <View style={styles.movieSearchHeader}>
     <Text style={styles.title}>
-      Search result for {""}
+      Search result for {''}
       <Text style={styles.searchText}>
         {title.length > 17 ? `${title.substring(0, 17)}...` : title}
       </Text>
@@ -23,28 +23,28 @@ const MoviesHeader = ({
         <Pressable
           key={genre}
           style={styles.categoryButton}
-          onPress={() => onGenrePress(genre)}
+          onPress={() => onMoviePress(genre)}
         >
           <Text style={styles.categoryText}>{genre}</Text>
         </Pressable>
       ))}
     </ScrollView>
   </View>
-);
+)
 
 const styles = StyleSheet.create({
   movieSearchHeader: {
-    marginHorizontal: "5%",
+    marginHorizontal: '5%',
   },
   title: {
     fontSize: 20,
     fontWeight: 600,
     color: constants.white,
-    fontFamily: "Inter-regular",
+    fontFamily: 'Inter-regular',
   },
-  searchText: { fontWeight: 700, color: "#D1C0FF" },
+  searchText: { fontWeight: 700, color: '#D1C0FF' },
   categories: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 10,
     marginTop: 20,
     marginBottom: 20,
@@ -57,10 +57,10 @@ const styles = StyleSheet.create({
   },
   categoryText: {
     fontSize: 12,
-    color: "#ECECFF",
+    color: '#ECECFF',
     fontWeight: 500,
-    fontFamily: "Inter",
+    fontFamily: 'Inter',
   },
-});
+})
 
-export default MoviesHeader;
+export default MoviesHeader

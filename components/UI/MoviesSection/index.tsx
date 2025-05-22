@@ -25,7 +25,7 @@ const MoviesSection = ({
   setCurrentLimit,
   genreList,
   handlAddMovieBookmark,
-  onGenrePress = () => {},
+  onMoviePress = () => {},
 }: MoviesSectionProps) => {
   const segments = useSegments()
   const isSearchRoute = (segments as string[]).includes('Search')
@@ -58,7 +58,7 @@ const MoviesSection = ({
         <MoviesHeader
           title={title || ''}
           genreList={genreList || []}
-          onGenrePress={onGenrePress}
+          onMoviePress={onMoviePress}
         />
       ) : null}
       <View style={styles.sectionContainer}>

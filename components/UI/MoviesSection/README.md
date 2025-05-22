@@ -24,7 +24,7 @@ This component renders a list of movies, either as a horizontal list of top movi
 | loading         | `boolean`                                      | Indicates whether the movies are currently being fetched                    |
 | setCurrentLimit | `React.Dispatch<React.SetStateAction<number>>` | Function to change how many movies are shown per page                       |
 | genreList       | `string[]` (optional)                          | List of genres to display in the genre filter header (shown in search only) |
-| onGenrePress    | `(genre: string) => void` (optional)           | Callback when a genre is selected                                           |
+| onMoviePress    | `(genre: string) => void` (optional)           | Callback when a genre is selected                                           |
 
 ## Behavior
 

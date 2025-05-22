@@ -34,7 +34,7 @@ export interface MoviesSectionProps {
   loading: boolean
   setCurrentLimit?: React.Dispatch<React.SetStateAction<number>>
   genreList?: string[]
-  onGenrePress?: (genre: string) => void
+  onMoviePress?: (genre: string) => void
   handlAddMovieBookmark?: (movieId: string) => void
   handleDeleteMovieBookmark?: (movieId: string) => void
 }
