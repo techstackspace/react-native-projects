@@ -9,6 +9,7 @@ import { useBookmarks } from '@/hooks/useBookmarks'
 import { ActivityIndicator, FlatList, StyleSheet } from 'react-native'
 import AlertResponse from '@/components/UI/AlertResponse'
 import { handleDeleteMovieBookmark } from '@/api'
+import { useBookmark } from '@/hooks/useBookmark'
 
 const BookmarkScreen = () => {
   const { isLoggedIn, logout } = useContext(MovieContext)
@@ -28,6 +29,7 @@ const BookmarkScreen = () => {
     error: bookmarkError,
     sumMovies: totalBookmarks,
   } = useBookmarks(currentPage, bookmarkMoviesUrl)
+  const { bookmark } = useBookmark()
 
   useEffect(() => {
     if (bookmarkError) {
@@ -71,6 +73,8 @@ const BookmarkScreen = () => {
   }
 
   const sections = [{ key: 'bookmark-section' }]
+
+  console.log(bookmark)
 
   return (
     <Main>

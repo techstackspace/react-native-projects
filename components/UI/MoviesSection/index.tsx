@@ -15,6 +15,7 @@ import MoviesHeader from '../MoviesHeader'
 import { useState } from 'react'
 import { handlAddMovieBookmark } from '@/api'
 import AlertResponse from '@/components/UI/AlertResponse'
+import { useBookmark } from '@/hooks/useBookmark'
 
 const MoviesSection = ({
   title,
@@ -29,7 +30,10 @@ const MoviesSection = ({
   onMoviePress = () => {},
 }: MoviesSectionProps) => {
   const segments = useSegments()
+  const [bookmarkId, setBookmarkId] = useState('')
   const isSearchRoute = (segments as string[]).includes('Search')
+  const { loadBookmark } = useBookmark()
+
   const loadMoreMovies = () => {
     if (!loading && movies.length < totalMovies && setCurrentPage) {
       setCurrentPage((prevPage) => prevPage + 1)
@@ -57,9 +61,12 @@ const MoviesSection = ({
   const [error, setError] = useState<string | null>(null)
 
   const addBookmarkMovie = async (id: string) => {
+    setBookmarkId(id)
     try {
       const data = await handlAddMovieBookmark(id)
       setAddedMessage(data.message)
+      loadBookmark(id)
+
       setTimeout(() => {
         setAddedMessage(null)
       }, 3000)
@@ -69,6 +76,8 @@ const MoviesSection = ({
       }
     }
   }
+
+  console.log(bookmarkId)
 
   return (
     <>

@@ -116,6 +116,36 @@ const handleLoginUser = async (payload: payloadInterface) => {
   }
 }
 
+const handleFetchMovieBookmarksById = async (movieId: string) => {
+  try {
+    const token = await SecureStore.getItemAsync('authToken')
+
+    if (!token) {
+      throw new Error('Login to bookmark movie')
+    }
+
+    const response = await fetch(`${HOST}/api/users/bookmark/${movieId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(`Failed to bookmark movie. Status: ${response.status}`)
+    }
+
+    const data = await response.json()
+    return data
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    } else {
+      console.error('Login required to bookmark movie')
+    }
+    throw error
+  }
+}
+
 const handlAddMovieBookmark = async (movieId: string) => {
   try {
     const token = await SecureStore.getItemAsync('authToken')
@@ -187,6 +217,7 @@ const handleDeleteMovieBookmark = async (movieId: string) => {
 export {
   handleFetchMovies,
   handleFetchMoviesById,
+  handleFetchMovieBookmarksById,
   handleRegisterUser,
   handleLoginUser,
   handlAddMovieBookmark,
