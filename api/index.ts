@@ -35,7 +35,7 @@ const handleFetchBookmarkMovies = async (url: string) => {
     })
 
     if (!response.ok) {
-      throw new Error('Login to see movie list')
+      throw new Error('An error occured in fetching bookmark list')
     }
 
     const data = await response.json()

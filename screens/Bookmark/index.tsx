@@ -2,14 +2,13 @@ import Main from '@/components/shared/Main'
 import Navbar from '@/components/UI/Navbar'
 import Alert from '@/components/UI/Alert'
 import { MovieContext } from '@/context'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Header from '@/components/UI/Header'
 import MoviesSection from '@/components/UI/MoviesSection'
 import { useBookmarks } from '@/hooks/useBookmarks'
 import { ActivityIndicator, FlatList, StyleSheet } from 'react-native'
 import AlertResponse from '@/components/UI/AlertResponse'
-import { handleDeleteMovieBookmark, handleFetchBookmarkMovies } from '@/api'
-import { useFocusEffect, useSegments } from 'expo-router'
+import { handleDeleteMovieBookmark } from '@/api'
 
 const BookmarkScreen = () => {
   const { isLoggedIn } = useContext(MovieContext)
@@ -29,21 +28,6 @@ const BookmarkScreen = () => {
     error: bookmarkError,
     sumMovies: totalBookmarks,
   } = useBookmarks(currentPage, bookmarkMoviesUrl)
-  const segments = useSegments()
-  const isBookmarkRoute = (segments as string[]).includes('Bookmark')
-
-  useEffect(() => {
-    if (isBookmarkRoute) {
-      handleFetchBookmarkMovies('/api/users/bookmark/')
-    }
-  }, [])
-
-  useFocusEffect(
-    useCallback(() => {
-      handleFetchBookmarkMovies('/api/users/bookmark/')
-      return () => {}
-    }, []),
-  )
 
   useEffect(() => {
     const timer = setTimeout(() => {
