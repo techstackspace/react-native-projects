@@ -2,18 +2,17 @@ import { constants } from '@/constants'
 import { StyleSheet, Text, View } from 'react-native'
 
 interface MessageProps {
-  errorMessgae: {
-    addedBookmark: {
-      message: string
-    }
+  notification: {
+    message: string
   }
 }
 
-const AlertResponse = ({ errorMessgae }: any) => {
+const AlertResponse = (notification: any) => {
+  const message = notification.message
   return (
     <View style={styles.alertContainer}>
       <View style={styles.alert}>
-        <Text>{errorMessgae}</Text>
+        <Text>{message}</Text>
       </View>
     </View>
   )
