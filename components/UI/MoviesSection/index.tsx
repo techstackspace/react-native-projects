@@ -60,6 +60,9 @@ const MoviesSection = ({
     try {
       const data = await handlAddMovieBookmark(id)
       setAddedMessage(data.message)
+      setTimeout(() => {
+        setAddedMessage(null)
+      }, 3000)
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message)
