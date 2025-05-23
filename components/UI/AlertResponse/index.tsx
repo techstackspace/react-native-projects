@@ -18,10 +18,11 @@ const AlertResponse = (notification: any) => {
   )
 }
 export default AlertResponse
+
 const styles = StyleSheet.create({
   alertContainer: {
     position: 'absolute',
-    top: 200,
+    top: 180,
     height: 50,
     backgroundColor: constants.white,
     width: '90%',

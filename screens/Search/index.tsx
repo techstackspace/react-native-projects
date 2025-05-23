@@ -75,6 +75,7 @@ const SearchScreen = () => {
           setCurrentLimit={setCurrentLimit}
           totalMovies={totalMovies}
           loading={latestLoading}
+          deleteBookmarkMovie={() => {}}
         />
       )}
     </Main>

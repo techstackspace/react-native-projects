@@ -36,7 +36,7 @@ export interface MoviesSectionProps {
   genreList?: string[]
   onMoviePress?: (genre: string) => void
   addBookmarkMovie?: (id: string) => void
-  currentLimit: number
-  currentPage: number
+  currentLimit?: number
+  currentPage?: number
   deleteBookmarkMovie: (id: string) => void
 }

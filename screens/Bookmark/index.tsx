@@ -2,17 +2,17 @@ import Main from '@/components/shared/Main'
 import Navbar from '@/components/UI/Navbar'
 import Alert from '@/components/UI/Alert'
 import { MovieContext } from '@/context'
-import { useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import Header from '@/components/UI/Header'
 import MoviesSection from '@/components/UI/MoviesSection'
 import { useBookmarks } from '@/hooks/useBookmarks'
 import { ActivityIndicator, FlatList, StyleSheet } from 'react-native'
 import AlertResponse from '@/components/UI/AlertResponse'
-import { handleDeleteMovieBookmark } from '@/api'
-import { useBookmark } from '@/hooks/useBookmark'
+import { handleDeleteMovieBookmark, handleFetchBookmarkMovies } from '@/api'
+import { useFocusEffect, useSegments } from 'expo-router'
 
 const BookmarkScreen = () => {
-  const { isLoggedIn, logout } = useContext(MovieContext)
+  const { isLoggedIn } = useContext(MovieContext)
 
   const [currentPage, setCurrentPage] = useState(1)
   const [currentLimit, setCurrentLimit] = useState(10)
@@ -29,13 +29,21 @@ const BookmarkScreen = () => {
     error: bookmarkError,
     sumMovies: totalBookmarks,
   } = useBookmarks(currentPage, bookmarkMoviesUrl)
-  const { bookmark } = useBookmark()
+  const segments = useSegments()
+  const isBookmarkRoute = (segments as string[]).includes('Bookmark')
 
   useEffect(() => {
-    if (bookmarkError) {
-      logout()
+    if (isBookmarkRoute) {
+      handleFetchBookmarkMovies('/api/users/bookmark/')
     }
-  }, [bookmarkError])
+  }, [])
+
+  useFocusEffect(
+    useCallback(() => {
+      handleFetchBookmarkMovies('/api/users/bookmark/')
+      return () => {}
+    }, []),
+  )
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -74,15 +82,13 @@ const BookmarkScreen = () => {
 
   const sections = [{ key: 'bookmark-section' }]
 
-  console.log(bookmark)
-
   return (
     <Main>
-      {bookmarkError && <AlertResponse message={bookmarkError} />}
+      {error && <AlertResponse message={error} />}
       {deletedBookmarkMessage && (
         <AlertResponse message={deletedBookmarkMessage} />
       )}
-      {error && <AlertResponse message={error} />}
+      {bookmarkError && <AlertResponse message={bookmarkError} />}
       <Navbar />
       <Header onChangeText={onChangeText} text={text} />
       {!isLoggedIn ? (

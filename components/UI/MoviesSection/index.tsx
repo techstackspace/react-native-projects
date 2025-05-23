@@ -12,10 +12,9 @@ import { MoviesSectionProps } from '@/components/UI/MoviesSection/interface'
 import { constants } from '@/constants'
 import { useSegments } from 'expo-router'
 import MoviesHeader from '../MoviesHeader'
-import { useState } from 'react'
-import { handlAddMovieBookmark } from '@/api'
+import { useContext, useEffect, useState } from 'react'
 import AlertResponse from '@/components/UI/AlertResponse'
-import { useBookmark } from '@/hooks/useBookmark'
+import { MovieContext } from '@/context'
 
 const MoviesSection = ({
   title,
@@ -29,10 +28,9 @@ const MoviesSection = ({
   genreList,
   onMoviePress = () => {},
 }: MoviesSectionProps) => {
+  const { addBookmarkMovie } = useContext(MovieContext)
   const segments = useSegments()
-  const [bookmarkId, setBookmarkId] = useState('')
   const isSearchRoute = (segments as string[]).includes('Search')
-  const { loadBookmark, bookmark } = useBookmark()
 
   const loadMoreMovies = () => {
     if (!loading && movies.length < totalMovies && setCurrentPage) {
@@ -57,32 +55,8 @@ const MoviesSection = ({
     )
   }
 
-  const [addedMessage, setAddedMessage] = useState(null)
-  const [error, setError] = useState<string | null>(null)
-
-  const addBookmarkMovie = async (id: string) => {
-    // setBookmarkId(id)
-    try {
-      const data = await handlAddMovieBookmark(id)
-      setAddedMessage(data.message)
-      loadBookmark(id)
-
-      setTimeout(() => {
-        setAddedMessage(null)
-      }, 3000)
-    } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message)
-      }
-    }
-  }
-
-  console.log(bookmark)
-
   return (
     <>
-      {error && <AlertResponse message={error} />}
-      {addedMessage && <AlertResponse message={addedMessage} />}
       {isSearchRoute ? (
         <MoviesHeader
           title={title || ''}

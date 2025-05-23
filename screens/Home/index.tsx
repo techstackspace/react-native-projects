@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import {
   FlatList,
   ActivityIndicator,
@@ -17,8 +17,11 @@ import Navbar from '@/components/UI/Navbar'
 
 import { useMovies } from '@/hooks/useMovies'
 import { SectionsProps } from './interface'
+import { MovieContext } from '@/context'
+import AlertResponse from '@/components/UI/AlertResponse'
 
 const Home = () => {
+  const { addedMessage } = useContext(MovieContext)
   const [text, setText] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [currentLimit, setCurrentLimit] = useState(10)
@@ -78,15 +81,20 @@ const Home = () => {
     }
 
     return (
-      <MoviesSection
-        title={item.title || ''}
-        movies={item.data || []}
-        isTopMovies={item.type === 'topMovies'}
-        setCurrentPage={setCurrentPage}
-        setCurrentLimit={setCurrentLimit}
-        totalMovies={totalMovies}
-        loading={latestLoading}
-      />
+      <>
+        {/* {error && <AlertResponse message={error} />} */}
+        {addedMessage && <AlertResponse message={addedMessage} />}
+        <MoviesSection
+          title={item.title || ''}
+          movies={item.data || []}
+          isTopMovies={item.type === 'topMovies'}
+          setCurrentPage={setCurrentPage}
+          setCurrentLimit={setCurrentLimit}
+          totalMovies={totalMovies}
+          loading={latestLoading}
+          deleteBookmarkMovie={() => {}}
+        />
+      </>
     )
   }
 
