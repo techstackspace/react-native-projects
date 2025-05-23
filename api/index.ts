@@ -166,6 +166,12 @@ const handlAddMovieBookmark = async (movieId: string) => {
     }
 
     const data = await response.json()
+    const updateBookmarks = await handleFetchBookmarkMovies(
+      `/api/users/bookmark/${movieId}`,
+    )
+    // console.log({ bookmark: data, updateBookmarks })
+    // console.log(updateBookmarks.bookmark)
+    // console.log(data)
     return data
   } catch (error) {
     if (error instanceof Error) {

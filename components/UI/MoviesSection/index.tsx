@@ -32,7 +32,7 @@ const MoviesSection = ({
   const segments = useSegments()
   const [bookmarkId, setBookmarkId] = useState('')
   const isSearchRoute = (segments as string[]).includes('Search')
-  const { loadBookmark } = useBookmark()
+  const { loadBookmark, bookmark } = useBookmark()
 
   const loadMoreMovies = () => {
     if (!loading && movies.length < totalMovies && setCurrentPage) {
@@ -61,7 +61,7 @@ const MoviesSection = ({
   const [error, setError] = useState<string | null>(null)
 
   const addBookmarkMovie = async (id: string) => {
-    setBookmarkId(id)
+    // setBookmarkId(id)
     try {
       const data = await handlAddMovieBookmark(id)
       setAddedMessage(data.message)
@@ -77,7 +77,7 @@ const MoviesSection = ({
     }
   }
 
-  console.log(bookmarkId)
+  console.log(bookmark)
 
   return (
     <>
