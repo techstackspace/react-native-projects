@@ -13,7 +13,8 @@ import { constants } from '@/constants'
 import { useSegments } from 'expo-router'
 import MoviesHeader from '../MoviesHeader'
 import { useState } from 'react'
-import { handleDeleteMovieBookmark } from '@/api'
+import { handlAddMovieBookmark, handleDeleteMovieBookmark } from '@/api'
+import AlertResponse from '@/components/UI/AlertResponse'
 
 const MoviesSection = ({
   title,
@@ -24,11 +25,11 @@ const MoviesSection = ({
   loading,
   setCurrentLimit,
   genreList,
-  handlAddMovieBookmark,
   onMoviePress = () => {},
 }: MoviesSectionProps) => {
   const segments = useSegments()
   const isSearchRoute = (segments as string[]).includes('Search')
+  const isBookmarkRoute = (segments as string[]).includes('Bookmark')
   const loadMoreMovies = () => {
     if (!loading && movies.length < totalMovies && setCurrentPage) {
       setCurrentPage((prevPage) => prevPage + 1)
@@ -52,8 +53,54 @@ const MoviesSection = ({
     )
   }
 
+  const [addedBookmark, setAddedBookmark] = useState(null)
+  const [addedMessage, setAddedMessage] = useState(null)
+  const [deletedBookmarkMessage, setDeletedBookmarkMessage] = useState(null)
+  const [isAdded, setIsAdded] = useState(false)
+  const [isDeleted, setIsDeleted] = useState(false)
+  const [deletedBookmark, setDeletedBookmark] = useState()
+  const [error, setError] = useState<string | null>(null)
+
+  const addBookmarkMovie = async (id: string) => {
+    try {
+      const { addedBookmark, updateBookmarks } = await handlAddMovieBookmark(id)
+      setAddedBookmark(updateBookmarks.bookmarks)
+      setAddedMessage(addedBookmark.message)
+      setIsAdded(true)
+      setIsDeleted(false)
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message)
+      }
+    }
+  }
+
+  const deleteBookmarkMovie = async (id: string) => {
+    try {
+      const { deletedBookmark, updateBookmarks } =
+        await handleDeleteMovieBookmark(id)
+      setDeletedBookmarkMessage(deletedBookmark)
+      setDeletedBookmark(updateBookmarks.bookmarks)
+      setIsAdded(false)
+      setIsDeleted(true)
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message)
+      }
+    }
+  }
+
+  const movieList = isDeleted
+    ? deletedBookmark
+    : isAdded
+    ? addedBookmark
+    : movies
+
   return (
     <>
+      {/* {deletedBookmarkMessage && (
+        <AlertResponse message={deletedBookmarkMessage} />
+      )} */}
       {isSearchRoute ? (
         <MoviesHeader
           title={title || ''}
@@ -93,21 +140,21 @@ const MoviesSection = ({
           )}
         </View>
         <FlatList
-          data={movies}
+          data={movieList}
           horizontal={isTopMovies}
           numColumns={isTopMovies ? 0 : 3}
           keyExtractor={(movie, index) => `${movie._id}-${index}`}
           renderItem={({ item, index }) => (
             <Movie
               id={item._id}
-              handlAddMovieBookmark={handlAddMovieBookmark}
-              handleDeleteMovieBookmark={handleDeleteMovieBookmark}
               title={item.title}
               description={item.description}
               genres={item.genres}
               posterUrl={item.posterUrl}
               numbering={index + 1}
               isTopMovies={isTopMovies}
+              addBookmarkMovie={addBookmarkMovie}
+              deleteBookmarkMovie={deleteBookmarkMovie}
               rating={item.rating}
             />
           )}

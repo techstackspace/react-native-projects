@@ -137,6 +137,10 @@ const handlAddMovieBookmark = async (movieId: string) => {
 
     const data = await response.json()
     return data
+    // const updateBookmarks = await handleFetchBookmarkMovies(
+    //   '/api/users/bookmarks',
+    // )
+    // return { addedBookmark: data, updateBookmarks }
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message)
@@ -169,7 +173,11 @@ const handleDeleteMovieBookmark = async (movieId: string) => {
     }
 
     const data = await response.json()
-    return data
+    const updateBookmarks = await handleFetchBookmarkMovies(
+      '/api/users/bookmarks',
+    )
+
+    return { deletedBookmark: data, updateBookmarks }
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message)

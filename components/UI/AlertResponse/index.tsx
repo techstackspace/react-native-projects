@@ -3,7 +3,9 @@ import { StyleSheet, Text, View } from 'react-native'
 
 interface MessageProps {
   errorMessgae: {
-    message: string
+    addedBookmark: {
+      message: string
+    }
   }
 }
 

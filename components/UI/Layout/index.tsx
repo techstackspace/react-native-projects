@@ -7,7 +7,6 @@ import { StatusBar } from 'expo-status-bar'
 import { SectionsProps } from './interface'
 import Main from '@/components/shared/Main'
 import Alert from '@/components/UI/Alert'
-import { handlAddMovieBookmark } from '@/api'
 
 const Home = () => {
   const [text, setText] = useState('')
@@ -48,7 +47,6 @@ const Home = () => {
     return (
       <MoviesSection
         title={item.title || ''}
-        handlAddMovieBookmark={handlAddMovieBookmark}
         movies={item.data || []}
         isTopMovies={item.type === 'topMovies'}
         setCurrentPage={setCurrentPage}

@@ -6,8 +6,8 @@ import { useContext, useState } from 'react'
 import Header from '@/components/UI/Header'
 import MoviesSection from '@/components/UI/MoviesSection'
 import { useBookmarks } from '@/hooks/useBookmarks'
-import { handleDeleteMovieBookmark, handlAddMovieBookmark } from '@/api'
 import { ActivityIndicator, FlatList, StyleSheet } from 'react-native'
+import AlertResponse from '@/components/UI/AlertResponse'
 
 const BookmarkScreen = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -37,9 +37,11 @@ const BookmarkScreen = () => {
   }
 
   const sections = [{ key: 'bookmark-section' }]
+  console.log(bookmarkError)
 
   return (
     <Main>
+      {bookmarkError && <AlertResponse message={bookmarkError} />}
       <Navbar />
       <Header onChangeText={onChangeText} text={text} />
       {!isLoggedIn ? (
@@ -58,8 +60,6 @@ const BookmarkScreen = () => {
           renderItem={() => (
             <MoviesSection
               title={'Bookmark List'}
-              onMoviePress={handlAddMovieBookmark}
-              handleDeleteMovieBookmark={handleDeleteMovieBookmark}
               movies={bookmarkMovies}
               isTopMovies={false}
               totalMovies={totalBookmarks}

@@ -21,8 +21,8 @@ export interface MoviesInterface {
   numbering?: number
   isTopMovies?: boolean
   movie?: any
-  handlAddMovieBookmark?: (movieId: string) => void
-  handleDeleteMovieBookmark?: (movieId: string) => void
+  addBookmarkMovie: (id: string) => void
+  deleteBookmarkMovie: (id: string) => void
 }
 
 export interface MoviesSectionProps {
@@ -35,6 +35,4 @@ export interface MoviesSectionProps {
   setCurrentLimit?: React.Dispatch<React.SetStateAction<number>>
   genreList?: string[]
   onMoviePress?: (genre: string) => void
-  handlAddMovieBookmark?: (movieId: string) => void
-  handleDeleteMovieBookmark?: (movieId: string) => void
 }
