@@ -16,10 +16,9 @@ export const useBookmarks = (page: number, url: string) => {
     try {
       setLoading(true)
       const data = await handleFetchBookmarkMovies(url)
+      console.log(data)
       setBookmarks((prevMovies) =>
-        page === 1
-          ? data.bookmarks || data
-          : [...prevMovies, ...data.bookmarks],
+        page === 1 ? data.bookmarks : [...prevMovies, ...data.bookmarks],
       )
       setSumMovies(data.totalMovies)
     } catch (err) {
