@@ -53,6 +53,7 @@ const Home = () => {
         setCurrentLimit={setCurrentLimit}
         totalMovies={totalMovies}
         loading={latestLoading}
+        deleteBookmarkMovie={() => {}}
       />
     )
   }
