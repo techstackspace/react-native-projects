@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import {
   FlatList,
   ActivityIndicator,
@@ -21,18 +21,7 @@ import { MovieContext } from '@/context'
 import AlertResponse from '@/components/UI/AlertResponse'
 
 const Home = () => {
-  const { addedMessage, checkAuthStatus, isLoggedIn, addedError } =
-    useContext(MovieContext)
-  // useEffect(() => {
-  //   const check = async () => {
-  //     await checkAuthStatus()
-  //     console.log('Checked auth status')
-  //   }
-
-  //   check()
-  // }, [])
-
-  console.log(isLoggedIn)
+  const { addedMessage, addedError } = useContext(MovieContext)
 
   const [text, setText] = useState('')
   const [currentPage, setCurrentPage] = useState(1)

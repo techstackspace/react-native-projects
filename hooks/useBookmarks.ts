@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react'
 import { handleFetchBookmarkMovies } from '@/api'
-import { useSegments } from 'expo-router/build/hooks'
 
-export const useBookmarks = (page: number, url: string) => {
+export const useBookmarks = (
+  page: number,
+  url: string,
+  isBookmark: boolean,
+) => {
   const [bookmarks, setBookmarks] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [sumMovies, setSumMovies] = useState(0)
-  const segments = useSegments() as string[]
-  const isBookmark = segments.includes('Bookmark')
 
   useEffect(() => {
     const timeoutId = setTimeout(() => loadBookmarkMovies(), 400)

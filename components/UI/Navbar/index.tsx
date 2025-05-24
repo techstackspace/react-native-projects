@@ -14,7 +14,10 @@ const Navbar = () => {
   const { isLoggedIn, message, logout, checkAuthStatus } = movieContext
 
   useEffect(() => {
-    checkAuthStatus()
+    const checkStatus = async () => {
+      await checkAuthStatus()
+    }
+    checkStatus()
   }, [])
 
   const handleAuth = (route: Parameters<typeof router.push>[0]) => {

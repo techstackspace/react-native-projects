@@ -45,8 +45,16 @@ const MovieProvider = ({ children }: MovieProviderProps) => {
 
   const checkAuthStatus = async () => {
     const token = await SecureStore.getItemAsync('authToken')
-    setIsLoggedIn(!!token)
+    const loggedIn = !!token
+    setIsLoggedIn(loggedIn)
+
+    if (loggedIn) {
+      setTimeout(() => {
+        setIsLoggedIn(false)
+      }, 3600000)
+    }
   }
+
   const [addedMessage, setAddedMessage] = useState(null)
 
   const addBookmarkMovie = async (id: string) => {

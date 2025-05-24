@@ -9,9 +9,10 @@ import { useBookmarks } from '@/hooks/useBookmarks'
 import { ActivityIndicator, FlatList, StyleSheet } from 'react-native'
 import AlertResponse from '@/components/UI/AlertResponse'
 import { handleDeleteMovieBookmark } from '@/api'
+import { useSegments } from 'expo-router'
 
 const BookmarkScreen = () => {
-  const { isLoggedIn } = useContext(MovieContext)
+  const segments = useSegments() as string[]
 
   const [currentPage, setCurrentPage] = useState(1)
   const [currentLimit, setCurrentLimit] = useState(10)
@@ -21,13 +22,14 @@ const BookmarkScreen = () => {
   const [deletedBookmarkMessage, setDeletedBookmarkMessage] = useState(null)
   const [isDeleted, setIsDeleted] = useState(false)
   const bookmarkMoviesUrl = `/api/users/bookmarks?limit=${currentLimit}&page=${currentPage}`
+  const isBookmark = segments.includes('Bookmark')
 
   const {
     bookmarks: bookmarkMovies,
     loading: bookmarkLoading,
     error: bookmarkError,
     sumMovies: totalBookmarks,
-  } = useBookmarks(currentPage, bookmarkMoviesUrl)
+  } = useBookmarks(currentPage, bookmarkMoviesUrl, isBookmark)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -36,6 +38,7 @@ const BookmarkScreen = () => {
     return () => clearTimeout(timer)
   }, [deletedBookmarkMessage])
 
+  const { isLoggedIn } = useContext(MovieContext)
   const deleteBookmarkMovie = async (id: string) => {
     try {
       const { deletedBookmark, updateBookmarks } =
