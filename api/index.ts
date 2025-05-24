@@ -50,6 +50,36 @@ const handleFetchBookmarkMovies = async (url: string) => {
   }
 }
 
+const handleFetchProfile = async () => {
+  try {
+    const token = await SecureStore.getItemAsync('authToken')
+
+    if (!token) {
+      throw new Error('Login to see profile')
+    }
+
+    const response = await fetch(`${HOST}/api/users/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch profile. Status: ${response.status}`)
+    }
+
+    const data = await response.json()
+    return data
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    } else {
+      console.error('Unknown error occured, please try again!')
+    }
+    throw error
+  }
+}
+
 const handleFetchMoviesById = async (id: string) => {
   try {
     const response = await fetch(`${HOST}/api/movies/${id}`)
@@ -116,6 +146,30 @@ const handleLoginUser = async (payload: payloadInterface) => {
   }
 }
 
+const handleUpdateUserProfile = async () => {
+  try {
+    const response = await fetch(`${HOST}/api/users/me`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${await SecureStore.getItemAsync('authToken')}`,
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(
+        `Unable to update user profile. Status: ${response.status}`,
+      )
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    } else {
+      console.error('Unknown error occured, please try again!')
+    }
+    throw error
+  }
+}
+
 const handleFetchMovieBookmarksById = async (movieId: string) => {
   try {
     const token = await SecureStore.getItemAsync('authToken')
@@ -140,7 +194,7 @@ const handleFetchMovieBookmarksById = async (movieId: string) => {
     if (error instanceof Error) {
       console.error(error.message)
     } else {
-      console.error('Login required to bookmark movie')
+      console.error('Unknown error occured, please try again!')
     }
     throw error
   }
@@ -166,15 +220,15 @@ const handlAddMovieBookmark = async (movieId: string) => {
     }
 
     const data = await response.json()
-    const updateBookmarks = await handleFetchBookmarkMovies(
-      `/api/users/bookmark/${movieId}`,
-    )
+    // const updateBookmarks = await handleFetchBookmarkMovies(
+    //   `/api/users/bookmark/${movieId}`,
+    // )
     return data
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message)
     } else {
-      console.error('Login required to bookmark movie')
+      console.error('Unknown error occured, please try again!')
     }
     throw error
   }
@@ -211,7 +265,7 @@ const handleDeleteMovieBookmark = async (movieId: string) => {
     if (error instanceof Error) {
       console.error(error.message)
     } else {
-      console.error('Login required to bookmark movie')
+      console.error('Unknown error occured, please try again!')
     }
     throw error
   }
@@ -226,4 +280,6 @@ export {
   handlAddMovieBookmark,
   handleFetchBookmarkMovies,
   handleDeleteMovieBookmark,
+  handleFetchProfile,
+  handleUpdateUserProfile,
 }
