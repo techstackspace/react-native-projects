@@ -15,8 +15,9 @@ interface MovieContextType {
   bookmark: any
   addBookmarkMovie: any
   addedMessage: string | null
-  error: string | null
   bookmarkId: string | null
+  logoutError: string | null
+  addedError: string | null
 }
 
 // const MovieContext = createContext<MovieContextType | undefined>(undefined)
@@ -28,17 +29,19 @@ const MovieContext = createContext<MovieContextType>({
   bookmark: null,
   addBookmarkMovie: async () => {},
   addedMessage: null,
-  error: null,
   bookmarkId: '',
+  logoutError: null,
+  addedError: null,
 })
 
 const MovieProvider = ({ children }: MovieProviderProps) => {
   const { loadBookmark, bookmark } = useBookmark()
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [message, setMessage] = useState<string | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  const [logoutMessage, setLogoutMessage] = useState<string | null>(null)
+  const [addedError, setAddedError] = useState<string | null>(null)
   const [bookmarkId, setBookmarkId] = useState('')
+  const [logoutError, setLogoutError] = useState<string | null>(null)
 
   const checkAuthStatus = async () => {
     const token = await SecureStore.getItemAsync('authToken')
@@ -58,7 +61,10 @@ const MovieProvider = ({ children }: MovieProviderProps) => {
       }, 3000)
     } catch (error) {
       if (error instanceof Error) {
-        setError(error.message)
+        setAddedError(error.message)
+        setTimeout(() => {
+          setAddedError(null)
+        }, 3000)
       }
     }
   }
@@ -67,14 +73,14 @@ const MovieProvider = ({ children }: MovieProviderProps) => {
     try {
       await SecureStore.deleteItemAsync('authToken')
       setIsLoggedIn(false)
-      setMessage('User logged out successfully')
+      setLogoutMessage('User logged out successfully')
       setTimeout(() => {
-        setMessage(null)
+        setLogoutMessage(null)
       }, 3000)
     } catch (error) {
-      setMessage('There was any error logging out')
+      setLogoutError('There was any error logging out')
       setTimeout(() => {
-        setMessage(null)
+        setLogoutError(null)
       }, 3000)
     }
   }
@@ -82,13 +88,14 @@ const MovieProvider = ({ children }: MovieProviderProps) => {
     <MovieContext.Provider
       value={{
         isLoggedIn,
-        message,
+        message: logoutMessage,
         logout,
         checkAuthStatus,
         bookmark,
         addBookmarkMovie,
         addedMessage,
-        error,
+        logoutError,
+        addedError,
         bookmarkId,
       }}
     >

@@ -90,7 +90,7 @@ const Movie = ({
             <Pressable onPress={() => deleteBookmarkMovie(id || '')}>
               <FontAwesome name="trash-o" color={constants.white} />
             </Pressable>
-          ) : (
+          ) : isTopMovies ? null : (
             <Pressable onPress={() => addBookmarkMovie(id || '')}>
               <FontAwesome name="bookmark-o" color={constants.white} />
             </Pressable>

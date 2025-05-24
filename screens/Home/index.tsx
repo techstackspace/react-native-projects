@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import {
   FlatList,
   ActivityIndicator,
@@ -21,7 +21,19 @@ import { MovieContext } from '@/context'
 import AlertResponse from '@/components/UI/AlertResponse'
 
 const Home = () => {
-  const { addedMessage } = useContext(MovieContext)
+  const { addedMessage, checkAuthStatus, isLoggedIn, addedError } =
+    useContext(MovieContext)
+  // useEffect(() => {
+  //   const check = async () => {
+  //     await checkAuthStatus()
+  //     console.log('Checked auth status')
+  //   }
+
+  //   check()
+  // }, [])
+
+  console.log(isLoggedIn)
+
   const [text, setText] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [currentLimit, setCurrentLimit] = useState(10)
@@ -82,8 +94,21 @@ const Home = () => {
 
     return (
       <>
-        {/* {error && <AlertResponse message={error} />} */}
-        {addedMessage && <AlertResponse message={addedMessage} />}
+        {topError && latestError ? (
+          <AlertResponse message="An error occured in getting both top movies and latest movies" />
+        ) : topError ? (
+          <AlertResponse message={topError} />
+        ) : latestError ? (
+          <AlertResponse message={latestError} />
+        ) : null}
+        {addedMessage && item.type === 'topMovies' && null}
+        {addedMessage && item.type === 'latestMovies' && (
+          <AlertResponse message={addedMessage} />
+        )}
+        {addedError && item.type === 'latestMovies' && (
+          <AlertResponse message={addedError} />
+        )}
+        {addedError && item.type === 'topMovies' && null}
         <MoviesSection
           title={item.title || ''}
           movies={item.data || []}
