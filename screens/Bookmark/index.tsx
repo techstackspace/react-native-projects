@@ -21,7 +21,6 @@ const BookmarkScreen = () => {
   const [deletedBookmark, setDeletedBookmark] = useState(null)
   const [deletedBookmarkMessage, setDeletedBookmarkMessage] = useState(null)
   const [isDeleted, setIsDeleted] = useState(false)
-  const bookmarkMoviesUrl = `/api/users/bookmarks?limit=${currentLimit}&page=${currentPage}`
   const isBookmark = segments.includes('Bookmark')
 
   const {
@@ -29,7 +28,7 @@ const BookmarkScreen = () => {
     loading: bookmarkLoading,
     error: bookmarkError,
     sumMovies: totalBookmarks,
-  } = useBookmarks(currentPage, bookmarkMoviesUrl, isBookmark)
+  } = useBookmarks(currentPage, currentLimit, text, isBookmark)
 
   useEffect(() => {
     const timer = setTimeout(() => {

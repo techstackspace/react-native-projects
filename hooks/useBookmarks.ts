@@ -3,7 +3,8 @@ import { handleFetchBookmarkMovies } from '@/api'
 
 export const useBookmarks = (
   page: number,
-  url: string,
+  limit: number,
+  search: string,
   isBookmark: boolean,
 ) => {
   const [bookmarks, setBookmarks] = useState([])
@@ -14,12 +15,14 @@ export const useBookmarks = (
   useEffect(() => {
     const timeoutId = setTimeout(() => loadBookmarkMovies(), 400)
     return () => clearTimeout(timeoutId)
-  }, [page, url, isBookmark])
+  }, [page, limit, search, isBookmark])
 
   const loadBookmarkMovies = async () => {
     try {
       setLoading(true)
+      const url = `/api/users/bookmarks?limit=${limit}&page=${page}&search=${search}`
       const data = await handleFetchBookmarkMovies(url)
+
       setBookmarks((prevMovies) =>
         page === 1 ? data.bookmarks : [...prevMovies, ...data.bookmarks],
       )
@@ -27,6 +30,7 @@ export const useBookmarks = (
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message)
+        setTimeout(() => setError(null), 3000)
       }
     } finally {
       setLoading(false)

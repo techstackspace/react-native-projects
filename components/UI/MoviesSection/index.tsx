@@ -15,6 +15,7 @@ import MoviesHeader from '../MoviesHeader'
 import { useContext, useEffect, useState } from 'react'
 import AlertResponse from '@/components/UI/AlertResponse'
 import { MovieContext } from '@/context'
+import Limit from '@/components/UI/Limit'
 
 const MoviesSection = ({
   title,
@@ -65,36 +66,12 @@ const MoviesSection = ({
         />
       ) : null}
       <View style={styles.sectionContainer}>
-        <View
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-          }}
-        >
-          {!isSearchRoute && <Text style={styles.sectionTitle}>{title}</Text>}
-          {!isTopMovies && !isSearchRoute && (
-            <View style={styles.buttonContainer}>
-              {[2, 4, 6, 8, 10].map((limit) => (
-                <Pressable
-                  key={limit}
-                  style={[
-                    styles.button,
-                    {
-                      backgroundColor:
-                        limit === activeLimit
-                          ? constants.accent
-                          : constants.dark,
-                    },
-                  ]}
-                  onPress={() => handleLimitChange(limit)}
-                >
-                  <Text style={{ color: constants.white }}>{limit}</Text>
-                </Pressable>
-              ))}
-            </View>
-          )}
-        </View>
+        <Limit
+          title={title}
+          isTopMovies={isTopMovies}
+          handleLimitChange={handleLimitChange}
+          activeLimit={activeLimit}
+        />
         <FlatList
           data={movies}
           horizontal={isTopMovies}
