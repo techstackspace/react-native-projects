@@ -3,6 +3,7 @@
     "name": "Techstack Space",
     "slug": "react-native-apps",
     "version": "1.0.0",
+    "sdkVersion": "53.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/nav/icon.png",
     "scheme": "myapp",
@@ -48,6 +49,7 @@
           }
         }
       ],
+      "expo-image-picker",
       "expo-secure-store"
     ],
     "experiments": {

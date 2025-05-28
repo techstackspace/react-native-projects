@@ -15,6 +15,7 @@ import { constants } from '@/constants'
 import Header from '@/components/UI/Header'
 import Navbar from '@/components/UI/Navbar'
 import Container from '@/components/shared/Container'
+import AlertResponse from '@/components/UI/AlertResponse'
 
 const LoginScreen = () => {
   const [loading, setLoading] = useState(false)
@@ -62,6 +63,7 @@ const LoginScreen = () => {
   return (
     <Main>
       <Navbar />
+      {error && <AlertResponse message={error} />}
       <Header onChangeText={() => {}} text={''} />
       <Container style={{ marginTop: 63 }}>
         <Text style={styles.title}>Login</Text>

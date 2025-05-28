@@ -1,7 +1,7 @@
-import DetailScreen from "@/screens/Detail";
+import DetailScreen from '@/screens/Detail'
 
 const Detail = () => {
-  return <DetailScreen />;
-};
+  return <DetailScreen />
+}
 
-export default Detail;
+export default Detail

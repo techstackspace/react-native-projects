@@ -89,7 +89,7 @@ Feel free to modify the `Brewfile` to add or remove dependencies as needed.
 If the **ES7+ React/Redux/React-Native Snippets** extension for **VS Code** still imports **React** as:
 
 ```tsx
-import React from "React";
+import React from 'React'
 ```
 
 In such case the extension is still using the old **React 17** import style, even though you are likely using **React 18+**, which no longer requires this import statement in most cases.

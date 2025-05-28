@@ -4,8 +4,8 @@ This component renders a full-screen linear gradient background using Expo's `Li
 
 ## References
 
-* [Expo `LinearGradient`](https://docs.expo.dev/versions/latest/sdk/linear-gradient/)
-* [React Native `StyleSheet`](https://reactnative.dev/docs/stylesheet)
+- [Expo `LinearGradient`](https://docs.expo.dev/versions/latest/sdk/linear-gradient/)
+- [React Native `StyleSheet`](https://reactnative.dev/docs/stylesheet)
 
 ## Component Props
 

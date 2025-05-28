@@ -1,19 +1,18 @@
 import {
   FlatList,
-  Text,
   View,
   StyleSheet,
   Dimensions,
   ActivityIndicator,
-  Pressable,
 } from 'react-native'
 import Movie from '@/components/UI/Movie'
 import { MoviesSectionProps } from '@/components/UI/MoviesSection/interface'
 import { constants } from '@/constants'
 import { useSegments } from 'expo-router'
 import MoviesHeader from '../MoviesHeader'
-import { useState } from 'react'
-import { handleDeleteMovieBookmark } from '@/api'
+import { useContext, useState } from 'react'
+import { MovieContext } from '@/context'
+import Limit from '@/components/UI/Limit'
 
 const MoviesSection = ({
   title,
@@ -22,13 +21,15 @@ const MoviesSection = ({
   totalMovies,
   setCurrentPage,
   loading,
+  deleteBookmarkMovie,
   setCurrentLimit,
   genreList,
-  handleMovieBookmark,
-  onGenrePress = () => {},
+  onMoviePress = () => {},
 }: MoviesSectionProps) => {
+  const { addBookmarkMovie, loadBookmark } = useContext(MovieContext)
   const segments = useSegments()
   const isSearchRoute = (segments as string[]).includes('Search')
+
   const loadMoreMovies = () => {
     if (!loading && movies.length < totalMovies && setCurrentPage) {
       setCurrentPage((prevPage) => prevPage + 1)
@@ -58,57 +59,34 @@ const MoviesSection = ({
         <MoviesHeader
           title={title || ''}
           genreList={genreList || []}
-          onGenrePress={onGenrePress}
+          onMoviePress={onMoviePress}
         />
       ) : null}
       <View style={styles.sectionContainer}>
-        <View
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-          }}
-        >
-          {!isSearchRoute && <Text style={styles.sectionTitle}>{title}</Text>}
-          {!isTopMovies && !isSearchRoute && (
-            <View style={styles.buttonContainer}>
-              {[2, 4, 6, 8, 10].map((limit) => (
-                <Pressable
-                  key={limit}
-                  style={[
-                    styles.button,
-                    {
-                      backgroundColor:
-                        limit === activeLimit
-                          ? constants.accent
-                          : constants.dark,
-                    },
-                  ]}
-                  onPress={() => handleLimitChange(limit)}
-                >
-                  <Text style={{ color: constants.white }}>{limit}</Text>
-                </Pressable>
-              ))}
-            </View>
-          )}
-        </View>
+        <Limit
+          title={title}
+          isTopMovies={isTopMovies}
+          handleLimitChange={handleLimitChange}
+          activeLimit={activeLimit}
+        />
         <FlatList
           data={movies}
           horizontal={isTopMovies}
           numColumns={isTopMovies ? 0 : 3}
-          keyExtractor={(movie, index) => `${movie._id}-${index}`}
+          keyExtractor={(item) => item._id as string}
           renderItem={({ item, index }) => (
             <Movie
               id={item._id}
-              handleMovieBookmark={handleMovieBookmark}
-              handleDeleteMovieBookmark={handleDeleteMovieBookmark}
               title={item.title}
               description={item.description}
               genres={item.genres}
               posterUrl={item.posterUrl}
               numbering={index + 1}
               isTopMovies={isTopMovies}
+              addBookmarkMovie={addBookmarkMovie}
+              deleteBookmarkMovie={deleteBookmarkMovie}
               rating={item.rating}
+              loadMovie={loadBookmark}
             />
           )}
           showsHorizontalScrollIndicator={isTopMovies}

@@ -13,8 +13,6 @@ import { Link, useSegments } from 'expo-router'
 import { BlurView } from 'expo-blur'
 import { MoviesInterface } from '../MoviesSection/interface'
 import { FontAwesome } from '@expo/vector-icons'
-import { handleDeleteMovieBookmark, handleMovieBookmark } from '@/api'
-import { useState } from 'react'
 
 const Movie = ({
   title,
@@ -24,33 +22,10 @@ const Movie = ({
   numbering,
   isTopMovies,
   rating,
+  addBookmarkMovie,
+  deleteBookmarkMovie,
 }: MoviesInterface) => {
-  const [bookmark, setBookmark] = useState()
-  const [deletedBookmark, setDeletedBookmark] = useState()
-  const [error, setError] = useState<string | null>(null)
   const segments = useSegments() as string[]
-
-  const handleBookmark = async () => {
-    try {
-      const data = await handleMovieBookmark(id || '')
-      setBookmark(data)
-    } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message)
-      }
-    }
-  }
-
-  const handleDeleteBookmarkMovie = async () => {
-    try {
-      const data = await handleDeleteMovieBookmark(id || '')
-      setDeletedBookmark(data)
-    } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message)
-      }
-    }
-  }
 
   return (
     <View
@@ -112,11 +87,11 @@ const Movie = ({
             {title.length > 15 ? `${title.substring(0, 15)}...` : title}
           </Text>
           {segments.includes('Bookmark') ? (
-            <Pressable onPress={handleDeleteBookmarkMovie}>
+            <Pressable onPress={() => deleteBookmarkMovie(id || '')}>
               <FontAwesome name="trash-o" color={constants.white} />
             </Pressable>
-          ) : (
-            <Pressable onPress={handleBookmark}>
+          ) : isTopMovies ? null : (
+            <Pressable onPress={() => addBookmarkMovie(id || '')}>
               <FontAwesome name="bookmark-o" color={constants.white} />
             </Pressable>
           )}

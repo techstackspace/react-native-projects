@@ -4,20 +4,21 @@ This component renders a screen that allows users to search for movies by typing
 
 ## References
 
-* [React Native useState](https://react.dev/reference/react/useState)
-* [React Native useEffect](https://react.dev/reference/react/useEffect)
-* [React Native View](https://reactnative.dev/docs/view)
-* [React Native Text](https://reactnative.dev/docs/text)
-* [React Native StyleSheet](https://reactnative.dev/docs/stylesheet)
-* [Expo Vector Icons - SimpleLineIcons](https://icons.expo.fyi/)
-* Shared Components:
+- [React Native useState](https://react.dev/reference/react/useState)
+- [React Native useEffect](https://react.dev/reference/react/useEffect)
+- [React Native View](https://reactnative.dev/docs/view)
+- [React Native Text](https://reactnative.dev/docs/text)
+- [React Native StyleSheet](https://reactnative.dev/docs/stylesheet)
+- [Expo Vector Icons - SimpleLineIcons](https://icons.expo.fyi/)
+- Shared Components:
 
-  * [Main](../../components/shared/Main/) – Screen wrapper providing global layout styling
-  * [Nav](../../components/Nav/index.tsx) – Search bar with input and submit handling
-  * [MoviesSection](../../components/MoviesSection/index.tsx) – Paginated and filterable movie list section
-* Custom Hooks:
+  - [Main](../../components/shared/Main/) – Screen wrapper providing global layout styling
+  - [Nav](../../components/Nav/index.tsx) – Search bar with input and submit handling
+  - [MoviesSection](../../components/MoviesSection/index.tsx) – Paginated and filterable movie list section
 
-  * [useMovies](../../hooks/useMovies.ts) – Data fetching hook to retrieve movie lists and genres
+- Custom Hooks:
+
+  - [useMovies](../../hooks/useMovies.ts) – Data fetching hook to retrieve movie lists and genres
 
 ## Component State
 
@@ -31,14 +32,14 @@ This component renders a screen that allows users to search for movies by typing
 
 ## Behavior
 
-* **Search Filtering:** Updates the `search` query param when the user types, removing all whitespace via `text.replaceAll(" ", "")`.
-* **Pagination:** Resets `page` and `limit` when user changes input or genre. Passed to `MoviesSection` to load more results.
-* **Genre Selection:** Tapping a genre chip triggers `handleGenreText`, updating the `genres` filter param.
-* **Genre Fetching:** On mount, fetches all available genres from `/api/movies/genres` using `useMovies` and sets the `genreList`.
-* **Empty State Handling:**
+- **Search Filtering:** Updates the `search` query param when the user types, removing all whitespace via `text.replaceAll(" ", "")`.
+- **Pagination:** Resets `page` and `limit` when user changes input or genre. Passed to `MoviesSection` to load more results.
+- **Genre Selection:** Tapping a genre chip triggers `handleGenreText`, updating the `genres` filter param.
+- **Genre Fetching:** On mount, fetches all available genres from `/api/movies/genres` using `useMovies` and sets the `genreList`.
+- **Empty State Handling:**
 
-  * If search text exists but no movies found → Shows "No movies found" message.
-  * If search input is blank → Prompts the user to start typing.
+  - If search text exists but no movies found → Shows "No movies found" message.
+  - If search input is blank → Prompts the user to start typing.
 
 ## Conditional Rendering
 
@@ -50,8 +51,8 @@ This component renders a screen that allows users to search for movies by typing
 
 ## Assets
 
-* [SimpleLineIcons - note](https://icons.expo.fyi/SimpleLineIcons/note)
-* [SimpleLineIcons - question](https://icons.expo.fyi/Index/EvilIcons/question)
+- [SimpleLineIcons - note](https://icons.expo.fyi/SimpleLineIcons/note)
+- [SimpleLineIcons - question](https://icons.expo.fyi/Index/EvilIcons/question)
 
 ## API Endpoints
 

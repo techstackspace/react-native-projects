@@ -1,5 +1,5 @@
 export interface MoviesHeaderProps {
-  title: string;
-  genreList: string[];
-  onGenrePress: (genre: string) => void;
+  title: string
+  genreList: string[]
+  onMoviePress: (genre: string) => void
 }

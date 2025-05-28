@@ -1,10 +1,10 @@
-import { ReactNode } from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { ReactNode } from 'react'
+import { StatusBar } from 'expo-status-bar'
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 
 interface ContainerProps {
-  children: ReactNode;
-  style?: StyleProp<ViewStyle>;
+  children: ReactNode
+  style?: StyleProp<ViewStyle>
 }
 
 const Container = ({ children, style }: ContainerProps) => {
@@ -15,18 +15,18 @@ const Container = ({ children, style }: ContainerProps) => {
       </View>
       <StatusBar style="light" />
     </>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   contentView: {
-    width: "90%",
-    marginInline: "auto",
+    width: '90%',
+    marginInline: 'auto',
     marginTop: -63,
   },
-});
+})
 
-export default Container;
+export default Container

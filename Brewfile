@@ -20,4 +20,5 @@ vscode "expo.vscode-expo-tools"
 vscode "bruno-api-client.bruno"
 vscode "GitHub.github-vscode-theme"
 vscode "PKief.material-icon-theme"
+vscode "rajd.react-native-stylesheet-color-palette"
 mas "Xcode", id: 497799835

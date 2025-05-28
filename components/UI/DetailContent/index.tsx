@@ -1,26 +1,26 @@
-import { Image, StyleSheet, Text, View } from "react-native";
-import { useLocalSearchParams } from "expo-router";
-import { useMovie } from "@/hooks/useMovie";
-import Container from "../../shared/Container";
-import { constants } from "@/constants";
+import { Image, StyleSheet, Text, View } from 'react-native'
+import { useLocalSearchParams } from 'expo-router'
+import useMovie from '@/hooks/useMovie'
+import Container from '../../shared/Container'
+import { constants } from '@/constants'
 import {
   countryList,
   formatCurrencyAbbreviation,
   formatDateWorldwide,
   formatNumber,
   productionCompany,
-} from "@/utility";
-import { MoviesInterface } from "@/components/UI/MoviesSection/interface";
+} from '@/utility'
+import { MoviesInterface } from '@/components/UI/MoviesSection/interface'
 
 const DetailContent = () => {
-  const { id } = useLocalSearchParams();
-    const { movie } = useMovie(id as string) as unknown as MoviesInterface;
-  const year = movie?.releaseDate?.split("-")[0];
+  const { id } = useLocalSearchParams()
+  const { movie } = useMovie(id as string) as unknown as MoviesInterface
+  const year = movie?.releaseDate?.split('-')[0]
 
-  const countries = countryList(movie?.countries as string[]);
+  const countries = countryList(movie?.countries as string[])
   const productionCompanies = productionCompany(
-    movie?.productionCompanies as string[]
-  );
+    movie?.productionCompanies as string[],
+  )
 
   return (
     <Container style={styles.container}>
@@ -36,7 +36,7 @@ const DetailContent = () => {
         <View style={styles.rating}>
           <Image
             style={styles.ratingImage}
-            source={require("@/assets/images/Rating.png")}
+            source={require('@/assets/images/Rating.png')}
           />
           <Text style={[styles.ratingText, { color: constants.white }]}>
             {movie?.rating.average.toFixed(2)}
@@ -49,7 +49,7 @@ const DetailContent = () => {
         <View style={[styles.rating, { width: 39 }]}>
           <Image
             style={styles.ratingImage}
-            source={require("@/assets/images/rising.png")}
+            source={require('@/assets/images/rising.png')}
           />
           <Text style={[styles.ratingText, { color: constants.white }]}>1</Text>
         </View>
@@ -62,7 +62,7 @@ const DetailContent = () => {
         <View>
           <Text style={styles.heading}>Release date</Text>
           <Text style={styles.descriptionText}>
-            {formatDateWorldwide(movie?.releaseDate || "2019-05-26")}
+            {formatDateWorldwide(movie?.releaseDate || '2019-05-26')}
           </Text>
         </View>
         <View>
@@ -84,13 +84,13 @@ const DetailContent = () => {
         <Text style={styles.heading}>Countries</Text>
         <View style={styles.contentList}>
           {countries?.map((country, index) =>
-            country !== "" ? (
+            country !== '' ? (
               <Text style={styles.descriptionText} key={country}>
                 {country}
               </Text>
             ) : (
               <Text style={styles.dot} key={index}></Text>
-            )
+            ),
           )}
         </View>
       </View>
@@ -98,13 +98,13 @@ const DetailContent = () => {
         <View>
           <Text style={styles.heading}>Budget</Text>
           <Text style={styles.descriptionText}>
-            {formatCurrencyAbbreviation(movie?.budget || "")}
+            {formatCurrencyAbbreviation(movie?.budget || '')}
           </Text>
         </View>
         <View>
           <Text style={styles.heading}>Revenue</Text>
           <Text style={styles.descriptionText}>
-            {formatCurrencyAbbreviation(movie?.revenue || "")}
+            {formatCurrencyAbbreviation(movie?.revenue || '')}
           </Text>
         </View>
       </View>
@@ -117,20 +117,20 @@ const DetailContent = () => {
       </View>
       <View style={styles.contentList}>
         {productionCompanies?.map((productionCompany, index) =>
-          productionCompany !== "" ? (
+          productionCompany !== '' ? (
             <Text style={styles.descriptionText} key={productionCompany}>
               {productionCompany}
             </Text>
           ) : (
             <Text style={styles.dot} key={index}></Text>
-          )
+          ),
         )}
       </View>
     </Container>
-  );
-};
+  )
+}
 
-export default DetailContent;
+export default DetailContent
 
 const styles = StyleSheet.create({
   container: {
@@ -142,8 +142,8 @@ const styles = StyleSheet.create({
     fontWeight: 700,
   },
   summary: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: 5,
     gap: 10,
   },
@@ -159,12 +159,12 @@ const styles = StyleSheet.create({
     backgroundColor: constants.light,
   },
   rating: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     height: 30,
     gap: 5,
-    backgroundColor: "#221F3D",
+    backgroundColor: '#221F3D',
     width: 116,
     borderRadius: 4,
     marginVertical: 10,
@@ -188,11 +188,11 @@ const styles = StyleSheet.create({
     color: constants.white,
     lineHeight: 26.5,
     fontWeight: 400,
-    fontFamily: "Inter",
+    fontFamily: 'Inter',
     marginTop: -15,
   },
   flexRow: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 32,
   },
   descriptionText: {
@@ -201,22 +201,22 @@ const styles = StyleSheet.create({
     marginTop: -15,
     fontWeight: 600,
     lineHeight: 26.5,
-    fontFamily: "Inter-bold",
+    fontFamily: 'Inter-bold',
   },
   genres: {
-    flexDirection: "row",
-    alignItems: "center",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
     gap: 9,
     marginTop: -5,
   },
   genre: {
-    backgroundColor: "#221F3D",
+    backgroundColor: '#221F3D',
     borderRadius: 4,
     color: constants.white,
     paddingHorizontal: 10,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     fontSize: 12,
     height: 24,
   },
@@ -224,12 +224,12 @@ const styles = StyleSheet.create({
     color: constants.white,
     fontSize: 12,
     fontWeight: 600,
-    fontFamily: "Inter-bold",
+    fontFamily: 'Inter-bold',
   },
   contentList: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: 8,
     lineHeight: 25,
   },
-});
+})

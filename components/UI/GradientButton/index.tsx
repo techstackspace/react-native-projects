@@ -5,11 +5,11 @@ import {
   Image,
   Dimensions,
   Pressable,
-} from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import { constants } from "@/constants";
-import { usePathname } from "expo-router";
-import { GradientTabButtonProps } from "./interface";
+} from 'react-native'
+import { LinearGradient } from 'expo-linear-gradient'
+import { constants } from '@/constants'
+import { usePathname } from 'expo-router'
+import { GradientTabButtonProps } from './interface'
 
 const GradientTabButton = ({
   focused,
@@ -18,8 +18,8 @@ const GradientTabButton = ({
   onPress,
   style,
 }: GradientTabButtonProps) => {
-  const pathname = usePathname();
-  const isDetailPage = pathname.includes("/Detail");
+  const pathname = usePathname()
+  const isDetailPage = pathname.includes('/Detail')
 
   if (focused) {
     return (
@@ -30,21 +30,21 @@ const GradientTabButton = ({
           end={[1, 1]}
           style={[
             styles.gradientButton,
-            { marginRight: pathname === "/Profile" ? -44 : 0 },
-            { marginLeft: pathname === "/" ? -44 : 0 },
+            { marginRight: pathname === '/Profile' ? -44 : 0 },
+            { marginLeft: pathname === '/' ? -44 : 0 },
             {
               flexDirection: !isDetailPage
-                ? Dimensions.get("screen").width < 420
-                  ? "column"
-                  : "row"
-                : "row",
+                ? Dimensions.get('screen').width < 420
+                  ? 'column'
+                  : 'row'
+                : 'row',
             },
             {
               width: !isDetailPage
-                ? Dimensions.get("screen").width < 420
+                ? Dimensions.get('screen').width < 420
                   ? 90
                   : 100
-                : Dimensions.get("screen").width * 0.9,
+                : Dimensions.get('screen').width * 0.9,
             },
             { borderRadius: !isDetailPage ? 30 : 4 },
             { padding: !isDetailPage ? 30 : 4 },
@@ -54,7 +54,7 @@ const GradientTabButton = ({
           <Text
             style={[
               styles.label,
-              { fontSize: Dimensions.get("screen").width < 420 ? 10 : 14 },
+              { fontSize: Dimensions.get('screen').width < 420 ? 10 : 14 },
             ]}
           >
             {label}
@@ -62,23 +62,23 @@ const GradientTabButton = ({
           {!isDetailPage ? null : <Image source={icon} style={styles.icon} />}
         </LinearGradient>
       </Pressable>
-    );
+    )
   }
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.defaultButton}>
       <Image source={icon} style={styles.inactiveIcon} />
     </TouchableOpacity>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   focusedContainer: {
-    alignItems: "center",
+    alignItems: 'center',
   },
   gradientButton: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 30,
@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
     height: 48,
   },
   defaultButton: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     height: 48,
   },
   icon: {
@@ -101,10 +101,10 @@ const styles = StyleSheet.create({
     tintColor: constants.light,
   },
   label: {
-    fontWeight: "600",
+    fontWeight: '600',
     fontSize: 14,
     color: constants.dark,
   },
-});
+})
 
-export default GradientTabButton;
+export default GradientTabButton

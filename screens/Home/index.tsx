@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import {
   FlatList,
   ActivityIndicator,
@@ -14,11 +14,14 @@ import Main from '@/components/shared/Main'
 import Alert from '@/components/UI/Alert'
 import AuthAlert from '@/components/UI/AuthAlert'
 import Navbar from '@/components/UI/Navbar'
-
-import { useMovies } from '@/hooks/useMovies'
+import useMovies from '@/hooks/useMovies'
 import { SectionsProps } from './interface'
+import { MovieContext } from '@/context'
+import AlertResponse from '@/components/UI/AlertResponse'
 
 const Home = () => {
+  const { addedMessage, addedError } = useContext(MovieContext)
+
   const [text, setText] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [currentLimit, setCurrentLimit] = useState(10)
@@ -78,15 +81,18 @@ const Home = () => {
     }
 
     return (
-      <MoviesSection
-        title={item.title || ''}
-        movies={item.data || []}
-        isTopMovies={item.type === 'topMovies'}
-        setCurrentPage={setCurrentPage}
-        setCurrentLimit={setCurrentLimit}
-        totalMovies={totalMovies}
-        loading={latestLoading}
-      />
+      <>
+        <MoviesSection
+          title={item.title || ''}
+          movies={item.data || []}
+          isTopMovies={item.type === 'topMovies'}
+          setCurrentPage={setCurrentPage}
+          setCurrentLimit={setCurrentLimit}
+          totalMovies={totalMovies}
+          loading={latestLoading}
+          deleteBookmarkMovie={() => {}}
+        />
+      </>
     )
   }
 
@@ -106,6 +112,17 @@ const Home = () => {
 
   return (
     <Main>
+      {topError && latestError ? (
+        <AlertResponse message="An error occured in getting both top movies and latest movies" />
+      ) : topError ? (
+        <AlertResponse message={topError} />
+      ) : latestError ? (
+        <AlertResponse message={latestError} />
+      ) : null}
+      {addedMessage && null}
+      {addedMessage && <AlertResponse message={addedMessage} />}
+      {addedError && <AlertResponse message={addedError} />}
+      {addedError && null}
       {isScrollingUp && <Navbar />}
       <AuthAlert />
       <FlatList

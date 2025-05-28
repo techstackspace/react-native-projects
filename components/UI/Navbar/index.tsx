@@ -1,7 +1,7 @@
 import { constants } from '@/constants'
 import { SimpleLineIcons } from '@expo/vector-icons'
 import { router } from 'expo-router'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
 import { useContext, useEffect } from 'react'
 import { BlurView } from 'expo-blur'
 import { MovieContext } from '@/context'
@@ -14,7 +14,10 @@ const Navbar = () => {
   const { isLoggedIn, message, logout, checkAuthStatus } = movieContext
 
   useEffect(() => {
-    checkAuthStatus()
+    const checkStatus = async () => {
+      await checkAuthStatus()
+    }
+    checkStatus()
   }, [])
 
   const handleAuth = (route: Parameters<typeof router.push>[0]) => {
@@ -22,7 +25,7 @@ const Navbar = () => {
   }
 
   return (
-    <BlurView intensity={40} tint="dark" style={styles.navbar}>
+    <View style={styles.navbar}>
       {message && (
         <View
           style={{
@@ -98,7 +101,7 @@ const Navbar = () => {
           </View>
         </View>
       )}
-    </BlurView>
+    </View>
   )
 }
 export default Navbar
@@ -106,12 +109,12 @@ export default Navbar
 const styles = StyleSheet.create({
   navbar: {
     position: 'absolute',
-    top: 50,
+    top: 36,
     left: 0,
     right: 0,
-    paddingVertical: 15,
+    paddingVertical: Platform.OS === 'android' ? 15 : 20,
     paddingHorizontal: '5%',
-    backgroundColor: '#131387cc',
+    backgroundColor: '#131387',
     zIndex: 10,
   },
   flexBox: {

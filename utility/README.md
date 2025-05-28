@@ -4,8 +4,8 @@ This module provides various utility functions to format numbers, dates, and cur
 
 ## References
 
-* [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat)
-* [JavaScript Number Methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)
+- [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat)
+- [JavaScript Number Methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)
 
 ---
 
@@ -30,9 +30,9 @@ Formats a number for compact display, converting large numbers to abbreviated st
 #### Usage
 
 ```js
-formatNumber(500); // "500"
-formatNumber(1200); // "1.2K"
-formatNumber(1500000); // "1.5M"
+formatNumber(500) // "500"
+formatNumber(1200) // "1.2K"
+formatNumber(1500000) // "1.5M"
 ```
 
 ---
@@ -56,7 +56,7 @@ Formats a date string (`YYYY-MM-DD`) into a more human-readable form with the "W
 #### Usage
 
 ```js
-formatDateWorldwide("2023-11-15"); // "November 15, 2023 (Worldwide)"
+formatDateWorldwide('2023-11-15') // "November 15, 2023 (Worldwide)"
 ```
 
 ---
@@ -80,8 +80,8 @@ Formats a currency amount to a more readable form, adding appropriate abbreviati
 #### Usage
 
 ```js
-formatCurrencyAbbreviation("1000000"); // "$1 million"
-formatCurrencyAbbreviation("2500000000"); // "$2.5 billion"
+formatCurrencyAbbreviation('1000000') // "$1 million"
+formatCurrencyAbbreviation('2500000000') // "$2.5 billion"
 ```
 
 ---
@@ -105,7 +105,7 @@ Generates a comma-separated list of countries.
 #### Usage
 
 ```js
-countryList(["USA", "Canada", "UK"]); // ["USA", "", "Canada", "", "UK"]
+countryList(['USA', 'Canada', 'UK']) // ["USA", "", "Canada", "", "UK"]
 ```
 
 ---
@@ -129,15 +129,15 @@ Generates a comma-separated list of production companies.
 #### Usage
 
 ```js
-productionCompany(["Warner Bros", "Universal"]); // ["Warner Bros", "", "Universal"]
+productionCompany(['Warner Bros', 'Universal']) // ["Warner Bros", "", "Universal"]
 ```
 
 ---
 
 ## Exports
 
-* `formatNumber`
-* `formatDateWorldwide`
-* `formatCurrencyAbbreviation`
-* `countryList`
-* `productionCompany`
+- `formatNumber`
+- `formatDateWorldwide`
+- `formatCurrencyAbbreviation`
+- `countryList`
+- `productionCompany`

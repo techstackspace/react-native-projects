@@ -2,26 +2,56 @@ import Main from '@/components/shared/Main'
 import Navbar from '@/components/UI/Navbar'
 import Alert from '@/components/UI/Alert'
 import { MovieContext } from '@/context'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Header from '@/components/UI/Header'
 import MoviesSection from '@/components/UI/MoviesSection'
-import { useBookmarks } from '@/hooks/useBookmarks'
-import { handleDeleteMovieBookmark, handleMovieBookmark } from '@/api'
+import useBookmarks from '@/hooks/useBookmarks'
 import { ActivityIndicator, FlatList, StyleSheet } from 'react-native'
+import AlertResponse from '@/components/UI/AlertResponse'
+import { handleDeleteMovieBookmark } from '@/api'
+import { useSegments } from 'expo-router'
 
 const BookmarkScreen = () => {
+  const segments = useSegments() as string[]
+
   const [currentPage, setCurrentPage] = useState(1)
   const [currentLimit, setCurrentLimit] = useState(10)
   const [text, setText] = useState('')
-  const bookmarkMoviesUrl = `/api/users/bookmarks?limit=${currentLimit}&page=${currentPage}`
+  const [error, setError] = useState<string | null>(null)
+  const [deletedBookmark, setDeletedBookmark] = useState(null)
+  const [deletedBookmarkMessage, setDeletedBookmarkMessage] = useState(null)
+  const [isDeleted, setIsDeleted] = useState(false)
+  const isBookmark = segments.includes('Bookmark')
 
   const {
     bookmarks: bookmarkMovies,
     loading: bookmarkLoading,
     error: bookmarkError,
     sumMovies: totalBookmarks,
-  } = useBookmarks(currentPage, bookmarkMoviesUrl)
+    loadBookmarkMovies,
+  } = useBookmarks(currentPage, currentLimit, text, isBookmark)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDeletedBookmarkMessage(null)
+    }, 3000)
+    return () => clearTimeout(timer)
+  }, [deletedBookmarkMessage])
+
   const { isLoggedIn } = useContext(MovieContext)
+  const deleteBookmarkMovie = async (id: string) => {
+    try {
+      const data = await handleDeleteMovieBookmark(id)
+      setDeletedBookmarkMessage(data.message)
+      await loadBookmarkMovies()
+      // setIsDeleted(true)
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message)
+      }
+    }
+  }
+
   if (bookmarkLoading) {
     return (
       <Main>
@@ -40,12 +70,17 @@ const BookmarkScreen = () => {
 
   return (
     <Main>
+      {error && <AlertResponse message={error} />}
+      {deletedBookmarkMessage && (
+        <AlertResponse message={deletedBookmarkMessage} />
+      )}
+      {bookmarkError && <AlertResponse message={bookmarkError} />}
       <Navbar />
       <Header onChangeText={onChangeText} text={text} />
       {!isLoggedIn ? (
         <Alert
-          message="Start typing to search for movies"
-          name="question"
+          message="Login to see a list of all bookmarked movies"
+          name="login"
           onChangeText={onChangeText}
           text={text}
         />
@@ -58,14 +93,15 @@ const BookmarkScreen = () => {
           renderItem={() => (
             <MoviesSection
               title={'Bookmark List'}
-              onGenrePress={handleMovieBookmark}
-              handleDeleteMovieBookmark={handleDeleteMovieBookmark}
-              movies={bookmarkMovies}
+              movies={isDeleted ? (deletedBookmark as any) : bookmarkMovies}
+              deleteBookmarkMovie={deleteBookmarkMovie}
               isTopMovies={false}
               totalMovies={totalBookmarks}
               loading={bookmarkLoading}
               setCurrentPage={setCurrentPage}
               setCurrentLimit={setCurrentLimit}
+              currentLimit={currentLimit}
+              currentPage={currentPage}
             />
           )}
         />

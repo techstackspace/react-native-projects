@@ -16,13 +16,15 @@ export interface MoviesInterface {
   countries?: string[]
   budget?: string
   tagline?: string
+  trailerUrl?: string
+  loadMovie: any
   productionCompanies?: string[]
   id?: string
   numbering?: number
   isTopMovies?: boolean
   movie?: any
-  handleMovieBookmark?: (movieId: string) => void
-  handleDeleteMovieBookmark?: (movieId: string) => void
+  addBookmarkMovie: any
+  deleteBookmarkMovie: (id: string) => void
 }
 
 export interface MoviesSectionProps {
@@ -34,7 +36,9 @@ export interface MoviesSectionProps {
   loading: boolean
   setCurrentLimit?: React.Dispatch<React.SetStateAction<number>>
   genreList?: string[]
-  onGenrePress?: (genre: string) => void
-  handleMovieBookmark?: (movieId: string) => void
-  handleDeleteMovieBookmark?: (movieId: string) => void
+  onMoviePress?: (genre: string) => void
+  addBookmarkMovie?: (id: string) => void
+  currentLimit?: number
+  currentPage?: number
+  deleteBookmarkMovie: (id: string) => void
 }

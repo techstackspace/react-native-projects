@@ -1,9 +1,7 @@
 import ProfileScreen from '@/screens/Profile'
 
 const Profile = () => {
-  return (
-    <ProfileScreen />
-  )
+  return <ProfileScreen />
 }
 
 export default Profile

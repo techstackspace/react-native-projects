@@ -4,8 +4,8 @@ This module defines a centralized color palette for consistent theming across th
 
 ## References
 
-* [React Native `StyleSheet`](https://reactnative.dev/docs/stylesheet)
-* [Theming in React Native](https://reactnative.dev/docs/colors)
+- [React Native `StyleSheet`](https://reactnative.dev/docs/stylesheet)
+- [Theming in React Native](https://reactnative.dev/docs/colors)
 
 ## Colors
 

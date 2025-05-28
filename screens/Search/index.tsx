@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Main from '@/components/shared/Main'
 import Header from '@/components/UI/Header'
 import MoviesSection from '@/components/UI/MoviesSection'
-import { useMovies } from '@/hooks/useMovies'
+import useMovies from '@/hooks/useMovies'
 import Alert from '@/components/UI/Alert'
 import Navbar from '@/components/UI/Navbar'
 
@@ -68,13 +68,14 @@ const SearchScreen = () => {
         <MoviesSection
           title={text}
           genreList={genreList}
-          onGenrePress={handleGenreText}
+          onMoviePress={handleGenreText}
           movies={latestMovies}
           isTopMovies={false}
           setCurrentPage={setCurrentPage}
           setCurrentLimit={setCurrentLimit}
           totalMovies={totalMovies}
           loading={latestLoading}
+          deleteBookmarkMovie={() => {}}
         />
       )}
     </Main>
