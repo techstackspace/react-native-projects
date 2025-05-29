@@ -307,7 +307,7 @@ const handleFetchMovieBookmarksById = async (movieId: string) => {
     return data
   } catch (error) {
     if (error instanceof Error) {
-      console.error(error.message)
+      console.error(error?.message)
     } else {
       console.error('Unknown error occured, please try again!')
     }

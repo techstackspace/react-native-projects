@@ -25,40 +25,19 @@ import {
 } from '@/api'
 import AlertResponse from '../AlertResponse'
 import { FontAwesome } from '@expo/vector-icons'
-import { MovieContext } from '@/context'
 import useLikes from '@/hooks/useLikes'
-import useBookmark from '@/hooks/useBookmark'
 import useProfile from '@/hooks/useProfile'
-
-interface BookmarkProp {
-  bookmarks: string[]
-}
+import { MovieContext } from '@/context'
+import useBookmark from '@/hooks/useBookmark'
 
 const MovieCover = () => {
-  const { addedMessage, addedError, deleteError, deletedBookmarkMessage } =
-    useContext(MovieContext)
   const { id } = useLocalSearchParams()
+  const { profile, loadProfile } = useProfile()
   const { movie, loadMovie } = useMovie(
     id as string,
   ) as unknown as MoviesInterface
-  const { bookmark, loadBookmark } = useBookmark()
-  // const [isDeleted, setIsDeleted] = useState(false)
-  const [bookmarkAddMessage, setBookmarkAddMessage] = useState<string | null>(
-    null,
-  )
-  const [bookmarkAddError, setBookmarkAddError] = useState<string | null>(null)
-  const [bookmarkDeleteMessage, setBookmarkDeleteMessage] = useState()
-  const [bookmarkDeleteError, setBookmarkDeleteError] = useState<string | null>(
-    null,
-  )
-  const { profile } = useProfile()
-  const profileId = profile?.id
-
-  useEffect(() => {
-    loadBookmark(id as string)
-  }, [id])
-
-  const movieDetail = bookmark || movie
+  const { isLoggedIn } = useContext(MovieContext)
+  const { bookmark, loadBookmark } = useBookmark(id as string)
 
   const { sumLikes, loadLikes } = useLikes(id as string)
   const [watchHistoryMessage, setWatchHistoryMessage] = useState<string | null>(
@@ -77,6 +56,22 @@ const MovieCover = () => {
   const [dislikeMovieError, setDislikeMovieMessageError] = useState<
     string | null
   >(null)
+  const [addBookmarkMessage, setAddBookmarkMessage] = useState<string | null>(
+    null,
+  )
+  const [addBookmarkError, setAddBookmarkError] = useState<string | null>(null)
+  const [deleteBookmarkMessage, setDeleteBookmarkMessage] = useState<
+    string | null
+  >(null)
+  const [deleteBookmarkError, setDeleteBookmarkError] = useState<string | null>(
+    null,
+  )
+  const [movieBookmarkMovie, setBookmarkMovie] = useState<any>()
+
+  console.log('Movie Bookmark', movieBookmarkMovie)
+  console.log('Movie', movie)
+  console.log('Bookmark', bookmark)
+  console.log('Profile', profile)
 
   const addWatchHistory = async () => {
     try {
@@ -100,6 +95,8 @@ const MovieCover = () => {
       const dataAddLike = await handleAddLike(id as string)
       setLikeMovieMessage(dataAddLike.message)
       await loadLikes()
+      await loadProfile()
+      await loadBookmark()
       setTimeout(() => setLikeMovieMessage(null), 3000)
     } catch (error) {
       if (error instanceof Error) {
@@ -114,6 +111,8 @@ const MovieCover = () => {
       const dataDislike = await handleAddDislike(id as string)
       setDislikeMovieMessage(dataDislike.message)
       await loadLikes()
+      await loadProfile()
+      await loadBookmark()
       setTimeout(() => setDislikeMovieMessage(null), 3000)
     } catch (error) {
       if (error instanceof Error) {
@@ -123,41 +122,47 @@ const MovieCover = () => {
     }
   }
 
-  const isBookmarked: boolean =
-    (bookmark as BookmarkProp | null)?.bookmarks.includes(
-      profileId as string,
-    ) ?? false
-
-  console.log(isBookmarked)
-
   const addBookmarkMovie = async () => {
     try {
       const data = await handlAddMovieBookmark(id as string)
-      setBookmarkAddMessage(data.message)
+      setAddBookmarkMessage(data.message)
       await loadMovie()
+      await loadProfile()
+      await loadBookmark()
+      setTimeout(() => {
+        setAddBookmarkMessage(null)
+      }, 3000)
     } catch (error) {
       if (error instanceof Error) {
-        setBookmarkAddError(error.message)
-        setTimeout(() => setBookmarkAddError(null), 3000)
+        setAddBookmarkError(error.message)
       }
+      setTimeout(() => {
+        setAddBookmarkError(null)
+      }, 3000)
     }
   }
 
   const deleteBookmarkMovie = async () => {
     try {
       const data = await handleDeleteMovieBookmark(id as string)
-      setBookmarkDeleteMessage(data.message)
-      // await loadBookmark(id as string)
+      setDeleteBookmarkMessage(data?.message)
+      await loadProfile()
       await loadMovie()
+      await loadBookmark()
+      setTimeout(() => {
+        setDeleteBookmarkMessage(null)
+      }, 3000)
     } catch (error) {
       if (error instanceof Error) {
-        setBookmarkDeleteError(error.message)
-        setTimeout(() => setBookmarkDeleteError(null), 3000)
+        setDeleteBookmarkError(error.message)
       }
+      setTimeout(() => {
+        setDeleteBookmarkError(null)
+      }, 3000)
     }
   }
 
-  const videoSource = movieDetail?.trailerUrl
+  const videoSource = movie?.trailerUrl
 
   const player = useVideoPlayer(videoSource, (player) => {
     player.loop = true
@@ -191,7 +196,6 @@ const MovieCover = () => {
       />
     </Svg>
   )
-  console.log(movieDetail?.bookmarks.length)
 
   return (
     <>
@@ -206,20 +210,20 @@ const MovieCover = () => {
       )}
       {likeMovieError && <AlertResponse message={likeMovieError} />}
       {watchHistoryError && <AlertResponse message={watchHistoryError} />}
+      {addBookmarkMessage && <AlertResponse message={addBookmarkMessage} />}
+      {addBookmarkError && <AlertResponse message={addBookmarkError} />}
+      {deleteBookmarkMessage && (
+        <AlertResponse message={deleteBookmarkMessage} />
+      )}
+      {deleteBookmarkError && <AlertResponse message={deleteBookmarkError} />}
       {dislikeMovieError && <AlertResponse message={dislikeMovieError} />}
-      {addedError && <AlertResponse message={addedError} />}
-      {deleteError && <AlertResponse message={deleteError} />}
-      {addedMessage && <AlertResponse message={addedMessage} />}
       {dislikeMovieMessage && <AlertResponse message={dislikeMovieMessage} />}
       {watchHistoryMessage && <AlertResponse message={watchHistoryMessage} />}
       {likeMovieMessage && <AlertResponse message={likeMovieMessage} />}
-      {bookmarkDeleteMessage && (
-        <AlertResponse message={bookmarkDeleteMessage} />
-      )}
       {!isPlaying ? (
         <View>
           <ImageBackground
-            source={{ uri: movieDetail?.posterUrl }}
+            source={{ uri: movie?.posterUrl }}
             resizeMode="cover"
             style={styles.imageBackground}
           >
@@ -228,11 +232,13 @@ const MovieCover = () => {
                 <View style={styles.counts}>
                   <Pressable
                     onPress={() =>
-                      isBookmarked ? deleteBookmarkMovie() : addBookmarkMovie()
+                      addBookmarkMessage
+                        ? deleteBookmarkMovie()
+                        : addBookmarkMovie()
                     }
                   >
                     <FontAwesome
-                      name={isBookmarked ? 'bookmark-o' : 'bookmark'}
+                      name={addBookmarkMessage ? 'bookmark' : 'bookmark-o'}
                       size={22}
                       color="#fff"
                     />
@@ -242,12 +248,11 @@ const MovieCover = () => {
                     style={[
                       styles.likes,
                       {
-                        opacity:
-                          movieDetail?.bookmarks.length === 0 ? 0 : undefined,
+                        opacity: movie?.bookmarks.length === 0 ? 0 : undefined,
                       },
                     ]}
                   >
-                    {movieDetail?.bookmarks.length}
+                    {movie?.bookmarks.length}
                   </Text>
                 </View>
                 <View style={styles.counts}>
@@ -308,7 +313,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    left: '5%',
+    left: '2.5%',
   },
   bookmarkLikeIcons: {
     flexDirection: 'row',

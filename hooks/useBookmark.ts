@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { handleFetchMovieBookmarksById } from '@/api'
 
-const useBookmark = () => {
+const useBookmark = (movieId: string) => {
   const [bookmark, setBookmark] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const loadBookmark = async (movieId: string) => {
+  const loadBookmark = async () => {
     try {
       setLoading(true)
       const data = await handleFetchMovieBookmarksById(movieId)
@@ -18,11 +18,11 @@ const useBookmark = () => {
     } finally {
       setLoading(false)
     }
-
-    useEffect(() => {
-      loadBookmark(movieId)
-    }, [movieId])
   }
+
+  useEffect(() => {
+    loadBookmark()
+  }, [movieId])
 
   return { bookmark, loading, error, loadBookmark }
 }

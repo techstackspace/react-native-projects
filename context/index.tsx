@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useState } from 'react'
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useState,
+} from 'react'
 import * as SecureStore from 'expo-secure-store'
 import { handlAddMovieBookmark, handleDeleteMovieBookmark } from '@/api'
 import useBookmark from '@/hooks/useBookmark'
@@ -22,11 +28,16 @@ interface MovieContextType {
   logoutError: string | null
   addedError: string | null
   deleteError: string | null
-  deleteBookmarkMovie: any
   deletedBookmark: any
   deletedBookmarkMessage: string | null
   isDeleted: boolean
   loadBookmark: any
+  page: number
+  limit: number
+  search: string
+  setPage: Dispatch<SetStateAction<number>>
+  setLimit: Dispatch<SetStateAction<number>>
+  setSearch: Dispatch<SetStateAction<string>>
 }
 
 // const MovieContext = createContext<MovieContextType | undefined>(undefined)
@@ -41,19 +52,27 @@ const MovieContext = createContext<MovieContextType>({
   bookmarkId: '',
   logoutError: null,
   addedError: null,
-  deleteBookmarkMovie: async () => {},
   deletedBookmark: null,
   deletedBookmarkMessage: null,
   isDeleted: false,
   deleteError: null,
   loadBookmark: async () => {},
+  page: 1,
+  limit: 10,
+  search: '',
+  setPage: () => {},
+  setLimit: () => {},
+  setSearch: () => {},
 })
 
 const MovieProvider = ({ children }: MovieProviderProps) => {
   const { loadBookmark, bookmark } = useBookmark()
+  const [page, setPage] = useState(1)
+  const [limit, setLimit] = useState(10)
+  const [search, setSearch] = useState('')
   const segments = useSegments() as string[]
   const isBookmark = segments.includes('Bookmark')
-  const { loadBookmarkMovies } = useBookmarks(1, 1, '', isBookmark)
+  const { loadBookmarkMovies } = useBookmarks(page, limit, search, isBookmark)
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [logoutMessage, setLogoutMessage] = useState<string | null>(null)
@@ -64,6 +83,7 @@ const MovieProvider = ({ children }: MovieProviderProps) => {
   const [deletedBookmark, setDeletedBookmark] = useState(null)
   const [deletedBookmarkMessage, setDeletedBookmarkMessage] = useState(null)
   const [isDeleted, setIsDeleted] = useState(false)
+  const [addedMessage, setAddedMessage] = useState(null)
 
   const checkAuthStatus = async () => {
     const token = await SecureStore.getItemAsync('authToken')
@@ -77,29 +97,6 @@ const MovieProvider = ({ children }: MovieProviderProps) => {
       }, 3600000)
     }
   }
-
-  const deleteBookmarkMovie = async (id: string) => {
-    try {
-      const { deletedBookmark, updateBookmarks } =
-        await handleDeleteMovieBookmark(id)
-      setDeletedBookmarkMessage(deletedBookmark.message)
-      setDeletedBookmark(updateBookmarks.bookmarks)
-      await loadBookmarkMovies()
-      // setIsDeleted(true)
-      setTimeout(() => {
-        setDeletedBookmarkMessage(null)
-      }, 3000)
-    } catch (error) {
-      if (error instanceof Error) {
-        setDeleteError(error.message)
-        setTimeout(() => {
-          setDeleteError(null)
-        }, 3000)
-      }
-    }
-  }
-
-  const [addedMessage, setAddedMessage] = useState(null)
 
   const addBookmarkMovie = async (id: string) => {
     setBookmarkId(id)
@@ -134,6 +131,7 @@ const MovieProvider = ({ children }: MovieProviderProps) => {
       }, 3000)
     }
   }
+
   return (
     <MovieContext.Provider
       value={{
@@ -151,8 +149,13 @@ const MovieProvider = ({ children }: MovieProviderProps) => {
         deletedBookmark,
         deletedBookmarkMessage,
         isDeleted,
-        deleteBookmarkMovie,
         loadBookmark,
+        page,
+        limit,
+        search,
+        setPage,
+        setLimit,
+        setSearch,
       }}
     >
       {children}
