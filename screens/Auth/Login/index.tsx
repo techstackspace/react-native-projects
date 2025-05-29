@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   message: {
-    backgroundColor: '#f5dfdf',
+    backgroundColor: constants.mesageBg,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -169,11 +169,11 @@ const styles = StyleSheet.create({
     marginTop: 60,
   },
   errorText: {
-    color: 'red',
+    color: constants.denger,
     textAlign: 'center',
   },
   successText: {
-    color: 'green',
+    color: constants.success,
     textAlign: 'center',
   },
 })

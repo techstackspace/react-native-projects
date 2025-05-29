@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native'
 import { Link } from 'expo-router'
+import { constants } from '@/constants'
 
 export default function NotFound() {
   return (
@@ -18,21 +19,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#000957',
+    backgroundColor: constants.foundBg,
   },
   title: {
     fontSize: 80,
     fontWeight: 'bold',
-    color: 'white',
+    color: constants.white,
   },
   message: {
     fontSize: 20,
-    color: '#cccccc',
+    color: constants.lightGray,
     marginBottom: 20,
   },
   link: {
-    backgroundColor: '#fff',
-    color: '#000957',
+    backgroundColor: constants.white,
+    color: constants.foundBg,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 10,

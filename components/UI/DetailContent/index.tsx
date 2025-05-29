@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 30,
     gap: 5,
-    backgroundColor: '#221F3D',
+    backgroundColor: constants.badge,
     width: 116,
     borderRadius: 4,
     marginVertical: 10,
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     marginTop: -5,
   },
   genre: {
-    backgroundColor: '#221F3D',
+    backgroundColor: constants.badge,
     borderRadius: 4,
     color: constants.white,
     paddingHorizontal: 10,

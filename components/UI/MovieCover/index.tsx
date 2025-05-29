@@ -66,12 +66,12 @@ const MovieCover = () => {
   const [deleteBookmarkError, setDeleteBookmarkError] = useState<string | null>(
     null,
   )
-  const [movieBookmarkMovie, setBookmarkMovie] = useState<any>()
+  // const [movieBookmarkMovie, setBookmarkMovie] = useState<any>()
 
-  console.log('Movie Bookmark', movieBookmarkMovie)
-  console.log('Movie', movie)
-  console.log('Bookmark', bookmark)
-  console.log('Profile', profile)
+  // console.log('Movie Bookmark', movieBookmarkMovie)
+  // console.log('Movie', movie)
+  // console.log('Bookmark', bookmark)
+  // console.log('Profile', profile)
 
   const addWatchHistory = async () => {
     try {
@@ -240,7 +240,7 @@ const MovieCover = () => {
                     <FontAwesome
                       name={addBookmarkMessage ? 'bookmark' : 'bookmark-o'}
                       size={22}
-                      color="#fff"
+                      color={constants.white}
                     />
                   </Pressable>
 

@@ -3,6 +3,7 @@ import Main from '../../shared/Main'
 import { SimpleLineIcons } from '@expo/vector-icons'
 import Header from '../Header'
 import { useSegments } from 'expo-router'
+import { constants } from '@/constants'
 
 type SimpleLineIconNames = keyof typeof SimpleLineIcons.glyphMap
 
@@ -19,7 +20,7 @@ const Alert = ({
   message,
   name = 'info',
   size = 100,
-  color = '#666',
+  color = constants.darkGray,
   text = '',
   onChangeText = () => {},
 }: AlertProps) => {
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
   },
   emptyStateText: {
     fontSize: 16,
-    color: '#666',
+    color: constants.darkGray,
     textAlign: 'center',
     fontFamily: 'Inter-bold',
   },

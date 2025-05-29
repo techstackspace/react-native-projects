@@ -69,7 +69,7 @@ const Movie = ({
             }
           >
             <LinearGradient
-              colors={['#FAF9F7', '#9B9EA7']}
+              colors={[constants.linearPrimary, constants.linearSecondary]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.gradient}
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   },
   genre: {
     fontSize: 10,
-    color: '#9CA4AB',
+    color: constants.badgeText,
     fontWeight: '700',
     fontFamily: 'Inter-bold',
   },

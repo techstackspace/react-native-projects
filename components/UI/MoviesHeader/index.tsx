@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     color: constants.white,
     fontFamily: 'Inter-regular',
   },
-  searchText: { fontWeight: 700, color: '#D1C0FF' },
+  searchText: { fontWeight: 700, color: constants.searchColor },
   categories: {
     flexDirection: 'row',
     gap: 10,
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   categoryText: {
     fontSize: 12,
-    color: '#ECECFF',
+    color: constants.lightHeaderGray,
     fontWeight: 500,
     fontFamily: 'Inter',
   },

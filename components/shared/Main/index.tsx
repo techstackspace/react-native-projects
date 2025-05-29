@@ -19,7 +19,7 @@ const Main = ({ children, style }: MainProps) => {
 
   return (
     <LinearGradient
-      colors={['#131a9e', constants.primary]}
+      colors={[constants.main, constants.primary]}
       locations={[0, 0.3]}
       start={{ x: 0, y: 0 }}
       end={{ x: 0, y: 1 }}

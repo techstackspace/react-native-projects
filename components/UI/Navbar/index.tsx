@@ -3,7 +3,6 @@ import { SimpleLineIcons } from '@expo/vector-icons'
 import { router } from 'expo-router'
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
 import { useContext, useEffect } from 'react'
-import { BlurView } from 'expo-blur'
 import { MovieContext } from '@/context'
 
 const Navbar = () => {
@@ -32,7 +31,7 @@ const Navbar = () => {
             position: 'absolute',
             top: 180,
             zIndex: 10,
-            backgroundColor: '#e2e2d9',
+            backgroundColor: constants.navbarBg,
             padding: 20,
             width: '100%',
             left: '5%',
@@ -42,7 +41,7 @@ const Navbar = () => {
             borderRadius: 10,
           }}
         >
-          <Text style={{ color: '#7b7b0f' }}>{message}</Text>
+          <Text style={{ color: constants.logoutText }}>{message}</Text>
         </View>
       )}
       {isLoggedIn ? (
@@ -114,7 +113,7 @@ const styles = StyleSheet.create({
     right: 0,
     paddingVertical: Platform.OS === 'android' ? 15 : 20,
     paddingHorizontal: '5%',
-    backgroundColor: '#131387',
+    backgroundColor: constants.mainAlt,
     zIndex: 10,
   },
   flexBox: {

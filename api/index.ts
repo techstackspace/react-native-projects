@@ -5,7 +5,7 @@ import { router } from 'expo-router/build/imperative-api'
 
 const HOST =
   Platform.OS === 'android'
-    ? 'http://192.168.0.167:4000'
+    ? 'http://192.168.2.230:4000'
     : 'http://localhost:4000'
 
 const handleFetchMovies = async (url: string) => {
