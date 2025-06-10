@@ -36,9 +36,10 @@ const handleFetchMovies = async (url: string) => {
 
 const handleFetchBookmarkMovies = async (url: string) => {
   try {
+    const token = await SecureStore.getItemAsync('authToken')
     const response = await fetch(`${HOST}${url}`, {
       headers: {
-        Authorization: `Bearer ${await SecureStore.getItemAsync('authToken')}`,
+        Authorization: `Bearer ${token}`,
       },
     })
 

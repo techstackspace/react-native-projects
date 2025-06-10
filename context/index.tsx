@@ -8,7 +8,6 @@ import {
 import * as SecureStore from 'expo-secure-store'
 import { handlAddMovieBookmark, handleDeleteMovieBookmark } from '@/api'
 import useBookmark from '@/hooks/useBookmark'
-import useMovie from '@/hooks/useMovie'
 import useBookmarks from '@/hooks/useBookmarks'
 import { useSegments } from 'expo-router'
 
@@ -38,6 +37,7 @@ interface MovieContextType {
   setPage: Dispatch<SetStateAction<number>>
   setLimit: Dispatch<SetStateAction<number>>
   setSearch: Dispatch<SetStateAction<string>>
+  loadBookmarkMovies: () => Promise<void>
 }
 
 // const MovieContext = createContext<MovieContextType | undefined>(undefined)
@@ -63,17 +63,17 @@ const MovieContext = createContext<MovieContextType>({
   setPage: () => {},
   setLimit: () => {},
   setSearch: () => {},
+  loadBookmarkMovies: async () => {},
 })
 
 const MovieProvider = ({ children }: MovieProviderProps) => {
-  const { loadBookmark, bookmark } = useBookmark()
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(10)
   const [search, setSearch] = useState('')
   const segments = useSegments() as string[]
   const isBookmark = segments.includes('Bookmark')
-  const { loadBookmarkMovies } = useBookmarks(page, limit, search, isBookmark)
-
+  const { loadBookmarkMovies, bookmarks, error, loading, sumMovies } = useBookmarks(page, limit, search, isBookmark)
+  
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [logoutMessage, setLogoutMessage] = useState<string | null>(null)
   const [addedError, setAddedError] = useState<string | null>(null)
@@ -84,6 +84,7 @@ const MovieProvider = ({ children }: MovieProviderProps) => {
   const [deletedBookmarkMessage, setDeletedBookmarkMessage] = useState(null)
   const [isDeleted, setIsDeleted] = useState(false)
   const [addedMessage, setAddedMessage] = useState(null)
+  const { loadBookmark, bookmark } = useBookmark(bookmarkId)
 
   const checkAuthStatus = async () => {
     const token = await SecureStore.getItemAsync('authToken')
@@ -150,6 +151,7 @@ const MovieProvider = ({ children }: MovieProviderProps) => {
         deletedBookmarkMessage,
         isDeleted,
         loadBookmark,
+        loadBookmarkMovies,
         page,
         limit,
         search,
