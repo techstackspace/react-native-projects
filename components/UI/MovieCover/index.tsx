@@ -5,12 +5,13 @@ import {
   Pressable,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
 } from 'react-native'
 import useMovie from '@/hooks/useMovie'
 import { useLocalSearchParams } from 'expo-router/build/hooks'
 import Svg, { Defs, LinearGradient, Stop, Path } from 'react-native-svg'
-import { MoviesInterface } from '@/components/shared/MoviesSection/interfaceface'
+import { MoviesInterface } from '@/components/shared/MoviesSection/interface'
 import { useVideoPlayer, VideoView } from 'expo-video'
 import { useEvent } from 'expo'
 import Main from '@/components/shared/Main'
@@ -31,8 +32,9 @@ import { MovieContext } from '@/context'
 import useBookmark from '@/hooks/useBookmark'
 
 const MovieCover = () => {
+  const { width, height } = useWindowDimensions()
   const { id } = useLocalSearchParams()
-  const { profile, loadProfile } = useProfile()
+  const { loadProfile } = useProfile()
   const { movie, loadMovie } = useMovie(
     id as string,
   ) as unknown as MoviesInterface
@@ -66,12 +68,6 @@ const MovieCover = () => {
   const [deleteBookmarkError, setDeleteBookmarkError] = useState<string | null>(
     null,
   )
-  // const [movieBookmarkMovie, setBookmarkMovie] = useState<any>()
-
-  // console.log('Movie Bookmark', movieBookmarkMovie)
-  // console.log('Movie', movie)
-  // console.log('Bookmark', bookmark)
-  // console.log('Profile', profile)
 
   const addWatchHistory = async () => {
     try {
@@ -290,7 +286,7 @@ const MovieCover = () => {
       ) : (
         <View style={styles.contentContainer}>
           <VideoView
-            style={styles.video}
+            style={[styles.video, { width, height }]}
             player={player}
             allowsFullscreen={true}
             allowsPictureInPicture

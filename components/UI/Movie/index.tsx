@@ -11,7 +11,7 @@ import MaskedView from '@react-native-masked-view/masked-view'
 import { constants } from '@/constants'
 import { Link, useSegments } from 'expo-router'
 import { BlurView } from 'expo-blur'
-import { MoviesInterface } from '../../shared/MoviesSection/interface/interface'
+import { MoviesInterface } from '@/components/shared/MoviesSection/interface'
 import { FontAwesome } from '@expo/vector-icons'
 
 const Movie = ({

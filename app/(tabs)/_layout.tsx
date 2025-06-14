@@ -1,17 +1,18 @@
 import { Tabs, usePathname } from 'expo-router'
-import { Dimensions, StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet, useWindowDimensions } from 'react-native'
 import GradientButton from '@/components/shared/GradientButton'
 import { constants } from '@/constants'
 
 const TabsLayout = () => {
   const pathname = usePathname()
+  const { width } = useWindowDimensions()
 
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: styles.tabBody,
+        tabBarStyle: [styles.tabBody, {width: width * 0.9}],
       }}
     >
       <Tabs.Screen

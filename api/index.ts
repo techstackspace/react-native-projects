@@ -2,15 +2,12 @@ import { payloadInterface } from '@/api/interface'
 import { Platform } from 'react-native'
 import * as SecureStore from 'expo-secure-store'
 import { router } from 'expo-router/build/imperative-api'
+import { BASE_URL } from '@/constants'
 
-const HOST =
-  Platform.OS === 'android'
-    ? 'http://192.168.2.230:4000'
-    : 'http://localhost:4000'
 
 const handleFetchMovies = async (url: string) => {
   try {
-    const response = await fetch(`${HOST}${url}`)
+    const response = await fetch(`${BASE_URL}${url}`)
 
     if (!response.ok) {
       // Server responded with an error status (like 404, 500)
@@ -37,7 +34,7 @@ const handleFetchMovies = async (url: string) => {
 const handleFetchBookmarkMovies = async (url: string) => {
   try {
     const token = await SecureStore.getItemAsync('authToken')
-    const response = await fetch(`${HOST}${url}`, {
+    const response = await fetch(`${BASE_URL}${url}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -114,7 +111,7 @@ const handleUpdateUserProfile = async (payload: {
       })
     }
 
-    const response = await fetch(`${HOST}/api/users/me`, {
+    const response = await fetch(`${BASE_URL}/api/users/me`, {
       method: 'PATCH',
       headers,
       body,
@@ -154,7 +151,7 @@ const handleFetchProfile = async () => {
       throw new Error('Token not found! Login to get one')
     }
 
-    const response = await fetch(`${HOST}/api/users/me`, {
+    const response = await fetch(`${BASE_URL}/api/users/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -189,7 +186,7 @@ const handleFetchProfile = async () => {
 
 const handleFetchMoviesById = async (id: string) => {
   try {
-    const response = await fetch(`${HOST}/api/movies/${id}`)
+    const response = await fetch(`${BASE_URL}/api/movies/${id}`)
 
     if (!response.ok) {
       throw new Error(
@@ -213,7 +210,7 @@ const handleFetchMoviesById = async (id: string) => {
 
 const handleRegisterUser = async (payload: payloadInterface) => {
   try {
-    const response = await fetch(`${HOST}/api/users/register`, {
+    const response = await fetch(`${BASE_URL}/api/users/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -248,7 +245,7 @@ const handleRegisterUser = async (payload: payloadInterface) => {
 
 const handleLoginUser = async (payload: payloadInterface) => {
   try {
-    const response = await fetch(`${HOST}/api/users/login`, {
+    const response = await fetch(`${BASE_URL}/api/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -294,7 +291,7 @@ const handleFetchMovieBookmarksById = async (movieId: string) => {
       throw new Error('Login to bookmark movie')
     }
 
-    const response = await fetch(`${HOST}/api/users/bookmark/${movieId}`, {
+    const response = await fetch(`${BASE_URL}/api/users/bookmark/${movieId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -324,7 +321,7 @@ const handlAddMovieBookmark = async (movieId: string) => {
       throw new Error('Login required to bookmark movie')
     }
 
-    const response = await fetch(`${HOST}/api/users/bookmark/${movieId}`, {
+    const response = await fetch(`${BASE_URL}/api/users/bookmark/${movieId}`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -369,7 +366,7 @@ const handleDeleteMovieBookmark = async (movieId: string) => {
       throw new Error('Login is required to remove bookmarked movie')
     }
 
-    const response = await fetch(`${HOST}/api/users/bookmark/${movieId}`, {
+    const response = await fetch(`${BASE_URL}/api/users/bookmark/${movieId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -415,7 +412,7 @@ const handleDeleteAccount = async () => {
       throw new Error('Login is required to delete account')
     }
 
-    const response = await fetch(`${HOST}/api/users/me`, {
+    const response = await fetch(`${BASE_URL}/api/users/me`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -460,7 +457,7 @@ const handleWatchHistory = async (id: string) => {
       throw new Error('Login is required to get watch history')
     }
 
-    const response = await fetch(`${HOST}/api/users/watch/${id}`, {
+    const response = await fetch(`${BASE_URL}/api/users/watch/${id}`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -505,7 +502,7 @@ const handleAddLike = async (id: string) => {
       throw new Error('Login is required to like movie')
     }
 
-    const response = await fetch(`${HOST}/api/movies/${id}/like`, {
+    const response = await fetch(`${BASE_URL}/api/movies/${id}/like`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -550,7 +547,7 @@ const handleAddDislike = async (id: string) => {
       throw new Error('Login is required to dislike movie')
     }
 
-    const response = await fetch(`${HOST}/api/movies/${id}/dislike`, {
+    const response = await fetch(`${BASE_URL}/api/movies/${id}/dislike`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -589,7 +586,7 @@ const handleAddDislike = async (id: string) => {
 
 const handleFetchLikedMovies = async (id: string) => {
   try {
-    const response = await fetch(`${HOST}/api/movies/${id}/likes`)
+    const response = await fetch(`${BASE_URL}/api/movies/${id}/likes`)
 
     if (!response.ok) {
       throw new Error(`Failed to fetch likes: ${response.status}`)

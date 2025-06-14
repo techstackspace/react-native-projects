@@ -1,6 +1,12 @@
 import { ReactNode } from 'react'
 import { StatusBar } from 'expo-status-bar'
-import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
+import {
+  StyleProp,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+  ViewStyle,
+} from 'react-native'
 
 interface ContainerProps {
   children: ReactNode
@@ -8,10 +14,13 @@ interface ContainerProps {
 }
 
 const Container = ({ children, style }: ContainerProps) => {
+  const { width } = useWindowDimensions()
   return (
     <>
       <View style={[styles.container, style]}>
-        <View style={styles.contentView}>{children}</View>
+        <View style={[styles.contentView, { width: width * 0.9 }]}>
+          {children}
+        </View>
       </View>
       <StatusBar style="light" />
     </>

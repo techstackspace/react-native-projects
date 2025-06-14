@@ -1,10 +1,10 @@
-import { ReactNode } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { LinearGradient } from 'expo-linear-gradient'
 import { constants } from '@/constants'
-import { StatusBar } from 'expo-status-bar'
+import { LinearGradient } from 'expo-linear-gradient'
 import { useSegments } from 'expo-router'
+import { StatusBar } from 'expo-status-bar'
+import { ReactNode } from 'react'
 import { StyleSheet } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 interface MainProps {
   children: ReactNode

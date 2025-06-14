@@ -1,3 +1,5 @@
+import { Platform } from "react-native"
+
 const constants = {
   main: '#131a9e',
   primary: '#030014',
@@ -26,4 +28,14 @@ const constants = {
   cancelBtn: '#555555'
 }
 
-export { constants }
+const BASE_URL =
+  Platform.OS === 'android'
+    ? 'http://192.168.0.167:4000'
+    : Platform.OS === 'ios'
+    ? 'http://localhost:4000'
+    : Platform.OS === 'web'
+    ? 'http://localhost:4000'
+    : 'http://192.168.0.167:4000'
+
+
+export { constants, BASE_URL}

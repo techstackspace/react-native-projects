@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Pressable,
   View,
+  useWindowDimensions,
 } from 'react-native'
 import { constants } from '@/constants'
 import Header from '@/components/shared/Header'
@@ -18,6 +19,7 @@ import Container from '@/components/shared/Container'
 import AlertResponse from '@/components/shared/AlertResponse'
 
 const LoginScreen = () => {
+  const { width } = useWindowDimensions()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [email, setEmail] = useState('')
@@ -73,7 +75,7 @@ const LoginScreen = () => {
           value={email}
           onChangeText={setEmail}
           placeholderTextColor={constants.light}
-          style={styles.input}
+          style={[styles.input, { width }]}
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
@@ -85,7 +87,7 @@ const LoginScreen = () => {
           onChangeText={setPassword}
           placeholderTextColor={constants.light}
           secureTextEntry
-          style={styles.input}
+          style={[styles.input, { width }]}
           autoCapitalize="none"
           autoCorrect={false}
         />
@@ -93,7 +95,7 @@ const LoginScreen = () => {
         {loading ? (
           <ActivityIndicator size="large" color={constants.primary} />
         ) : (
-          <Pressable style={styles.button} onPress={loginUser}>
+          <Pressable style={[styles.button, { width }]} onPress={loginUser}>
             <Text style={styles.buttonText}>Login</Text>
           </Pressable>
         )}

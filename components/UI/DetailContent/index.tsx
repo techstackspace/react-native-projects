@@ -10,7 +10,7 @@ import {
   formatNumber,
   productionCompany,
 } from '@/utility'
-import { MoviesInterface } from '@/components/shared/MoviesSection/interfaceface'
+import { MoviesInterface } from '@/components/shared/MoviesSection/interface'
 
 const DetailContent = () => {
   const { id } = useLocalSearchParams()

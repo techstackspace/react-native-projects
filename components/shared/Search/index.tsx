@@ -1,4 +1,11 @@
-import { Dimensions, Image, StyleSheet, TextInput, View } from 'react-native'
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  TextInput,
+  useWindowDimensions,
+  View,
+} from 'react-native'
 import { constants } from '@/constants'
 import { useRouter, useSegments } from 'expo-router'
 
@@ -14,6 +21,7 @@ const Search = ({
   const segments = useSegments() as string[]
   const isOnSearchPage = segments.includes('Search')
   const isOnHomePage = segments.includes('(tabs)')
+  const { width } = useWindowDimensions()
 
   const handleFocus = () => {
     if (!isOnSearchPage) {
@@ -26,7 +34,7 @@ const Search = ({
       {(isOnSearchPage || isOnHomePage) && (
         <>
           <TextInput
-            style={styles.input}
+            style={[styles.input, { width: width * 0.9 }]}
             onChangeText={isOnSearchPage ? onChangeText : undefined}
             value={isOnSearchPage ? text : ''}
             placeholder="Search through 300+ movies online"

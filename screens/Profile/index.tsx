@@ -12,6 +12,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Modal,
+  useWindowDimensions,
 } from 'react-native'
 import { constants } from '@/constants'
 import Main from '@/components/shared/Main'
@@ -26,6 +27,7 @@ import * as ImagePicker from 'expo-image-picker'
 import * as SecureStore from 'expo-secure-store'
 
 const ProfileScreen = () => {
+  const { width } = useWindowDimensions()
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -169,7 +171,7 @@ const ProfileScreen = () => {
         keyboardVerticalOffset={80}
       >
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <View style={styles.profile}>
+          <View style={[styles.profile, { width: width * 0.9 }]}>
             <Text style={styles.title}>Profile</Text>
           </View>
 
@@ -190,7 +192,7 @@ const ProfileScreen = () => {
                   placeholder="Username"
                   value={username}
                   onChangeText={setUsername}
-                  style={styles.input}
+                  style={[styles.input, { width: width * 0.9 }]}
                   placeholderTextColor={constants.gray}
                 />
 
@@ -200,7 +202,7 @@ const ProfileScreen = () => {
                   value={email}
                   onChangeText={setEmail}
                   keyboardType="email-address"
-                  style={styles.input}
+                  style={[styles.input, { width: width * 0.9 }]}
                   placeholderTextColor={constants.gray}
                 />
 
@@ -210,7 +212,7 @@ const ProfileScreen = () => {
                   value={password}
                   onChangeText={setPassword}
                   secureTextEntry
-                  style={styles.input}
+                  style={[styles.input, { width: width * 0.9 }]}
                   placeholderTextColor={constants.gray}
                 />
 
@@ -221,7 +223,7 @@ const ProfileScreen = () => {
                     profileImageUrl ? profileImageUrl : profile?.profileImage
                   }
                   onChangeText={setProfileImageUrl}
-                  style={styles.input}
+                  style={[styles.input, { width: width * 0.9 }]}
                   placeholderTextColor={constants.gray}
                 />
               </>
@@ -236,7 +238,7 @@ const ProfileScreen = () => {
           </View>
 
           {!isEditted && (
-            <View style={styles.statsContainer}>
+            <View style={[styles.statsContainer, { width: width * 0.9 }]}>
               <View style={styles.statBox}>
                 <Text style={styles.statNumber}>{profile?.likes.length}</Text>
                 <Text style={styles.statLabel}>Likes</Text>
@@ -282,12 +284,12 @@ const ProfileScreen = () => {
           </View>
 
           {!isEditted && (
-            <View style={styles.infoContainer}>
+            <View style={[styles.infoContainer, { width: width * 0.9 }]}>
               <Text style={styles.infoLabel}>Account Created:</Text>
               <Text style={styles.infoText}>{readableDate}</Text>
             </View>
           )}
-          <View style={styles.separator}></View>
+          <View style={[styles.separator, { width: width * 0.9 }]}></View>
 
           <Pressable
             style={[styles.cancelButton, styles.deleteButton]}
@@ -304,14 +306,14 @@ const ProfileScreen = () => {
           onRequestClose={() => setShowDeleteModal(false)}
         >
           <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
+            <View style={[styles.modalContent, { width: width * 0.8 }]}>
               <Text style={styles.modalTitle}>Confirm Deletion</Text>
               <Text style={styles.modalText}>
                 Are you sure you want to delete your account? This action cannot
                 be undone.
               </Text>
 
-              <View style={styles.modalButtons}>
+              <View style={[styles.modalButtons, { width }]}>
                 <Pressable
                   style={[styles.modalButton, { backgroundColor: 'red' }]}
                   onPress={deleteAccount}

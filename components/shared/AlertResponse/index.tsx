@@ -1,13 +1,14 @@
 import { constants } from '@/constants'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 
 interface AlertResponseProps {
   message: string
 }
 
 const AlertResponse = ({ message }: AlertResponseProps) => {
+  const { width } = useWindowDimensions()
   return (
-    <View style={styles.alertContainer}>
+    <View style={[styles.alertContainer, { width: width * 0.9 }]}>
       <View style={styles.alert}>
         <Text>{message}</Text>
       </View>

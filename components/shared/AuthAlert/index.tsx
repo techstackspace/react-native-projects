@@ -1,6 +1,6 @@
 import { useLocalSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 import * as SecureStore from 'expo-secure-store'
 import { constants } from '@/constants'
 
@@ -8,6 +8,7 @@ const Alert = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const { message: incomingMessage } = useLocalSearchParams()
   const [message, setMessage] = useState(incomingMessage || '')
+  const { width } = useWindowDimensions()
 
   const checkAuthStatus = async () => {
     const token = await SecureStore.getItemAsync('authToken')
@@ -36,7 +37,7 @@ const Alert = () => {
   return (
     <>
       {message && (
-        <View style={styles.alertContainer}>
+        <View style={[styles.alertContainer, { width: width * 0.9 }]}>
           <View
             style={[
               styles.alert,

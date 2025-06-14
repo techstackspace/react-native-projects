@@ -4,7 +4,7 @@
     "slug": "react-native-apps",
     "version": "1.0.0",
     "sdkVersion": "53.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/images/nav/icon.png",
     "scheme": "movie",
     "userInterfaceStyle": "automatic",

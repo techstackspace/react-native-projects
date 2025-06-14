@@ -5,6 +5,7 @@ import {
   StyleSheet,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  useWindowDimensions,
 } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 
@@ -20,6 +21,7 @@ import { MovieContext } from '@/context'
 import AlertResponse from '@/components/shared/AlertResponse'
 
 const Home = () => {
+  const { width } = useWindowDimensions()
   const { addedMessage, addedError } = useContext(MovieContext)
 
   const [text, setText] = useState('')
@@ -147,23 +149,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-  },
-  navbar: {
-    padding: 10,
-    width: '100%',
-  },
-  alert: {
-    position: 'absolute',
-    top: 180,
-    left: '5%',
-    width: '90%',
-    borderRadius: 10,
-    zIndex: 10,
-  },
-  successText: {
-    color: 'green',
-    textAlign: 'center',
-    paddingVertical: 25,
   },
 })
 

@@ -1,18 +1,19 @@
-import {
-  FlatList,
-  View,
-  StyleSheet,
-  Dimensions,
-  ActivityIndicator,
-} from 'react-native'
 import Movie from '@/components/UI/Movie'
+import Limit from '@/components/shared/Limit'
 import { MoviesSectionProps } from '@/components/shared/MoviesSection/interface'
 import { constants } from '@/constants'
-import { useSegments } from 'expo-router'
-import MoviesHeader from '../../UI/MoviesHeader'
-import { useContext, useState } from 'react'
 import { MovieContext } from '@/context'
-import Limit from '@/components/shared/Limit'
+import { useSegments } from 'expo-router'
+import { useContext, useState } from 'react'
+import {
+  ActivityIndicator,
+  Dimensions,
+  FlatList,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from 'react-native'
+import MoviesHeader from '../../UI/MoviesHeader'
 
 const MoviesSection = ({
   title,
@@ -29,6 +30,7 @@ const MoviesSection = ({
   const { addBookmarkMovie, loadBookmark } = useContext(MovieContext)
   const segments = useSegments()
   const isSearchRoute = (segments as string[]).includes('Search')
+  const { width } = useWindowDimensions()
 
   const loadMoreMovies = () => {
     if (!loading && movies.length < totalMovies && setCurrentPage) {
@@ -62,7 +64,7 @@ const MoviesSection = ({
           onMoviePress={onMoviePress}
         />
       ) : null}
-      <View style={styles.sectionContainer}>
+      <View style={[styles.sectionContainer, { width: width * 0.9 }]}>
         <Limit
           title={title}
           isTopMovies={isTopMovies}
