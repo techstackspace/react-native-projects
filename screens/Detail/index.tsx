@@ -4,10 +4,10 @@ import MovieCover from '@/components/UI/MovieCover'
 import DetailContent from '@/components/UI/DetailContent'
 import { router, useLocalSearchParams } from 'expo-router'
 import useMovie from '@/hooks/useMovie'
-import GradientButton from '@/components/UI/GradientButton'
-import Alert from '@/components/UI/Alert'
+import GradientButton from '@/components/shared/GradientButton'
+import Alert from '@/components/shared/Alert'
 import { constants } from '@/constants'
-import AlertResponse from '@/components/UI/AlertResponse'
+import AlertResponse from '@/components/shared/AlertResponse'
 
 const DetailScreen = () => {
   const { id } = useLocalSearchParams()

@@ -8,16 +8,16 @@ import {
 } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 
-import Header from '@/components/UI/Header'
-import MoviesSection from '@/components/UI/MoviesSection'
+import Header from '@/components/shared/Header'
+import MoviesSection from '@/components/shared/MoviesSection'
 import Main from '@/components/shared/Main'
-import Alert from '@/components/UI/Alert'
-import AuthAlert from '@/components/UI/AuthAlert'
-import Navbar from '@/components/UI/Navbar'
+import Alert from '@/components/shared/Alert'
+import AuthAlert from '@/components/shared/AuthAlert'
+import Navbar from '@/components/shared/Navbar'
 import useMovies from '@/hooks/useMovies'
 import { SectionsProps } from './interface'
 import { MovieContext } from '@/context'
-import AlertResponse from '@/components/UI/AlertResponse'
+import AlertResponse from '@/components/shared/AlertResponse'
 
 const Home = () => {
   const { addedMessage, addedError } = useContext(MovieContext)

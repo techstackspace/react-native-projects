@@ -6,13 +6,13 @@ import {
   ActivityIndicator,
 } from 'react-native'
 import Movie from '@/components/UI/Movie'
-import { MoviesSectionProps } from '@/components/UI/MoviesSection/interface'
+import { MoviesSectionProps } from '@/components/shared/MoviesSection/interface'
 import { constants } from '@/constants'
 import { useSegments } from 'expo-router'
-import MoviesHeader from '../MoviesHeader'
+import MoviesHeader from '../../UI/MoviesHeader'
 import { useContext, useState } from 'react'
 import { MovieContext } from '@/context'
-import Limit from '@/components/UI/Limit'
+import Limit from '@/components/shared/Limit'
 
 const MoviesSection = ({
   title,

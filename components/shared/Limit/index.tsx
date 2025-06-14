@@ -1,4 +1,4 @@
-import { LimitProps } from '@/components/UI/Limit/interface'
+import { LimitProps } from '@/components/shared/Limit/interface'
 import { constants } from '@/constants'
 import { useSegments } from 'expo-router'
 import { Pressable, StyleSheet, Text, View } from 'react-native'

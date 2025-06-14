@@ -11,10 +11,10 @@ import {
   View,
 } from 'react-native'
 import { constants } from '@/constants'
-import Header from '@/components/UI/Header'
-import Navbar from '@/components/UI/Navbar'
+import Header from '@/components/shared/Header'
+import Navbar from '@/components/shared/Navbar'
 import Container from '@/components/shared/Container'
-import AlertResponse from '@/components/UI/AlertResponse'
+import AlertResponse from '@/components/shared/AlertResponse'
 
 const RegisterScreen = () => {
   const [loading, setLoading] = useState(false)
@@ -61,6 +61,8 @@ const RegisterScreen = () => {
           onChangeText={setUsername}
           placeholderTextColor={constants.light}
           style={styles.input}
+          autoCapitalize="none"
+          autoCorrect={false}
         />
 
         <TextInput
@@ -70,6 +72,8 @@ const RegisterScreen = () => {
           placeholderTextColor={constants.light}
           style={styles.input}
           keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
         />
 
         <TextInput
@@ -79,6 +83,8 @@ const RegisterScreen = () => {
           placeholderTextColor={constants.light}
           secureTextEntry
           style={styles.input}
+          autoCapitalize="none"
+          autoCorrect={false}
         />
 
         {loading ? (

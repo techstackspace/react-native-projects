@@ -10,7 +10,7 @@ import {
 import useMovie from '@/hooks/useMovie'
 import { useLocalSearchParams } from 'expo-router/build/hooks'
 import Svg, { Defs, LinearGradient, Stop, Path } from 'react-native-svg'
-import { MoviesInterface } from '@/components/UI/MoviesSection/interface'
+import { MoviesInterface } from '@/components/shared/MoviesSection/interfaceface'
 import { useVideoPlayer, VideoView } from 'expo-video'
 import { useEvent } from 'expo'
 import Main from '@/components/shared/Main'
@@ -23,7 +23,7 @@ import {
   handleDeleteMovieBookmark,
   handleWatchHistory,
 } from '@/api'
-import AlertResponse from '../AlertResponse'
+import AlertResponse from '../../shared/AlertResponse'
 import { FontAwesome } from '@expo/vector-icons'
 import useLikes from '@/hooks/useLikes'
 import useProfile from '@/hooks/useProfile'

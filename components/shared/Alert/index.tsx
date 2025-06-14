@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import Main from '../../shared/Main'
 import { SimpleLineIcons } from '@expo/vector-icons'
-import Header from '../Header'
+import Header from '@/components/shared/Header'
 import { useSegments } from 'expo-router'
 import { constants } from '@/constants'
 

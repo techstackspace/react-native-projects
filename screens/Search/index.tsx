@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import Main from '@/components/shared/Main'
-import Header from '@/components/UI/Header'
-import MoviesSection from '@/components/UI/MoviesSection'
+import Header from '@/components/shared/Header'
+import MoviesSection from '@/components/shared/MoviesSection'
 import useMovies from '@/hooks/useMovies'
-import Alert from '@/components/UI/Alert'
-import Navbar from '@/components/UI/Navbar'
+import Alert from '@/components/shared/Alert'
+import Navbar from '@/components/shared/Navbar'
 
 const SearchScreen = () => {
   const [text, setText] = useState('')

@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { FlatList, ActivityIndicator, StyleSheet } from 'react-native'
-import Header from '@/components/UI/Header'
-import MoviesSection from '@/components/UI/MoviesSection'
+import Header from '@/components/shared/Header'
+import MoviesSection from '@/components/shared/MoviesSection'
 import useMovies from '@/hooks/useMovies'
 import { StatusBar } from 'expo-status-bar'
 import { SectionsProps } from './interface'
 import Main from '@/components/shared/Main'
-import Alert from '@/components/UI/Alert'
+import Alert from '@/components/shared/Alert'
 
 const Home = () => {
   const [text, setText] = useState('')
